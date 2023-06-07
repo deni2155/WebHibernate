@@ -1,0 +1,266 @@
+body{
+    background-color: #3e92cc;
+}
+/*Строка верхнего меню*/
+.custom-row-header{
+    background-color: #edf8ff;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+/*Строка с формой авторизации*/
+.custom-row-signin-form{
+  background-color: #edf8ff;
+  color:#0B2E59;
+}
+/*цвет наведения на кнопки*/
+.custom-link-hover:hover {
+    background-color: #0b2e59;
+}
+
+/*
+иконка домой
+*/
+.icon-home {
+  display: inline-block;
+}
+
+.icon-home img {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-home:hover img {
+  content: url(../icon/home_hover.png);
+}
+/*
+иконка выход
+*/
+.icon-exit {
+  display: inline-block;
+}
+
+.icon-exit img {
+  width: 28px;
+  height: 28px;
+}
+
+.icon-exit:hover img {
+  content: url(../icon/exit_hover.png);
+}
+
+/*
+
+Таблица
+
+*/
+/*Цвет таблицы*/
+.custom-tables{
+    background-color:#f7f9f9;
+}
+/*цвет не активных вкладок*/
+.nav-tabs .nav-link{
+    background-color:#B8E1FF;
+    color:#0B2E59;
+}
+
+
+/*
+
+Выпадающий список меню для контактов
+
+*/
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown-contact {
+  position: relative;
+  display: inline-block;
+}
+
+/* Показать выпадающее меню при наведении курсора */
+.dropdown-contact:hover .dropdown-content-contact {
+    display: block; 
+    right:0;
+}
+/* Изменение цвета фона кнопки раскрывающегося списка при отображении содержимого раскрывающегося списка */
+.dropdown-contact:hover .dropbtn-contact {
+    background-color: #0B2E59;
+}
+/*
+размер иконуи для изменения при наведении
+*/
+.dropdown-contact img{
+  width: 32px;
+  height: 32px;
+}
+/*изменение иконки при наведении*/
+.dropdown-contact:hover img{
+  content: url(../icon/contact_hover.png);
+}
+
+/* Кнопка выпадающего списка */
+.dropbtn-contact {
+  /*background-color: #4CAF50;*/
+  padding: 16px; 
+}
+/* Выпадающее содержимое (скрыто по умолчанию) */
+/*setting*/
+.dropdown-content-contact {
+  display: none;
+  position: absolute;
+  background-color: #EDF8FF;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 116
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content-contact a {
+  padding: 10px 30px;
+  text-decoration: none;
+  display: block;
+  color:#0B2E59;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content-contact a:hover {
+    background-color: #233B59;
+    color:#EDF8FF;
+}
+
+/*
+Третий уровень
+*/
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content-sublevel-contact {
+  display: none;
+  position: absolute;
+  background-color: #EDF8FF;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 116
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content-sublevel-contact a {
+  padding: 5px 30px;
+  text-decoration: none;
+  display: block;
+  color:#0B2E59;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content-sublevel-contact a:hover {
+    background-color: #233B59;
+}
+/*
+размер иконуи для изменения при наведении
+*/
+.dropdown-setting img{
+  width: 42px;
+  height: 42px;
+}
+/*изменение иконки при наведении*/
+.dropdown-setting:hover img{
+  content: url(../icon/setting_hover.png);
+}
+
+/* Показать выпадающее меню при наведении курсора */
+.list-show-submenu-contact:hover .dropdown-content-sublevel-contact {
+    display: block; 
+    margin-top:-68px;
+    margin-left:-135px;
+}
+
+/*
+
+Выпадающий список для настроек
+
+*/
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown-setting {
+  position: relative;
+  display: inline-block;
+}
+
+/* Показать выпадающее меню при наведении курсора */
+.dropdown-setting:hover .dropdown-content-setting {
+    display: block; 
+    right:0;
+}
+/* Изменение цвета фона кнопки раскрывающегося списка при отображении содержимого раскрывающегося списка */
+.dropdown-setting:hover .dropbtn-setting {
+    background-color: #0B2E59;
+}
+/* Кнопка выпадающего списка */
+.dropbtn-setting {
+  /*background-color: #4CAF50;*/
+  padding: 16px; 
+}
+/* Выпадающее содержимое (скрыто по умолчанию) */
+/*setting*/
+.dropdown-content-setting {
+  display: none;
+  position: absolute;
+  background-color: #EDF8FF;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 116
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content-setting a {
+  padding: 10px 30px;
+  text-decoration: none;
+  display: block;
+  color:#0B2E59;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content-setting a:hover {
+    background-color: #233B59;
+    color:#EDF8FF;
+}
+
+/*
+Третий уровень
+*/
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content-sublevel-setting {
+  display: none;
+  position: absolute;
+  background-color: #EDF8FF;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 116
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content-sublevel-setting a {
+  padding: 5px 30px;
+  text-decoration: none;
+  display: block;
+  color:#0B2E59;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content-sublevel-setting a:hover {
+    background-color: #233B59;
+}
+
+/* Показать выпадающее меню при наведении курсора */
+.list-show-submenu-setting:hover .dropdown-content-sublevel-setting {
+    display: block; 
+    margin-top:-68px;
+    margin-left:-135px;
+}
+
+/*
+Дизайн кнопки на странице авторизации
+*/
+.btn-custom-signin{
+  background-color: #0B2E59;
+  color:#EDF8FF;
+}
+.btn-custom-signin:hover{
+  background-color: #3E92CC;
+  color:#EDF8FF;
+}

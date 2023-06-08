@@ -1,19 +1,20 @@
 package com.kindcat.archivemedo;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
  * @author dreamer
  * @version 0.0.0
  */
-@WebServlet(name = "signin", urlPatterns = {"/signin"})
+@WebServlet(name = "SignIn", urlPatterns = {"/SignIn"})
 public class SignIn extends HttpServlet {
 
     /**
@@ -25,22 +26,23 @@ public class SignIn extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet SignIn</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet SignIn at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-//    }
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");//Отправляем от сервера данные в JSON -формате
+        response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
+        try (PrintWriter out = response.getWriter()) {
+            JSONObject jsonEnt = new JSONObject();
+            if(request.getParameter("username").equals("dreamer") && request.getParameter("password").equals("123qwe$$"))
+            {
+                //jsonEnt.put("display","block");
+                jsonEnt.put("serverInfo", "");
+            }else
+            {
+                //jsonEnt.put("display","block");
+                jsonEnt.put("serverInfo", "Неверный логин или пароль"); 
+            }
+            out.print(jsonEnt.toString());
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -51,11 +53,11 @@ public class SignIn extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        processRequest(request, response);
-//    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -66,24 +68,17 @@ public class SignIn extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String pwd=request.getParameter("pwd");
-        if(!username.isEmpty() && !pwd.isEmpty()){
-            RequestDispatcher req=request.getRequestDispatcher("pages/archive.jsp");
-            req.forward(request, response);
-        }
-        //processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+         processRequest(request, response);
     }
 
     /**
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
-//    @Override
-//    public String getServletInfo() {
-//        return "Short description";
-//    }// </editor-fold>
-
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 }

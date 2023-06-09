@@ -22,10 +22,27 @@
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <dependency>
+        <!--dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20230227</version>
+        </dependency-->
+                <!--Логирование-->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j -->
+        
+        <!--Логирование-->
+        <!--from java.util.logging to log4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>2.0.7</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j -->
+        <!--it help to get slf4j and log4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-reload4j</artifactId>
+            <version>2.0.7</version>
         </dependency>
     </dependencies>
 

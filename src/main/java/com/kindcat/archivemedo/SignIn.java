@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,18 +27,25 @@ public class SignIn extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //
+        //Подключаю логирование
+        //
+        Logger logger = Logger.getLogger(SignIn.class);
+        if (logger.isDebugEnabled()) {
+            logger.debug("PageController.process()");
+        }
+        //
         //проверка логина и пароля
         //
         //логин и пароль указан верно
-
         if(request.getParameter("username").equals("dreamer") && request.getParameter("pwd").equals("123qwe$$")){
-            //response.sendRedirect(request.getContextPath()+"/pages/archive.jsp");
             getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+            logger.info("Выполнен вход пользователем"+request.getParameter("username"));
         //логин и пароль указан не верно
         }else{
             request.setAttribute("info-ajax-msg-sign-in", "Неверный логин или пароль");
             //response.sendRedirect(request.getContextPath());
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            logger.info("Неудачная попытка авторизации пользователя"+request.getParameter("username"));
         }
 
 //        response.sendRedirect("");

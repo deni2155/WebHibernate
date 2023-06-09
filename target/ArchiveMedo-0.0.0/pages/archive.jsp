@@ -6,6 +6,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Уря!</h1>
+        ${username}<br/>
+        ${password}
     </body>
 </html>

@@ -1,20 +1,18 @@
 package com.kindcat.archivemedo;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 
 /**
  *
  * @author dreamer
  * @version 0.0.0
  */
-@WebServlet(name = "SignIn", urlPatterns = {"/SignIn"})
+@WebServlet(name = "signIn", urlPatterns = {"/signIn"})
 public class SignIn extends HttpServlet {
 
     /**
@@ -27,21 +25,39 @@ public class SignIn extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");//Отправляем от сервера данные в JSON -формате
-        response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
-        try (PrintWriter out = response.getWriter()) {
-            JSONObject jsonEnt = new JSONObject();
-            if(request.getParameter("username").equals("dreamer") && request.getParameter("password").equals("123qwe$$"))
-            {
-                //jsonEnt.put("display","block");
-                jsonEnt.put("serverInfo", "");
-            }else
-            {
-                //jsonEnt.put("display","block");
-                jsonEnt.put("serverInfo", "Неверный логин или пароль"); 
-            }
-            out.print(jsonEnt.toString());
+        //
+        //проверка логина и пароля
+        //
+        //логин и пароль указан верно
+
+        if(request.getParameter("username").equals("dreamer") && request.getParameter("pwd").equals("123qwe$$")){
+            //response.sendRedirect(request.getContextPath()+"/pages/archive.jsp");
+            getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+        //логин и пароль указан не верно
+        }else{
+            request.setAttribute("info-ajax-msg-sign-in", "Неверный логин или пароль");
+            //response.sendRedirect(request.getContextPath());
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
+
+//        response.sendRedirect("");
+//        response.setContentType("application/json");//Отправляем от сервера данные в JSON -формате
+//        response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
+//        try (PrintWriter out = response.getWriter()) {
+//            JSONObject jsonEnt = new JSONObject();
+//            if(request.getParameter("username").equals("dreamer") && request.getParameter("password").equals("123qwe$$"))
+//            {
+//                //jsonEnt.put("display","block");
+//                //jsonEnt.put("serverInfo", "success");
+//                //getServletContext().getRequestDispatcher("pages/archive.jsp").forward(request,response);
+//                //response.sendRedirect("pages/archive.jsp");
+//            }else
+//            {
+//                //jsonEnt.put("display","block");
+//                jsonEnt.put("serverInfo", "Неверный логин или пароль"); 
+//            }
+//            out.print(jsonEnt.toString());
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,8 +70,8 @@ public class SignIn extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //response.sendRedirect("/pages/archive.jsp");
         processRequest(request, response);
     }
 

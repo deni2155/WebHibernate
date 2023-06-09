@@ -1,5 +1,5 @@
 /*Авторизация, отправка данных формы авторизации через ajax*/
-$(document).ready(function(){
+/*$(document).ready(function(){
     $("#sending-form-singin").click(function(){
         var data = {};
         data = {"username":$("#username").val(), "password":$("#pwd").val()};
@@ -22,4 +22,4 @@ $(document).ready(function(){
             }
         });
     });
-});
+});*/

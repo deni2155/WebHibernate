@@ -9,7 +9,7 @@
         <script src="js/jscript.js"></script>
     	<link href="css/bootstrap.min.css" rel="stylesheet"/>
     	<link href="css/custom.css" rel="stylesheet"/>
-        <title>Авторизация архи МЭДО</title>
+        <title>Авторизация архив МЭДО</title>
     </head>
     <body class="container">
         <div class="row text-center d-flex align-items-center justify-content-center vh-100">
@@ -29,8 +29,8 @@
                 <div class="custom-row-signin-form pb-4">
                     <button class="btn btn-custom-signin" id="sending-form-singin">Войти</button>
                 </div-->
-                <form class="custom-row-signin-form pb-2 pt-4 pe-4 ps-4 fw-bold" action="signIn" method="post">
-                    <label>МЭДО</label>
+                <form class="custom-row-signin-form pb-2 pt-4 pe-4 ps-4 fw-bold" action="mainClass" method="post">
+                    <label>Архив МЭДО</label>
                     <div class="text-danger h6" name="info-ajax-msg-sign-in"></div>
                     <div class="form-group">
                         <div class="m-2">

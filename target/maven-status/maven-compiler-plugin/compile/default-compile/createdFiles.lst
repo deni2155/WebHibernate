@@ -1,3 +1,6 @@
-com/kindcat/archivemedo/SignIn.class
+com/kindcat/archivemedo/db/models/Users.class
+com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/LoadingContext.class
-com/kindcat/archivemedo/Main.class
+com/kindcat/archivemedo/db/services/UsersService.class
+com/kindcat/archivemedo/db/utils/HibernateSessionFactoryUtil.class
+com/kindcat/archivemedo/MainClass.class

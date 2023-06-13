@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/medo</property>
+    <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="connection.username">postgres</property>
+    <property name="connection.password">123qwe$$</property>
+    <property name="connection.pool_size">3</property>
+    <property name="current_session_context_class">thread</property>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="hibernate.jdbc.time_zone">UTC</property>
+    <property name="hbm2ddl.auto">validate</property>
+    <!--property name="hbm2ddl.auto">save</property>
+    <property name="hbm2ddl.auto">create</property>
+    <property name="hbm2ddl.auto">update</property-->
+    <!--Подключенные классы-->
+    <mapping class="com.kindcat.archivemedo.db.models.Users" />
+    <!-- property name="connection.driver_class">com.mysql.jdbc.Driver</property →
+//Указываем, где искать драйвер;
+    <property name="connection.url">jdbc:mysql://localhost:3306/mydb</property>
+//Путь, по которому будет идти запрос при обращении к базе данных (для данного примера - testdatabase на порту 3306, имя БД - mydb)
+    <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+    <property name="connection.username">root</property>
+//Пользователь
+    <property name="connection.password">root</property>
+//Пароль
+    <property name="connection.pool_size">3</property-->
+    <!--property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+//Диалект для БД, к которой будет идти подключение;
+    <property name="current_session_context_class">thread</property>
+    <property name="show_sql">true</property>//отображение SQL-запросов;
+    <property name="format_sql">true</property>
+    <property name="hbm2ddl.auto">update</property>
+//Поле, необходимое для того, чтобы дать разрешение Hibernate на обновление данных в БД. Если данных не будет, он их создаст.
+    <mapping class="com.mcnz.jpa.examples.Player" / -->
+  </session-factory>
+</hibernate-configuration>

@@ -1,6 +1,8 @@
 com/kindcat/archivemedo/db/models/Users.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
-com/kindcat/archivemedo/LoadingContext.class
 com/kindcat/archivemedo/db/services/UsersService.class
-com/kindcat/archivemedo/db/utils/HibernateSessionFactoryUtil.class
+com/kindcat/archivemedo/context/LoadingContext.class
+com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
+com/kindcat/archivemedo/db/dao/ImplDao.class
 com/kindcat/archivemedo/MainClass.class
+com/kindcat/archivemedo/db/dao/SuperDao.class

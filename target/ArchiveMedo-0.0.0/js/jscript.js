@@ -1,5 +1,30 @@
 /*Авторизация, отправка данных формы авторизации через ajax*/
 /*$(document).ready(function(){
+    $('#sending-form-singin').click(function(){
+        var username=$('#username').val();
+        var password=$('#password').val();
+        $.ajax({
+            type:'POST',
+            data:{username:username},
+            url:'mainClass',
+            success: function(result){
+                //поля формы не заполнены
+                if($("#username").empty() || $("#password").empty()){
+                    $('#info-ajax-msg-sign-in').html("Заполните логин и пароль");
+                    $('#info-ajax-msg-sign-in').css({"display":"block"});
+                }else{
+                    console.log(result);
+                    $('#info-ajax-msg-sign-in').html(result);
+                    $('#info-ajax-msg-sign-in').css({"display":"block"});
+                } 
+//                console.log("result");
+//                $('#info-ajax-msg-sign-in').html(result);
+//                $('#info-ajax-msg-sign-in').css({"display":"block"});
+            }
+        });
+    });
+ });*/
+/*$(document).ready(function(){
     $("#sending-form-singin").click(function(){
         var data = {};
         data = {"username":$("#username").val(), "password":$("#pwd").val()};

@@ -31,17 +31,17 @@
                 </div-->
                 <form class="custom-row-signin-form pb-2 pt-4 pe-4 ps-4 fw-bold" action="mainClass" method="post">
                     <label>Архив МЭДО</label>
-                    <div class="text-danger h6" name="info-ajax-msg-sign-in"></div>
+                    <div class="text-danger h6">${message}</div>
                     <div class="form-group">
                         <div class="m-2">
-                            <input type="text" class="form-control" name="username" id="username" placeholder="логин">
+                            <input type="text" class="form-control" name="username" placeholder="логин"/>
                         </div>
                         <div class="m-2">
-                            <input type="password" class="form-control" name="pwd" id="password" placeholder="пароль">
+                            <input type="password" class="form-control" name="password" placeholder="пароль"/>
                         </div>
                     </div>
-                    <div class="custom-row-signin-form pb-4">
-                        <input class="btn btn-custom-signin" id="sending-form-singin" type="submit" value="Войти">
+                    <div class="pb-4 pt-4">
+                        <input class="btn btn-custom-signin" id="sending-form-singin" type="submit" value="Войти""/>
                     </div>
                 </form>
             </div>

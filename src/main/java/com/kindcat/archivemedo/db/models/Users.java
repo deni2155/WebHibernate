@@ -1,6 +1,5 @@
 package com.kindcat.archivemedo.db.models;
 
-import java.util.Iterator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//
-//Модель для работы с таблицей users в БД
-//
+/**
+Модель для работы с таблицей users в БД
+*/
 @Entity
 @Table(name="users")
 public class Users {

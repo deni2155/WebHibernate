@@ -1,8 +1,10 @@
 package com.kindcat.archivemedo;
 
-import com.kindcat.archivemedo.db.dao.UsersDao;
+import com.kindcat.archivemedo.db.dao.ImplDao;
+import com.kindcat.archivemedo.db.dao.SuperDao;
 import com.kindcat.archivemedo.db.services.UsersService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,25 +28,57 @@ public class MainClass extends HttpServlet {
      * @param response servlet response
      */
     //protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //
         //Подключаю логирование
         //
         Logger logger = Logger.getLogger(MainClass.class);
-        if (logger.isDebugEnabled()) {
-            logger.debug("PageController.process()");
-        }
-        try{
+            response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
+            String username=request.getParameter("username");
+            String password=request.getParameter("password");
+            request.setAttribute("username",username);
+            
+            
+            if(username.equals("dreamer") && password.equals("123qwe$$")){
+                logger.info("Выполнен вход пользователем"+request.getParameter("username"));
+                getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+            }else{
+                logger.info("Неудачная попытка авторизации пользователя"+request.getParameter("username"));
+                request.setAttribute("message","Не верно");
+                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            }
+            
+//        if (logger.isDebugEnabled()) {
+//            logger.debug("PageController.process()");
+//        }
+//        try{
+/*
+            response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
+            response.setContentType("text/plain");
+            String username=request.getParameter("username");
+            String password=request.getParameter("password");
+
+            if(!username.isEmpty() && !password.isEmpty()){
+                response.getWriter().write("Прошло");
+                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            }
+            else{
+                response.setContentType("text/plain");
+                response.getWriter().write("Прошло");
+                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+                logger.info("Неудачная попытка авторизации пользователя. Пользователем заполнены не все поля формы авторизации");
+            }*/
+
             //
             //проверка логина и пароля
             //
             //логин и пароль указан верно
             //if(request.getParameter("username").equals("dreamer") && request.getParameter("pwd").equals("123qwe$$")){
                 //контекст запроса
-                String username=request.getParameter("username");
-                UsersService userService=new UsersService();
+                //String username=request.getParameter("username");
+                //ImplDao userService=new SuperDao();
                 //request.setAttribute("username", userDao.findIdUser(1).getFullName());
-                request.setAttribute("username",userService.findLogin(username));
+                //request.setAttribute("username",userService.findUserByLogin(username));
 
                 //контекст приложения
     //            ServletContext selvletContext = getServletContext();
@@ -56,8 +90,8 @@ public class MainClass extends HttpServlet {
     //            session.setAttribute("name", "Tom");
     //            session.setAttribute("age", 34);
 
-                getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
-                logger.info("Выполнен вход пользователем"+request.getParameter("username"));
+                //getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+                //logger.info("Выполнен вход пользователем"+request.getParameter("username"));
             //логин и пароль указан не верно
             /*}else{
                 request.setAttribute("info-ajax-msg-sign-in", "Неверный логин или пароль");
@@ -65,9 +99,9 @@ public class MainClass extends HttpServlet {
                 getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
                 logger.info("Неудачная попытка авторизации пользователя"+request.getParameter("username"));
             }*/
-        }catch( ServletException | IOException ex){
-            logger.fatal("Во время авторизации произошла программная ошибка",ex);
-        }
+//        }catch( ServletException | IOException ex){
+//            logger.fatal("Во время авторизации произошла программная ошибка",ex);
+//        }
         
 
 //        response.sendRedirect("");

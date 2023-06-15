@@ -264,7 +264,3 @@ body{
   background-color: #3E92CC;
   color:#EDF8FF;
 }
-/*блок для отображения текста в форме авторизации при передачи данных через ajax*/
-#info-ajax-msg-sign-in{
-    height: 40px;
-}

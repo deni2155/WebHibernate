@@ -6,7 +6,6 @@
         <title>Архив МЭДО</title>
     </head>
     <body>
-        ${username}<br/>
-        ${password}
+        ${idUser}
     </body>
 </html>

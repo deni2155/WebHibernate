@@ -5,12 +5,14 @@ import com.kindcat.archivemedo.db.dao.SuperDao;
 import com.kindcat.archivemedo.db.services.UsersService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.util.Objects.hash;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -28,46 +30,47 @@ public class MainClass extends HttpServlet {
      * @param response servlet response
      */
     //protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+        response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
         //
         //Подключаю логирование
         //
         Logger logger = Logger.getLogger(MainClass.class);
-            response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
+        try{
             String username=request.getParameter("username");
             String password=request.getParameter("password");
-            request.setAttribute("username",username);
-            
-            
-            if(username.equals("dreamer") && password.equals("123qwe$$")){
-                logger.info("Выполнен вход пользователем"+request.getParameter("username"));
-                getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
-            }else{
-                logger.info("Неудачная попытка авторизации пользователя"+request.getParameter("username"));
-                request.setAttribute("message","Не верно");
-                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-            }
-            
-//        if (logger.isDebugEnabled()) {
-//            logger.debug("PageController.process()");
-//        }
-//        try{
-/*
-            response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
-            response.setContentType("text/plain");
-            String username=request.getParameter("username");
-            String password=request.getParameter("password");
-
+            //если заполнены логин и пароль
             if(!username.isEmpty() && !password.isEmpty()){
-                response.getWriter().write("Прошло");
-                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+                //ищу идентификатор пользователя в таблице
+                ImplDao userDao=new SuperDao();
+                int idUser=userDao.findUserByLogin(username);//присваиваю идентификатор пользователя переменной
+                //если переменная равна 0, то пользователь не найден в таблице
+                if(idUser>0){
+                    if(BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())){
+                        request.setAttribute("idUser", userDao.findUserById(idUser).getHash());
+                        getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+                    }else{
+                        request.setAttribute("message","Пароль указан не верно");
+                        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+                        logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПароль пользователя \"",username,"\" указан не верно"));
+                    }
+                }
+                //если пользователь не найден
+                else{
+                    request.setAttribute("message",String.format("%s%s%s","Пользователь ", username, " не зарегистрирован"));
+                    getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+                    logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПользователь с логином \"",username,"\" не найден в БД"));
+                }
             }
-            else{
-                response.setContentType("text/plain");
-                response.getWriter().write("Прошло");
+            //если логин или пароль не указаны
+            else if(username.isEmpty() || password.isEmpty()){
+                request.setAttribute("message","Заполните все поля");
                 getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-                logger.info("Неудачная попытка авторизации пользователя. Пользователем заполнены не все поля формы авторизации");
-            }*/
+                logger.info("Неудачная попытка авторизации пользователя.\n\t\tПользователем заполнены не все поля формы авторизации");
+            }
+        }catch(ServletException | IOException ex){
+            logger.fatal("При авторизации произошла программная ошибка",ex);
+        }
 
             //
             //проверка логина и пароля

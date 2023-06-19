@@ -3,6 +3,9 @@ package com.kindcat.archivemedo;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
 import com.kindcat.archivemedo.db.services.UsersService;
+import com.kindcat.archivemedo.input.beans.UserBeans;
+import com.kindcat.archivemedo.input.beans.UserBeansImpl;
+import com.kindcat.archivemedo.input.sessions.UserSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.util.Objects.hash;
@@ -11,8 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
+import com.kindcat.archivemedo.input.sessions.UserSeesionImpl;
 
 /**
  *
@@ -37,38 +42,164 @@ public class MainClass extends HttpServlet {
         //
         Logger logger = Logger.getLogger(MainClass.class);
         try{
-            String username=request.getParameter("username");
-            String password=request.getParameter("password");
-            //если заполнены логин и пароль
-            if(!username.isEmpty() && !password.isEmpty()){
-                //ищу идентификатор пользователя в таблице
-                ImplDao userDao=new SuperDao();
-                int idUser=userDao.findUserByLogin(username);//присваиваю идентификатор пользователя переменной
-                //если переменная равна 0, то пользователь не найден в таблице
-                if(idUser>0){
-                    if(BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())){
-                        request.setAttribute("idUser", userDao.findUserById(idUser).getHash());
-                        getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
-                    }else{
-                        request.setAttribute("message","Пароль указан не верно");
-                        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-                        logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПароль пользователя \"",username,"\" указан не верно"));
-                    }
-                }
-                //если пользователь не найден
-                else{
-                    request.setAttribute("message",String.format("%s%s%s","Пользователь ", username, " не зарегистрирован"));
+            int idUser=0;
+            //создаю сессию пользователя
+            UserSeesionImpl userSession=new UserSession();
+            UserBeansImpl userBeans=new UserBeans();
+            ImplDao userDao=new SuperDao();
+//            UserBeansImpl userBeans=new UserBeans();
+//            userSession.setSession(request.getSession(true));
+            logger.debug("Создана новая сессия");
+            //получаю логин пользователя
+            userBeans.setUsername(request.getParameter("username"));
+            //ищу идентификатор УЗ по логину в БД
+            idUser=userDao.findUserByLogin(userBeans.getUsername());
+            //если переменная равна 0, то пользователь не найден в таблице
+            if(idUser>0){
+                //получаю пароль, введённый пользователем
+                userBeans.setPassword(request.getParameter("password"));
+                //пароль указан верно
+                if(BCrypt.checkpw(userBeans.getPassword(), userDao.findUserById(idUser).getHash())){
+                    //получаю полное имя пользователя
+                    userBeans.setFname(userDao.findUserById(idUser).getFullName());
+                    userSession.setSession(request.getSession(true));//создаю новую сессию
+                    //отпраданные в сессию
+                    userSession.getSession().setAttribute("idUser", idUser);
+                    getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+                //пароль указан не верно
+                }else{
+                    request.setAttribute("message","Пароль указан не верно");
                     getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-                    logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПользователь с логином \"",username,"\" не найден в БД"));
+                    logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПароль пользователя \"",userBeans.getUsername(),"\" указан не верно"));
                 }
             }
-            //если логин или пароль не указаны
-            else if(username.isEmpty() || password.isEmpty()){
-                request.setAttribute("message","Заполните все поля");
+            //если пользователь не найден
+            else{
+                request.setAttribute("message",String.format("%s%s%s","Пользователь ", userBeans.getUsername(), " не зарегистрирован"));
                 getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-                logger.info("Неудачная попытка авторизации пользователя.\n\t\tПользователем заполнены не все поля формы авторизации");
+                logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПользователь с логином \"",userBeans.getUsername(),"\" не найден в БД"));
             }
-        }catch(ServletException | IOException ex){
+//            HttpSession session=request.getSession(false);//получаю сессию
+//            if(session!=null){
+//
+//
+//                if(session.getAttribute("username") != null){
+//                    //request.setAttribute("idSession", uername);
+//                    request.setAttribute("idUser", session.getId());
+//                    getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+//session.invalidate();
+//                }
+//                else{
+//                    session=request.getSession(true);//получаю сессию
+//                    username=request.getParameter("username");
+//                    session.setAttribute("username", username);
+//                    getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                }
+//            }else{
+//                session=request.getSession(true);//получаю сессию
+//                session.setAttribute("username", request.getParameter("username"));
+//                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//            }
+            
+            // получаем сессию для текущего пользователя
+//            HttpSession session=request.getSession(false);
+//            if(session!=null){
+//                // получаем атрибут сессии с именем, которое используется для хранения информации об аутентификации
+//                //Object auth=session.getAttribute("authenticated");
+//                logger.debug("Найдена ранее созданная сессия");
+//                // проверяем, что аутентификация прошла успешно
+//
+//                /*if(Boolean.TRUE.equals(auth)){
+//                    getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+//                }else{
+//                    getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                }*/
+//                if(session.getAttribute("idUser")!=null){
+//                    getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+//                }
+//                else{
+//                    logger.debug("Создана новая сессия");
+//                    username=request.getParameter("username");
+//                    password=request.getParameter("password");
+//                    //если заполнены логин и пароль
+//                    if(!username.isEmpty() && !password.isEmpty()){
+//                        //ищу идентификатор пользователя в таблице
+//                        ImplDao userDao=new SuperDao();
+//                        int idUser=userDao.findUserByLogin(username);//присваиваю идентификатор пользователя переменной
+//                        //если переменная равна 0, то пользователь не найден в таблице
+//                        if(idUser>0){
+//                            //пароль указан верно
+//                            if(BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())){
+//                                String fname=userDao.findUserById(idUser).getFullName();//получаю полное имя пользователя
+//                                session = request.getSession();//создаю сессию
+//                                //отпраданные в сессию
+//                                session.setAttribute("idUser", idUser);
+//                                session.setAttribute("fname", fname);
+//                                getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+//                            //пароль указан не верно
+//                            }else{
+//                                request.setAttribute("message","Пароль указан не верно");
+//                                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                                logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПароль пользователя \"",username,"\" указан не верно"));
+//                            }
+//                        }
+//                        //если пользователь не найден
+//                        else{
+//                            request.setAttribute("message",String.format("%s%s%s","Пользователь ", username, " не зарегистрирован"));
+//                            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                            logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПользователь с логином \"",username,"\" не найден в БД"));
+//                        }
+//                    }
+//                    //если логин или пароль не указаны
+//                    else if(username.isEmpty() || password.isEmpty()){
+//                        request.setAttribute("message","Заполните все поля");
+//                        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                        logger.info("Неудачная попытка авторизации пользователя.\n\t\tПользователем заполнены не все поля формы авторизации");
+//                    }
+//                }
+//            //сессия не найдена
+//            }else{
+//                logger.debug("Создана новая сессия");
+//                username=request.getParameter("username");
+//                password=request.getParameter("password");
+//                //если заполнены логин и пароль
+//                if(!username.isEmpty() && !password.isEmpty()){
+//                    //ищу идентификатор пользователя в таблице
+//                    ImplDao userDao=new SuperDao();
+//                    int idUser=userDao.findUserByLogin(username);//присваиваю идентификатор пользователя переменной
+//                    //если переменная равна 0, то пользователь не найден в таблице
+//                    if(idUser>0){
+//                        //пароль указан верно
+//                        if(BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())){
+//                            String fname=userDao.findUserById(idUser).getFullName();//получаю полное имя пользователя
+//                            session = request.getSession();//создаю сессию
+//                            //отпраданные в сессию
+//                            session.setAttribute("idUser", idUser);
+//                            session.setAttribute("fname", fname);
+//                            getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+//                        //пароль указан не верно
+//                        }else{
+//                            request.setAttribute("message","Пароль указан не верно");
+//                            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                            logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПароль пользователя \"",username,"\" указан не верно"));
+//                        }
+//                    }
+//                    //если пользователь не найден
+//                    else{
+//                        request.setAttribute("message",String.format("%s%s%s","Пользователь ", username, " не зарегистрирован"));
+//                        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                        logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПользователь с логином \"",username,"\" не найден в БД"));
+//                    }
+//                }
+//                //если логин или пароль не указаны
+//                else if(username.isEmpty() || password.isEmpty()){
+//                    request.setAttribute("message","Заполните все поля");
+//                    getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+//                    logger.info("Неудачная попытка авторизации пользователя.\n\t\tПользователем заполнены не все поля формы авторизации");
+//                }
+//            }
+//        }catch(ServletException | IOException ex){
+}catch(Exception ex){
             logger.fatal("При авторизации произошла программная ошибка",ex);
         }
 

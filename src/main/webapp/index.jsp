@@ -1,3 +1,6 @@
+<%@page import="com.kindcat.archivemedo.input.sessions.UserSeesionImpl"%>
+<%@page import="com.kindcat.archivemedo.input.sessions.UserSession"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ru">
@@ -12,6 +15,15 @@
         <title>Авторизация архив МЭДО</title>
     </head>
     <body class="container">
+        <%
+           //получаю сессию
+           UserSeesionImpl userSession=new UserSession();
+           userSession.setSession(request.getSession(false));
+           //если сессия существует и в сессии сохранён ID пользователя
+           if(userSession.existsSession()){
+                getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+            }
+        %>
         <div class="row text-center d-flex align-items-center justify-content-center vh-100">
             <div class="col-3">
                 <form class="custom-row-signin-form pb-2 pt-4 pe-4 ps-4 fw-bold" action="mainClass" method="post">

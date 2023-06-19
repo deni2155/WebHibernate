@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.kindcat</groupId>
-    <artifactId>ArchiveMedo</artifactId>
+    <artifactId>WebMedo</artifactId>
     <version>0.0.0</version>
     <packaging>war</packaging>
 
-    <name>ArchiveMedo</name>
+    <name>WebMedo</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

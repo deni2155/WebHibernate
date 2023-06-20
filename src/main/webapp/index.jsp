@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="pb-4">
-                        <input class="btn btn-custom-signin" id="sending-form-singin" type="submit" value="Войти""/>
+                        <input class="btn btn-custom" id="sending-form-singin" type="submit" value="Войти""/>
                     </div>
                 </form>
             </div>

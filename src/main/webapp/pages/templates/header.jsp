@@ -1,9 +1,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--
+
+Меню в шапке страницы
+
+-->
+<%
+    ServletContext context = getServletContext();
+    //страница с участниками взаимодействия
+    String guides = String.format("%s%s", context.getContextPath(), "/pages/members/guides.jsp");
+    //out.println(path);
+%>
 <div class="row custom-row-header fw-bold">
     <div class="col-1 text-start">
         <div class="icon-home">
-            <a href="#" class="btn custom-link-hover" title="Главная страница">
-                <img src="icon/home.png"/>
+            <a href=<%=context.getContextPath()%> class="btn custom-link-hover" title="Главная страница">
+                <!--иконка домой-->
+                <img src=""/>
             </a>
         </div>
     </div>
@@ -12,8 +24,9 @@
     </div>
     <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-12 text-end">
         <div class="dropdown-contact">
-            <a href="#contact" class="dropbtn-contact" title="Контакты участников">
-                <img src="icon/contact.png"/>
+            <a href="#" class="dropbtn-contact" title="Контакты участников">
+                <!--иконка контакты-->
+                <img src=""/>
             </a>
             <div class="dropdown-content-contact text-start">
                 <div class="list-show-submenu-contact">
@@ -29,14 +42,15 @@
         </div>
         <div class="dropdown-setting">
             <a href="#" class="dropbtn-setting" title="Конфигурация">
-                <img src="icon/setting.png"/>
+                <!--Иконка настройки-->
+                <img src=""/>
             </a>
             <div class="dropdown-content-setting text-start">
                 <div class="list-show-submenu-setting">
-                    <a href="pages/guides.html">Справочник участников</a>
+                    <a href=<%=guides%>>Справочник участников</a>
                     <div class="dropdown-content-sublevel-setting">
                         <a href="#">Скачать</a>
-                        <a href="#">Загрузить</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-win">Загрузить</a>
                     </div>
                 </div>
                 <a href="#">Настройки</a>
@@ -44,7 +58,8 @@
         </div>
         <div class="icon-exit">
             <a href="#exit" class="btn custom-link-hover" title="Выход">
-                <img src="icon/exit.png"/>
+                <!--иконка выход-->
+                <img src=""/>
             </a>
         </div>
     </div>

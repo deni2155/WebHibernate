@@ -2,7 +2,6 @@ package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Users;
 import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -27,7 +26,9 @@ class UsersDao {
     Users findById(int id) {
         Users user = new Users();
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession();) {
+            Transaction transaction = session.beginTransaction();
             user = session.get(Users.class, id);
+            transaction.commit();
             session.close();
 
         } catch (HibernateException ex) {

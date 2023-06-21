@@ -1,7 +1,9 @@
 <%@page import="com.kindcat.archivemedo.input.sessions.UserSeesionImpl"%>
 <%@page import="com.kindcat.archivemedo.input.sessions.UserSession"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!-- 
+Страница авторизации
+-->
 <!DOCTYPE html>
 <html lang="ru">
     <head>

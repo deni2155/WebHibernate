@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--
+Таблица со списком пакетов
+-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,8 +61,9 @@
                                         <th scope="col">
                                             <label for="format" class="form-label">Формат</label>
                                             <div class="input-group">
-                                                <button class="btn btn-outline-secondary btn-custom">
-                                                    <img src="icon/sort.png">
+                                                <button class="btn btn-custom btn-custom-sort">
+                                                    <!--Иконка сортировки-->
+                                                    <img src=""/>
                                                 </button>
                                                 <select class="form-select form-control" id="format">
                                                     <option selected>One</option>
@@ -82,8 +86,9 @@
                                             <div>
                                                 <label for="number_doc_doc" class="form-label">№ документа</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-outline-secondary btn-custom" type="button">
-                                                        <img src="icon/sort.png">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
                                                     </button>
                                                     <input type="text" class="form-control" id="number_doc_doc">
                                                 </div>
@@ -93,8 +98,9 @@
                                             <div>
                                                 <label for="date_reg_doc_doc" class="form-label">Дата регистрации</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-outline-secondary btn-custom" type="button" id="button-addon1">
-                                                        <img src="icon/sort.png">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
                                                     </button>
                                                     <input type="text" class="form-control" id="date_reg_doc_doc">
                                                 </div>
@@ -104,8 +110,9 @@
                                             <div>
                                                 <label for="sender_doc_doc" class="form-label">Отправитель</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-outline-secondary btn-custom" type="button" id="button-addon1">
-                                                        <img src="icon/sort.png">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
                                                     </button>
                                                     <input type="text" class="form-control" id="sender_doc_doc">
                                                 </div>
@@ -115,8 +122,8 @@
                                             <div>
                                                 <label for="recipient_doc_doc" class="form-label">Получатель</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-outline-secondary btn-custom" type="button" id="button-addon1">
-                                                        <img src="icon/sort.png">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <img src=""/>
                                                     </button>
                                                     <input type="text" class="form-control" id="recipient_doc_doc">
                                                 </div>
@@ -126,8 +133,8 @@
                                             <div>
                                                 <label for="time_and_date_insert_doc" class="form-label">Дата и время записи</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-outline-secondary btn-custom" type="button" id="button-addon1">
-                                                        <img src="icon/sort.png">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <img src=""/>
                                                     </button>
                                                     <input type="text" class="form-control" id="time_and_date_insert_doc">
                                                 </div>
@@ -143,11 +150,11 @@
                                                 <label class="form-label">Квитанция</label>
                                             </div>
                                         </th>
-                                    </tr>
+                                    </tr>ы
                                     <tr>
                                         <th scope="col" colspan="9">
                                             <div class="col-12 text-center">
-                                                <buton class="btn btn-outline-secondary btn-custom ps-5 pe-5 fs-6 fw-lighter">Найти</buton>
+                                                <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter">Найти</button>
                                             </div>
                                         </th>
                                     </tr>
@@ -207,5 +214,6 @@
                 </div>
             </div>
         </div>
+        <jsp:include page="templates/filedialog.jsp"/>
     </body>
 </html>

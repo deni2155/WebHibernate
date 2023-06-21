@@ -45,6 +45,7 @@ body{
 }
 
 .icon-home img {
+	content: url(../icon/home.png);
   width: 32px;
   height: 32px;
 }
@@ -60,6 +61,7 @@ body{
 }
 
 .icon-exit img {
+	content: url(../icon/exit.png);
   width: 28px;
   height: 28px;
 }
@@ -110,6 +112,7 @@ body{
 размер иконуи для изменения при наведении
 */
 .dropdown-contact img{
+	content: url(../icon/contact.png);
   width: 32px;
   height: 32px;
 }
@@ -179,6 +182,7 @@ body{
 размер иконуи для изменения при наведении
 */
 .dropdown-setting img{
+	content: url(../icon/setting.png);
   width: 42px;
   height: 42px;
 }
@@ -318,12 +322,19 @@ body{
 /*
 Кнопка найти, загрузить список участников
 */
+/*
 .btn-custom-search{
   color:#0B2E59;
   background-color:#F7F9F9;
+}*/
+/*иконка кнопки сортировки*/
+.btn-custom-sort img{
+	content:url(../icon/sort.png);
 }
+/*
 .btn-custom-search:hover{
   color:#edf8ff;
   background-color: #0b2e59;
-  /*background-color:#204763;*/
-}
+  /*background-color:#204763;
+}*/
+

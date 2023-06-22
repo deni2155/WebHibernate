@@ -7,7 +7,7 @@
 <%
     ServletContext context = getServletContext();
     //страница с участниками взаимодействия
-    String guides = String.format("%s%s", context.getContextPath(), "/pages/members/guides.jsp");
+    String guides = String.format("%s%s", context.getContextPath(), "/pages/guides.jsp");
     //out.println(path);
 %>
 <div class="row custom-row-header fw-bold">
@@ -50,7 +50,7 @@
                     <a href=<%=guides%>>Справочник участников</a>
                     <div class="dropdown-content-sublevel-setting">
                         <a href="#">Скачать</a>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-win">Загрузить</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-win-download-listguides">Загрузить</a>
                     </div>
                 </div>
                 <a href="#">Настройки</a>

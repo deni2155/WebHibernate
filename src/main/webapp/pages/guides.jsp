@@ -7,15 +7,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <script src="../../js/bootstrap.min.js"></script>
-        <script src="../..js/jquery.js"></script>
-        <script src="../../js/jscript.js"></script>
-        <link href="../../css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="../../css/custom.css" rel="stylesheet"/>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="..js/jquery.js"></script>
+        <script src="../js/jscript.js"></script>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/custom.css" rel="stylesheet"/>
         <title>Участники МЭДО</title>
     </head>
     <body class="container-fluid">
-        <jsp:include page="../templates/header.jsp"/>
+        <jsp:include page="templates/header.jsp"/>
         <!--
 
         Таблица
@@ -98,6 +98,9 @@
                 </div>
             </div>
         </div>
-        <jsp:include page="../templates/filedialog.jsp"/>
+        <!--
+        модальное окно
+        -->
+        <jsp:include page="templates/filedialog.jsp"/>
     </body>
 </html>

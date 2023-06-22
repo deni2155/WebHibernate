@@ -47,7 +47,11 @@
 
             </div>
         </div>
-        <!--Таблицы с файлами-->
+        <!--
+        
+        Таблицы с файлами
+        
+        -->
         <div class="row custom-tables ms-1 me-1 rounded">
             <div class="col-12 table-responsive">
                 <div class="tab-content" id="nav-tabContent">
@@ -150,7 +154,7 @@
                                                 <label class="form-label">Квитанция</label>
                                             </div>
                                         </th>
-                                    </tr>ы
+                                    </tr>
                                     <tr>
                                         <th scope="col" colspan="9">
                                             <div class="col-12 text-center">
@@ -214,6 +218,11 @@
                 </div>
             </div>
         </div>
+        <!-- 
+
+        модальное окно
+
+        -->
         <jsp:include page="templates/filedialog.jsp"/>
     </body>
 </html>

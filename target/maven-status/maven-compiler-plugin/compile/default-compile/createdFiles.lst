@@ -1,12 +1,17 @@
 com/kindcat/archivemedo/input/sessions/UserSession.class
 com/kindcat/archivemedo/input/beans/UserBeansImpl.class
+com/kindcat/archivemedo/members/DownloadListMembersServlet.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
+com/kindcat/archivemedo/personalconfig/ConfigFile.class
 com/kindcat/archivemedo/db/models/Users.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/input/beans/UserBeans.class
 com/kindcat/archivemedo/db/services/UsersService.class
+com/kindcat/archivemedo/members/DownloadExcel.class
 com/kindcat/archivemedo/context/LoadingContext.class
+com/kindcat/archivemedo/personalconfig/ConfigFileImpl.class
 com/kindcat/archivemedo/input/sessions/UserSeesionImpl.class
 com/kindcat/archivemedo/db/dao/ImplDao.class
+com/kindcat/archivemedo/members/DownloadFile.class
 com/kindcat/archivemedo/MainClass.class
 com/kindcat/archivemedo/db/dao/SuperDao.class

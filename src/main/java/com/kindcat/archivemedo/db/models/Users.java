@@ -1,18 +1,22 @@
 package com.kindcat.archivemedo.db.models;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
 Модель для работы с таблицей users в БД
 */
 @Entity
-@Table(name="users")
-public class Users {
+@Table(name="Users")
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="Users")
+public class Users implements Serializable {
     //идентификатор УЗ пользователя
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

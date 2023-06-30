@@ -9,4 +9,10 @@
             30
         </session-timeout>
     </session-config>
+    <!--Класс ReinitializingContext выполняется при старте приложения и создаёт объекты в момент запуска контекста приложения-->
+    <listener>
+        <listener-class>
+            com.kindcat.archivemedo.context.ReinitializingContext
+        </listener-class>
+    </listener>
 </web-app>

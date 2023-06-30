@@ -3,8 +3,8 @@ package com.kindcat.archivemedo.members;
 * Загрузка списка участников МЭДО
 */
 import com.kindcat.archivemedo.MainClass;
-import com.kindcat.archivemedo.personalconfig.ConfigFile;
-import com.kindcat.archivemedo.personalconfig.ConfigFileImpl;
+import com.kindcat.archivemedo.config.ConfigFile;
+import com.kindcat.archivemedo.config.ConfigFileImpl;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;

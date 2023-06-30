@@ -21,15 +21,7 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <!--dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20230227</version>
-        </dependency-->
-                <!--Логирование-->
-        <!-- https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j -->
-        
+       
         <!--Логирование-->
         <!--from java.util.logging to log4j-->
         <dependency>
@@ -52,11 +44,20 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.3.18.Final</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-        <dependency>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql 
+        из каталога WebMedo/target/lib скопировал jar-файл драйвера в каталог tomcat/lib что бы избежать утечки памяти при работе с hibernate
+        -->
+        <!--dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.6.0</version>
+        </dependency-->
+        <!--Кеширование БД-->
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>5.6.15.Final</version>
         </dependency>
         
         <!--Шифрование-->

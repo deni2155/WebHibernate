@@ -8,30 +8,38 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 /**
-Класс по созданию сессии hibernate
-*/
+ * Класс по созданию сессии hibernate
+ */
 public class SessionFactoryUtil {
+
     /**
-    Переменная сессии hibernate
-    */
+     * Переменная сессии hibernate
+     */
     private static SessionFactory sessionFactory;
 
     /**
-    * Создание объекта сессии
-    * @return объект sessionFactory с загрузкой конфигурации hibernate и моделями классов, соответствующих таблицам в БД
-    */
-    public static SessionFactory getSessionFactory(){
+     * Создание объекта сессии
+     *
+     */
+    public static void setSessionFactory() {
         Logger logger = Logger.getLogger(SessionFactoryUtil.class);
-        if(sessionFactory==null){
-            try{
+        if (sessionFactory == null) {
+            try {
                 Configuration conf = new Configuration().configure();
                 conf.addAnnotatedClass(Users.class);
-                StandardServiceRegistryBuilder builder=new StandardServiceRegistryBuilder().applySettings(conf.getProperties());
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(conf.getProperties());
                 sessionFactory = conf.buildSessionFactory(builder.build());
-            }catch (HibernateException ex) {
-                logger.error("Ошибка при создании объекта SessionFactory для подключения к БД:",ex);
+                logger.debug("Выполнена иницализация объекта SessionFactory");
+            } catch (HibernateException ex) {
+                logger.error("Ошибка при инициализации объекта SessionFactory для подключения к БД:", ex);
             }
         }
+    }
+
+    /**
+     * @return sessionFactory - объект для работы с БД
+     */
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

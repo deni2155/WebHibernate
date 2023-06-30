@@ -11,10 +11,20 @@
     <property name="connection.password">123qwe$$</property>
     <property name="connection.pool_size">3</property>
     <property name="current_session_context_class">thread</property>
+    <!--Включаю логирование в выводом в консоль-->
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <property name="hibernate.jdbc.time_zone">UTC</property>
     <property name="hbm2ddl.auto">validate</property>
+    <!--включаю кеширование второго уровня-->
+    <!--может кэшироваться в памяти или на диске, а также в кластерном кэшировании и поддерживает дополнительный кэш результатов запроса Hibernate-->
+    <!--property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property-->
+    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.internal.EhcacheRegionFactory</property>
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    <!--Включаю кеш запросов-->
+    <property name="hibernate.cache.use_query_cache">true</property>
+    <!--Подключаю конфигурационный файл с настройками кеширования для билиотеки EhCache-->
+    <property name="net.sf.ehcache.configurationResourceName">/ehcache.xml</property>
     <!--property name="hbm2ddl.auto">save</property>
     <property name="hbm2ddl.auto">create</property>
     <property name="hbm2ddl.auto">update</property-->

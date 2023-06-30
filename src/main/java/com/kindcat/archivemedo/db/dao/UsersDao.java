@@ -24,19 +24,19 @@ class UsersDao {
      * @return возвращает информацию о пользователе
      */
     Users findById(int id) {
-        Users user = new Users();
-        try (Session session = SessionFactoryUtil.getSessionFactory().openSession();) {
-            Transaction transaction = session.beginTransaction();
-            user = session.get(Users.class, id);
-            transaction.commit();
-            session.close();
-
-        } catch (HibernateException ex) {
-            logger.fatal("При открытии сессии для подключения к БД и получении УЗ пользователя произошла программная ошибка", ex);
-        }
-        return user;
+//        Users user = new Users();
+//        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+//            Transaction transaction = session.beginTransaction();
+//            user = session.get(Users.class, id);
+//            transaction.commit();
+//            session.close();
+//
+//        } catch (HibernateException ex) {
+//            logger.fatal("При открытии сессии для подключения к БД и получении УЗ пользователя произошла программная ошибка", ex);
+//        }
+//        return user;
         //было
-        //return SessionFactoryUtil.getSessionFactory().openSession().get(Users.class, id);
+        return SessionFactoryUtil.getSessionFactory().openSession().get(Users.class, id);
     }
 
     /**

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    updateCheck - нужно проверять обновления XML-схемы при запуске кэша
+    monitoring - включения или отключения мониторинга JMX. Если для параметра monitoring установлено значение true, мониторинг JMX включен для менеджера кэша и кэшей.
+    dynamicConfig - внесённые изменения в этот файл применяются приложении сразу без перезапуска кеша
+-->
+<ehcache xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+    <!--
+        EHCache хранит данные в памяти, но когда она начинает переполняться, 
+        она начинает записывать данные в файловую систему. Мы используем это свойство
+        для определения местоположения, куда EHCache будет записывать переполненные данные.
+    -->
+    <diskStore path="java.io.tmpdir/ehcache"/>
+    
+    <!--
+    это обязательная конфигурация, она используется, когда
+    объект необходимо кэшировать, и для этого не определены области кэширования
+    maxEntriesLocalHeap - максимальное количество элементов в кэше
+    eternal - вечный ли кеш 
+    timeToIdleSeconds - максимальное время "простоя" элемента в кэше, до истечения срока его жизни
+    -->
+    <defaultCache
+    maxEntriesLocalHeap="10000"
+    maxElementsInMemory = "1000"
+    eternal = "false"
+    timeToIdleSeconds = "120"
+    timeToLiveSeconds = "120"
+    overflowToDisk = "true"
+    />
+
+<!--
+    Пример
+    мы используем элемент кэша для определения региона и его конфигураций.
+    Мы можем определить несколько регионов и их свойства, определяя свойства
+    кэша компонентов модели, мы также можем определить регион со стратегиями 
+    кэширования. Свойства кэша легко понять и прояснить с помощью названия.
+    -->
+<!--cache name = "Employee"
+maxElementsInMemory = "500"
+eternal = "true"
+timeToIdleSeconds = "0"
+timeToLiveSeconds = "0"
+overflowToDisk = "false"
+/-->
+
+    <cache name = "Users"
+    maxElementsInMemory = "500"
+    eternal = "true"
+    timeToIdleSeconds = "0"
+    timeToLiveSeconds = "0"
+    overflowToDisk = "false"
+    />
+</ehcache>

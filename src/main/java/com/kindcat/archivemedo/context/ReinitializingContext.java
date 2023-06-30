@@ -4,12 +4,18 @@ import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.apache.log4j.Logger;
-import org.slf4j.bridge.SLF4JBridgeHandler;
+
 /**
-*Класс для создания и закрытия необходимых объектов для работы приложения при старте приложения
-*Класс подключен в конфиге WEB-INF/web.xml
-*/
+ * Класс для создания и уничтожения необходимых объектов для работы приложения
+ * при старте приложения Класс подключен в конфиге WEB-INF/web.xml
+ */
 public class ReinitializingContext implements ServletContextListener {
+
+    private final Logger logger;
+
+    public ReinitializingContext() {
+        logger = Logger.getLogger(ReinitializingContext.class);
+    }
 
     /**
      * Инициализирую контекст приложения и в нём подключаю логирование
@@ -18,17 +24,17 @@ public class ReinitializingContext implements ServletContextListener {
      */
     @Override
     public void contextInitialized(ServletContextEvent arg) {
+        //Создаю объект sessionFactory для работы с БД
         SessionFactoryUtil.setSessionFactory();
-Logger logger = Logger.getLogger(ReinitializingContext.class);
-logger.debug("Контекст загружен");
-//        Session session = SessionFactoryUtil.getSessionFactory().openSession();
-//        session.close();
+        logger.debug("Выполнена инициализация контекста приложения");
 
-        //System.out.println("contextInitialized");
+        /*
+        * Настройки нужны для работы логирования с JSF, для JSP они не нужны
+         */
         //remove the jsf root logger, avoid duplicated logging
         //try comment out this and see the different on the console
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
+//        SLF4JBridgeHandler.removeHandlersForRootLogger();
+//        SLF4JBridgeHandler.install();
     }
 
     /**
@@ -42,5 +48,6 @@ logger.debug("Контекст загружен");
         if (SessionFactoryUtil.getSessionFactory() != null) {
             SessionFactoryUtil.getSessionFactory().close();
         }
+        logger.debug("Выполнена очистка контекста приложения");
     }
 }

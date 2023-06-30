@@ -29,7 +29,7 @@ public class SessionFactoryUtil {
                 conf.addAnnotatedClass(Users.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(conf.getProperties());
                 sessionFactory = conf.buildSessionFactory(builder.build());
-                logger.debug("Выполнена иницализация объекта SessionFactory");
+                logger.debug("Выполнена иницализация объекта SessionFactory для подключения к БД");
             } catch (HibernateException ex) {
                 logger.error("Ошибка при инициализации объекта SessionFactory для подключения к БД:", ex);
             }

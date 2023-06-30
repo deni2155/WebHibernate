@@ -1,6 +1,8 @@
 package com.kindcat.archivemedo.config;
 
 import java.io.File;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -23,17 +25,27 @@ class PathConfig {
         if (!pathConfigFile.exists()) {
             pathConfigFile = new File("/home/dreamer/NetBeansProjects/WebMedo/target/WebMedo-0.0.2/WEB-INF/classes/config.properties");
         }
+        //подключаю логирование
+        Logger logger = LoggerFactory.getLogger(ConfigFile.class);
+        //логирую ифнормацию о получении пути к кастомному конфигурационному файлу на уровне debug
+        StringBuilder stringBuilder=new StringBuilder();
+        if(pathConfigFile!=null){
+            stringBuilder.append("Переменной pathConfigFile успешно присвоен путь к кастомному конфигурационному файлу - ");
+            stringBuilder.append(pathConfigFile.getAbsoluteFile());
+            String messageForLogging=stringBuilder.toString();
+            logger.debug(messageForLogging);
+        }
     }
 
     /**
-     * @return существование файла и что переменная не имеет значение null
+     * @return isExistsConfigFile - существование файла и что переменная не имеет значение null
      */
     boolean isExistsConfigFile() {
         return pathConfigFile.exists() && pathConfigFile != null;
     }
 
     /**
-     * @return путь к конфигурационному файлу
+     * @return pathConfigFile - путь к конфигурационному файлу
      */
     File getPathConfigFile() {
         return pathConfigFile;

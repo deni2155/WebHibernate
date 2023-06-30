@@ -8,26 +8,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
- * Класс для работы с личным конфигурационным файлом
+ * @author dreamer
+ * Класс для работы с кастомным конфигурационным файлом
  */
 public class ConfigFile extends PathConfig implements ConfigFileImpl {
 
     private Properties properties = new Properties();
-    private File tempFolder;
-//
-//    @Override
-//    public File getTempFolder() {
-//        return tempFolder;
-//    }
 
+    /**
+     * Конструктор класса для работы с кастомным конфигурационным файлом
+     *
+     * @throws java.io.IOException
+     */
     public ConfigFile() throws IOException {
         //подключаю логирование
         Logger logger = LoggerFactory.getLogger(ConfigFile.class);
+        logger.debug("Конструктор успешно инициализирован");
         //если путь к конфигурационному файл не равен null и конфигурационный файл найден
         if (super.isExistsConfigFile()) {
+            logger.debug("Кастомный конфигурационный файл найден");
             try (FileInputStream fileStream = new FileInputStream(super.getPathConfigFile())) {
                 properties.load(fileStream);
+                logger.debug("Кастомный конфигурационный файл успешно загружен");
             } catch (Exception ex) {
                 logger.error("При чтении конфигурационного файла " + super.getPathConfigFile() + " возникла программная ошибка: " + ex);
             }
@@ -43,7 +45,7 @@ public class ConfigFile extends PathConfig implements ConfigFileImpl {
     }
 
     /**
-     * @return ссылка на временный каталог приложения
+     * @return tempFolder - ссылка на временный каталог приложения
      */
     @Override
     public File getTempFolder() {

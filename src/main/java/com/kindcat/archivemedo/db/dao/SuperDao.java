@@ -18,7 +18,7 @@ public class SuperDao implements ImplDao{
 
     /**
     * @param id - процедура получает идентификатор УЗ пользователя
-    * @return возвращает информацию о пользователю
+    * @return idUser возвращает информацию о пользователю
     */
     @Override
     public Users findUserById(int id){
@@ -26,10 +26,10 @@ public class SuperDao implements ImplDao{
     }
     /**
     * @param login - процедура получает логин пользователя
-    * @return возвращает информацию о пользователю
+    * @return login возвращает информацию о пользователю
     */
     @Override
-    public int findUserByLogin(String login){
-        return userDao.findByLogin(login);
+    public int findUserInLoginByLogin(String login){
+        return userDao.findInLoginById(login);
     }
 }

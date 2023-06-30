@@ -15,13 +15,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 */
 @Entity
 @Table(name="Users")
-@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="Users")
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="Users")
 public class Users implements Serializable {
     //идентификатор УЗ пользователя
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_user")
-    private int id_user;
+    private int idUser;
 
     //логин пользователя
     @Column(name="login")
@@ -35,12 +35,12 @@ public class Users implements Serializable {
     @Column(name="fname")
     private String fullName;
 
-    public int getId_user() {
-        return id_user;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setId_user(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getLogin() {

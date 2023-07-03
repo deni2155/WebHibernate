@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="col-xxl-9 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-xs-12 text-center">
-        ${username}
+        ${fName}
     </div>
     <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-12 text-end">
         <div class="dropdown-contact">

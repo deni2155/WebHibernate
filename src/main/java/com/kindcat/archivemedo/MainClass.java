@@ -2,7 +2,8 @@ package com.kindcat.archivemedo;
 
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
-import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
+import com.kindcat.archivemedo.signin.sessions.CurrentSession;
+import com.kindcat.archivemedo.signin.sessions.CurrentSessionImpl;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -26,82 +27,58 @@ public class MainClass extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response){
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
         //
         //Подключаю логирование
         //
         Logger logger = Logger.getLogger(MainClass.class);
-ImplDao userDao=new SuperDao();
-logger.debug(userDao.findUserById(1).getFullName());
-//
-//
-//
-//Рабоче hibernate
-//
-//
-//
-//
-//        try{
-//            int idUser=0;
-//            //создаю сессию пользователя
-//            UserSeesionImpl userSession=new UserSession();
-//            UserBeansImpl userBeans=new UserBeans();
-//            ImplDao userDao=new SuperDao();
-//            logger.debug("Создана новая сессия");
-//            //получаю логин пользователя
-//            userBeans.setUsername(request.getParameter("username"));
-//            //ищу идентификатор УЗ по логину в БД
-//            idUser=userDao.findUserByLogin(userBeans.getUsername());
-//            //если переменная равна 0, то пользователь не найден в таблице
-//            if(idUser>0){
-//                //получаю пароль, введённый пользователем
-//                userBeans.setPassword(request.getParameter("password"));
-//                //пароль указан верно
-//                if(BCrypt.checkpw(userBeans.getPassword(), userDao.findUserById(idUser).getHash())){
-//                    //получаю полное имя пользователя
-//                    userBeans.setFname(userDao.findUserById(idUser).getFullName());
-//                    userSession.setSession(request.getSession(true));//создаю новую сессию
-//                    //отпраданные в сессию
-//                    userSession.getSession().setAttribute("idUser", idUser);
-//                    userSession.getSession().setAttribute("username", userBeans.getFname());
-//                    getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
-//                //пароль указан не верно
-//                }else{
-//                    request.setAttribute("message","Пароль указан не верно");
-//                    getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-//                    logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПароль пользователя \"",userBeans.getUsername(),"\" указан не верно"));
-//                }
-//            }
-//            //если пользователь не найден
-//            else{
-//                request.setAttribute("message",String.format("%s%s%s","Пользователь ", userBeans.getUsername(), " не зарегистрирован"));
-//                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-//                logger.info(String.format("%s%s%s", "Неудачная попытка авторизации пользователя.\n\t\tПользователь с логином \"",userBeans.getUsername(),"\" не найден в БД"));
-//            }
-//        }catch( IOException | ServletException ex){
-//            logger.fatal("При авторизации произошла программная ошибка",ex);
-//        }
-//
-//
-//
-//Старое, тестирование
-//
-//
-//
-//
-            //
-            //проверка логина и пароля
-            //
-            //логин и пароль указан верно
-            //if(request.getParameter("username").equals("dreamer") && request.getParameter("pwd").equals("123qwe$$")){
 
+        int idUser = 0;
+        try {
+            CurrentSessionImpl currentSession = new CurrentSession();
+            currentSession.setSession(request.getSession(false));//получаю из запроса информацию о текущей сессии
+            ImplDao userDao = new SuperDao();
+            //
+            //Существующая сессия ищется в JSP index
+            //
+            //если сессия не существует
+            if (!currentSession.isExistsSession()) {
+                currentSession.setSession(request.getSession());//создаю новую сессию
+                String login = request.getParameter("login");
+                idUser = userDao.findUserInLoginByLogin(login);//ищу пользователя по логину в БД
+                if (idUser > 0) {
+                    logger.debug("При авторизации в БД успешно найдена запись пользователя с логином \"" + login + "\"");
+                    //если пароль указан верно
+                    if (BCrypt.checkpw(request.getParameter("password"), userDao.findUserById(idUser).getHash())) {
+                        logger.info("Выполнена успешная авторизация пользователя \"" + login + "\"");
+                        //информацию из запроса записываем в сессию
+                        currentSession.setIdUser(idUser);
+                        currentSession.setLoginUser(login);
+                        currentSession.setFNameUser(request.getParameter("fName"));
+                        request.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+                    } else {
+                        logger.info("Пользователем \"" + login + "\" указан не верный пароль");
+                        request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    }
+                }
+            }
+        } catch (IOException | ServletException ex) {
+            logger.error("Произошла программная ошибка при авторизации пользователя \"" + request.getParameter("login"));
+        }
 
-                //getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
-                //logger.info("Выполнен вход пользователем"+request.getParameter("username"));
-            //логин и пароль указан не верно
-            /*}else{
+        //
+        //проверка логина и пароля
+        //
+        //логин и пароль указан верно
+        //if(request.getParameter("username").equals("dreamer") && request.getParameter("pwd").equals("123qwe$$")){
+        //getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+        //logger.info("Выполнен вход пользователем"+request.getParameter("username"));
+        //логин и пароль указан не верно
+        /*}else{
                 request.setAttribute("info-ajax-msg-sign-in", "Неверный логин или пароль");
                 //response.sendRedirect(request.getContextPath());
                 getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
@@ -110,8 +87,6 @@ logger.debug(userDao.findUserById(1).getFullName());
 //        }catch( ServletException | IOException ex){
 //            logger.fatal("Во время авторизации произошла программная ошибка",ex);
 //        }
-        
-
 //        response.sendRedirect("");
 //        response.setContentType("application/json");//Отправляем от сервера данные в JSON -формате
 //        response.setCharacterEncoding("utf-8");//Кодировка отправляемых данных
@@ -130,22 +105,19 @@ logger.debug(userDao.findUserById(1).getFullName());
 //            }
 //            out.print(jsonEnt.toString());
 //        }
-
-                //контекст запроса
-                //String username=request.getParameter("username");
-                //ImplDao userService=new SuperDao();
-                //request.setAttribute("username", userDao.findIdUser(1).getFullName());
-                //request.setAttribute("username",userService.findUserByLogin(username));
-
-                //контекст приложения
-    //            ServletContext selvletContext = getServletContext();
-    //            selvletContext.setAttribute("name", "Tom");
-    //            selvletContext.setAttribute("age", 35);
-
-                //контекст сессии
-    //            HttpSession session = request.getSession();
-    //            session.setAttribute("name", "Tom");
-    //            session.setAttribute("age", 34);
+        //контекст запроса
+        //String username=request.getParameter("username");
+        //ImplDao userService=new SuperDao();
+        //request.setAttribute("username", userDao.findIdUser(1).getFullName());
+        //request.setAttribute("username",userService.findUserByLogin(username));
+        //контекст приложения
+        //            ServletContext selvletContext = getServletContext();
+        //            selvletContext.setAttribute("name", "Tom");
+        //            selvletContext.setAttribute("age", 35);
+        //контекст сессии
+        //            HttpSession session = request.getSession();
+        //            session.setAttribute("name", "Tom");
+        //            session.setAttribute("age", 34);
     }
 
     /**
@@ -171,11 +143,12 @@ logger.debug(userDao.findUserById(1).getFullName());
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

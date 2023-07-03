@@ -1,5 +1,7 @@
-<%@page import="com.kindcat.archivemedo.input.sessions.UserSeesionImpl"%>
-<%@page import="com.kindcat.archivemedo.input.sessions.UserSession"%>
+<%@page import="com.kindcat.archivemedo.logger.LoggerForJsp"%>
+<%@page import="com.kindcat.archivemedo.logger.LoggerForJspImpl"%>
+<%@page import="com.kindcat.archivemedo.signin.sessions.CurrentSessionImpl"%>
+<%@page import="com.kindcat.archivemedo.signin.sessions.CurrentSession"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- 
 Страница авторизации
@@ -9,20 +11,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    	<script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.js"></script>
         <script src="js/jscript.js"></script>
-    	<link href="css/bootstrap.min.css" rel="stylesheet"/>
-    	<link href="css/custom.css" rel="stylesheet"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/custom.css" rel="stylesheet"/>
         <title>Авторизация архив МЭДО</title>
     </head>
     <body class="container">
         <%
-           //получаю сессию
-           UserSeesionImpl userSession=new UserSession();
-           userSession.setSession(request.getSession(false));
-           //если сессия существует и в сессии сохранён ID пользователя
-           if(userSession.existsSession()){
+            CurrentSessionImpl currentSession = new CurrentSession();
+            currentSession.setSession(request.getSession(false));//получаю из запроса информацию о текущей сессии
+            //если текущая сессия создана
+            if (currentSession.isExistsSession()) {
+                LoggerForJspImpl logger = new LoggerForJsp();
+                logger.setLoggerSignInJsp(currentSession.getLoginUser());//записываю лог авторизации
                 getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
             }
         %>
@@ -33,7 +36,7 @@
                     <div class="text-danger h6">${message}</div>
                     <div class="form-group">
                         <div class="m-2">
-                            <input type="text" class="form-control" name="username" placeholder="логин"/>
+                            <input type="text" class="form-control" name="login" placeholder="логин"/>
                         </div>
                         <div class="m-2">
                             <input type="password" class="form-control" name="password" placeholder="пароль"/>

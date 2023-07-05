@@ -8,13 +8,13 @@ body{
 
 */
 .btn-custom{
-  background-color:#275996;
-  color:#EDF8FF;
+    background-color:#275996;
+    color:#EDF8FF;
 }
 
 .btn-custom:hover{
-  background-color:#133457;
-  color:#EDF8FF;
+    background-color:#133457;
+    color:#EDF8FF;
 }
 
 /*
@@ -29,45 +29,45 @@ body{
 }
 /*Строка с формой авторизации*/
 .custom-row-signin-form{
-  background-color: #edf8ff;
-  color:#0B2E59;
+    background-color: #edf8ff;
+    color:#0B2E59;
 }
 /*цвет наведения на кнопки*/
 .custom-link-hover:hover {
-  background-color:#275996;
+    background-color:#275996;
 }
 
 /*
 иконка домой
 */
 .icon-home {
-  display: inline-block;
+    display: inline-block;
 }
 
 .icon-home img {
-	content: url(../icon/home.png);
-  width: 32px;
-  height: 32px;
+    content: url(../icon/home.png);
+    width: 32px;
+    height: 32px;
 }
 
 .icon-home:hover img {
-  content: url(../icon/home_hover.png);
+    content: url(../icon/home_hover.png);
 }
 /*
 иконка выход
 */
 .icon-exit {
-  display: inline-block;
+    display: inline-block;
 }
 
 .icon-exit img {
-	content: url(../icon/exit.png);
-  width: 28px;
-  height: 28px;
+    content: url(../icon/exit.png);
+    width: 28px;
+    height: 28px;
 }
 
 .icon-exit:hover img {
-  content: url(../icon/exit_hover.png);
+    content: url(../icon/exit_hover.png);
 }
 
 /*
@@ -86,7 +86,14 @@ body{
     color:#0B2E59;
 }
 
+/*
 
+Цвет фона для элементов на странице не в таблице
+
+*/
+.custom-background-content{
+    background-color:#f7f9f9;
+}
 /*
 
 Выпадающий список меню для контактов
@@ -94,13 +101,13 @@ body{
 */
 /* Контейнер <div> - необходим для размещения выпадающего содержимого */
 .dropdown-contact {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 /* Показать выпадающее меню при наведении курсора */
 .dropdown-contact:hover .dropdown-content-contact {
-    display: block; 
+    display: block;
     right:0;
 }
 /* Изменение цвета фона кнопки раскрывающегося списка при отображении содержимого раскрывающегося списка */
@@ -112,37 +119,37 @@ body{
 размер иконуи для изменения при наведении
 */
 .dropdown-contact img{
-	content: url(../icon/contact.png);
-  width: 32px;
-  height: 32px;
+    content: url(../icon/contact.png);
+    width: 32px;
+    height: 32px;
 }
 /*изменение иконки при наведении*/
 .dropdown-contact:hover img{
-  content: url(../icon/contact_hover.png);
+    content: url(../icon/contact_hover.png);
 }
 
 /* Кнопка выпадающего списка */
 .dropbtn-contact {
-  /*background-color: #4CAF50;*/
-  padding: 16px; 
+    /*background-color: #4CAF50;*/
+    padding: 16px;
 }
 /* Выпадающее содержимое (скрыто по умолчанию) */
 /*setting*/
 .dropdown-content-contact {
-  display: none;
-  position: absolute;
-  background-color: #EDF8FF;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 116
+    display: none;
+    position: absolute;
+    background-color: #EDF8FF;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 116
 }
 
 /* Ссылки внутри выпадающего списка */
 .dropdown-content-contact a {
-  padding: 10px 30px;
-  text-decoration: none;
-  display: block;
-  color:#0B2E59;
+    padding: 10px 30px;
+    text-decoration: none;
+    display: block;
+    color:#0B2E59;
 }
 
 /* Изменение цвета выпадающих ссылок при наведении курсора */
@@ -157,43 +164,43 @@ body{
 */
 /* Выпадающее содержимое (скрыто по умолчанию) */
 .dropdown-content-sublevel-contact {
-  display: none;
-  position: absolute;
-  background-color: #EDF8FF;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 116
+    display: none;
+    position: absolute;
+    background-color: #EDF8FF;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 116
 }
 
 /* Ссылки внутри выпадающего списка */
 .dropdown-content-sublevel-contact a {
-  padding: 5px 30px;
-  text-decoration: none;
-  display: block;
-  color:#0B2E59;
+    padding: 5px 30px;
+    text-decoration: none;
+    display: block;
+    color:#0B2E59;
 }
 
 /* Изменение цвета выпадающих ссылок при наведении курсора */
 .dropdown-content-sublevel-contact a:hover {
-  /*background-color: #233B59;*/
-  background-color:#275996;
+    /*background-color: #233B59;*/
+    background-color:#275996;
 }
 /*
 размер иконуи для изменения при наведении
 */
 .dropdown-setting img{
-	content: url(../icon/setting.png);
-  width: 42px;
-  height: 42px;
+    content: url(../icon/setting.png);
+    width: 42px;
+    height: 42px;
 }
 /*изменение иконки при наведении*/
 .dropdown-setting:hover img{
-  content: url(../icon/setting_hover.png);
+    content: url(../icon/setting_hover.png);
 }
 
 /* Показать выпадающее меню при наведении курсора */
 .list-show-submenu-contact:hover .dropdown-content-sublevel-contact {
-    display: block; 
+    display: block;
     margin-top:-68px;
     margin-left:-135px;
 }
@@ -205,13 +212,13 @@ body{
 */
 /* Контейнер <div> - необходим для размещения выпадающего содержимого */
 .dropdown-setting {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 /* Показать выпадающее меню при наведении курсора */
 .dropdown-setting:hover .dropdown-content-setting {
-    display: block; 
+    display: block;
     right:0;
 }
 /* Изменение цвета фона кнопки раскрывающегося списка при отображении содержимого раскрывающегося списка */
@@ -221,26 +228,26 @@ body{
 }
 /* Кнопка выпадающего списка */
 .dropbtn-setting {
-  /*background-color: #4CAF50;*/
-  padding: 16px; 
+    /*background-color: #4CAF50;*/
+    padding: 16px;
 }
 /* Выпадающее содержимое (скрыто по умолчанию) */
 /*setting*/
 .dropdown-content-setting {
-  display: none;
-  position: absolute;
-  background-color: #EDF8FF;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 116
+    display: none;
+    position: absolute;
+    background-color: #EDF8FF;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 116
 }
 
 /* Ссылки внутри выпадающего списка */
 .dropdown-content-setting a {
-  padding: 10px 30px;
-  text-decoration: none;
-  display: block;
-  color:#0B2E59;
+    padding: 10px 30px;
+    text-decoration: none;
+    display: block;
+    color:#0B2E59;
 }
 
 /* Изменение цвета выпадающих ссылок при наведении курсора */
@@ -255,20 +262,20 @@ body{
 */
 /* Выпадающее содержимое (скрыто по умолчанию) */
 .dropdown-content-sublevel-setting {
-  display: none;
-  position: absolute;
-  background-color: #EDF8FF;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 116
+    display: none;
+    position: absolute;
+    background-color: #EDF8FF;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 116
 }
 
 /* Ссылки внутри выпадающего списка */
 .dropdown-content-sublevel-setting a {
-  padding: 5px 30px;
-  text-decoration: none;
-  display: block;
-  color:#0B2E59;
+    padding: 5px 30px;
+    text-decoration: none;
+    display: block;
+    color:#0B2E59;
 }
 
 /* Изменение цвета выпадающих ссылок при наведении курсора */
@@ -279,7 +286,7 @@ body{
 
 /* Показать выпадающее меню при наведении курсора */
 .list-show-submenu-setting:hover .dropdown-content-sublevel-setting {
-    display: block; 
+    display: block;
     margin-top:-68px;
     margin-left:-135px;
 }
@@ -290,13 +297,13 @@ body{
 /*
 .btn-custom-signin{
   /*background-color: #0B2E59;*/
-  /*background-color:#275996;
-  color:#EDF8FF;
+/*background-color:#275996;
+color:#EDF8FF;
 }
 .btn-custom-signin:hover{
-  /*background-color: #3E92CC;*/
-  /*background-color:#728CA6;
-  color:#EDF8FF;
+/*background-color: #3E92CC;*/
+/*background-color:#728CA6;
+color:#EDF8FF;
 }*/
 
 /*
@@ -308,7 +315,7 @@ body{
 Дизвайн кнопок для сортировки
 */
 /*.btn-custom-sort{*/
-  /*background-color:#F7F9F9;
+/*background-color:#F7F9F9;
 }*/
 /*
 .btn-custom-sort:hover{
@@ -317,7 +324,7 @@ body{
 
 /*.btn-custom-sort:hover img{
   content: url(../icon/sort_hover.png);*/
-  /*background-color: #0b2e59;*/
+/*background-color: #0b2e59;*/
 /*}
 /*
 Кнопка найти, загрузить список участников
@@ -329,7 +336,7 @@ body{
 }*/
 /*иконка кнопки сортировки*/
 .btn-custom-sort img{
-	content:url(../icon/sort.png);
+    content:url(../icon/sort.png);
 }
 /*
 .btn-custom-search:hover{
@@ -338,3 +345,30 @@ body{
   /*background-color:#204763;
 }*/
 
+/*
+
+
+Стилизация формы загрузки файла на странице pages/guides/downloadGuides.jsp
+
+
+*/
+/*скрываю компонент на странице*/
+#file-input-guides{
+    display:none;
+}
+/*.file-upload-guides label {*/
+    /*cursor:pointer;*/
+    /*border-radius:3px;*/
+    /*padding:10px 25px;*/
+     /*   background-color:#275996;
+    font-weight:bold;
+    text-align: center;*/
+/*}*/
+/*.file-upload-guides label:hover {
+    background-color:#133457;
+    color:#EDF8FF; 
+}*/
+/*#file-name-guides {
+    margin-top:20px;
+    color:#f00;
+}*/

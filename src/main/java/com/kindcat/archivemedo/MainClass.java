@@ -39,33 +39,43 @@ public class MainClass extends HttpServlet {
 
         int idUser = 0;
         try {
-            CurrentSessionImpl currentSession = new CurrentSession();
-            currentSession.setSession(request.getSession(false));//получаю из запроса информацию о текущей сессии
-            ImplDao userDao = new SuperDao();
             //
-            //Существующая сессия ищется в JSP index
+            //Если сессия ранее создавалась
             //
-            //если сессия не существует
-            if (!currentSession.isExistsSession()) {
-                currentSession.setSession(request.getSession());//создаю новую сессию
-                String login = request.getParameter("login");
-                idUser = userDao.findUserInLoginByLogin(login);//ищу пользователя по логину в БД
-                if (idUser > 0) {
-                    logger.debug("При авторизации в БД успешно найдена запись пользователя с логином \"" + login + "\"");
-                    //если пароль указан верно
-                    if (BCrypt.checkpw(request.getParameter("password"), userDao.findUserById(idUser).getHash())) {
-                        logger.info("Выполнена успешная авторизация пользователя \"" + login + "\"");
-                        //информацию из запроса записываем в сессию
-                        currentSession.setIdUser(idUser);
-                        currentSession.setLoginUser(login);
-                        currentSession.setFNameUser(request.getParameter("fName"));
-                        request.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
-                    } else {
-                        logger.info("Пользователем \"" + login + "\" указан не верный пароль");
-                        request.getRequestDispatcher("/index.jsp").forward(request, response);
+            if (request.getSession(false) != null) {
+                CurrentSessionImpl currentSession = new CurrentSession();
+                currentSession.setSession(request.getSession(false));//получаю из запроса информацию о текущей сессии
+                ImplDao userDao = new SuperDao();
+                //
+                //Существующая сессия ищется в JSP index
+                //
+                //если сессия не существует
+                if (!currentSession.isExistsSession()) {
+                    currentSession.setSession(request.getSession());//создаю новую сессию
+                    String login = request.getParameter("login");
+                    idUser = userDao.findUserInLoginByLogin(login);//ищу пользователя по логину в БД
+                    if (idUser > 0) {
+                        logger.debug("При авторизации в БД успешно найдена запись пользователя с логином \"" + login + "\"");
+                        //если пароль указан верно
+                        if (BCrypt.checkpw(request.getParameter("password"), userDao.findUserById(idUser).getHash())) {
+                            logger.info("Выполнена успешная авторизация пользователя \"" + login + "\"");
+                            //информацию из запроса записываем в сессию
+                            currentSession.setIdUser(idUser);
+                            currentSession.setLoginUser(login);
+                            currentSession.setFNameUser(request.getParameter("fName"));
+                            request.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+                        } else {
+                            logger.info("Пользователем \"" + login + "\" указан не верный пароль");
+                            request.getRequestDispatcher("/index.jsp").forward(request, response);
+                        }
                     }
                 }
+            //если сессия ранее не создавалась
+            } else {
+                logger.info("Сессия не найдена");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
+
         } catch (IOException | ServletException ex) {
             logger.error("Произошла программная ошибка при авторизации пользователя \"" + request.getParameter("login"));
         }

@@ -20,13 +20,15 @@
     </head>
     <body class="container">
         <%
-            CurrentSessionImpl currentSession = new CurrentSession();
-            currentSession.setSession(request.getSession(false));//получаю из запроса информацию о текущей сессии
-            //если текущая сессия создана
-            if (currentSession.isExistsSession()) {
-                LoggerForJspImpl logger = new LoggerForJsp();
-                logger.setLoggerSignInJsp(currentSession.getLoginUser());//записываю лог авторизации
-                getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+            if (request.getSession(false) != null) {
+                CurrentSessionImpl currentSession = new CurrentSession();
+                currentSession.setSession(request.getSession(false));//получаю из запроса информацию о текущей сессии
+                //если текущая сессия создана
+                if (currentSession.isExistsSession()) {
+                    LoggerForJspImpl logger = new LoggerForJsp();
+                    logger.setLoggerSignInJsp(currentSession.getLoginUser());//записываю лог авторизации
+                    getServletContext().getRequestDispatcher("/pages/archive.jsp").forward(request, response);
+                }
             }
         %>
         <div class="row text-center d-flex align-items-center justify-content-center vh-100">

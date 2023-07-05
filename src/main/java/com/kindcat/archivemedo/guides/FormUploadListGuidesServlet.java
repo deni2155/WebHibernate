@@ -1,8 +1,7 @@
-package com.kindcat.archivemedo.members;
+package com.kindcat.archivemedo.guides;
 /*
 * Загрузка списка участников МЭДО
 */
-import com.kindcat.archivemedo.MainClass;
 import com.kindcat.archivemedo.config.ConfigFile;
 import com.kindcat.archivemedo.config.ConfigFileImpl;
 import java.io.File;
@@ -10,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +19,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
-@WebServlet(name = "downloadListMembers", urlPatterns = {"/downloadListMembers"})
-public class DownloadListMembersServlet extends HttpServlet {
+@WebServlet(name = "uploadListGuidesServlet", urlPatterns = {"/uploadListGuidesServlet"})
+@MultipartConfig
+public class FormUploadListGuidesServlet extends HttpServlet {
 
     /**
      *
@@ -31,7 +32,7 @@ public class DownloadListMembersServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Logger logger = Logger.getLogger(MainClass.class);
+        Logger logger = Logger.getLogger(FormUploadListGuidesServlet.class);
         //проверка пришел ли запрос в multipart формате
         if(ServletFileUpload.isMultipartContent(request)){
             try {
@@ -40,6 +41,7 @@ public class DownloadListMembersServlet extends HttpServlet {
                 for(FileItem item : multiparts){
                     if(!item.isFormField()){
                         String name = new File(item.getName()).getName();
+logger.debug(item.getName());
                         ConfigFileImpl configFile=new ConfigFile();
                         item.write(new File(configFile.getTempFolder() + File.separator + name));
                         try (PrintWriter out = response.getWriter()) {

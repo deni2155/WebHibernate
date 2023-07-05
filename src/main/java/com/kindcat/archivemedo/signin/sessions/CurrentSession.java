@@ -32,13 +32,13 @@ public class CurrentSession implements CurrentSessionImpl {
     @Override
     public boolean isExistsSession() {
         //сессия существует
-        if (session != null) {
+//        if (session != null) {
             //проверяю наличие атрибутов в сессии
-            return session.getAttribute("idUser") != null;
+            return session.getAttribute("idUser") != null && session.getAttribute("fName")!=null && session.getAttribute("login")!=null;
             //сессия не существует
-        } else {
-            return false;
-        }
+//        } else {
+//            return false;
+//        }
     }
 
     /**

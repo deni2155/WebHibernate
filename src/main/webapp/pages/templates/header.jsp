@@ -5,9 +5,16 @@
 
 -->
 <%
+    
+    /*
+    
+    Формирую путь к страницам для ссылок
+    
+     */
     ServletContext context = getServletContext();
     //страница с участниками взаимодействия
-    String guides = String.format("%s%s", context.getContextPath(), "/pages/guides.jsp");
+    String guides = context.getContextPath() + "/pages/guides/listGuides.jsp";
+    String downloadGuides = context.getContextPath() + "/pages/guides/downloadGuides.jsp";
     //out.println(path);
 %>
 <div class="row custom-row-header fw-bold">
@@ -50,7 +57,8 @@
                     <a href=<%=guides%>>Справочник участников</a>
                     <div class="dropdown-content-sublevel-setting">
                         <a href="#">Скачать</a>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-win-download-listguides">Загрузить</a>
+                        <!--a href="#" data-bs-toggle="modal" data-bs-target="#modal-win-download-listguides">Загрузить</a-->
+                        <a href="<%=downloadGuides%>">Загрузить</a>
                     </div>
                 </div>
                 <a href="#">Настройки</a>

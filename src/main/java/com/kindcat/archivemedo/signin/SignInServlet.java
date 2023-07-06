@@ -6,17 +6,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author dreamer
-* @version 1.0.0.5
+ * @version 1.0.0.6
  */
 @WebServlet(name = "SignInServlet", urlPatterns = {"/signInServlet"})
 public class SignInServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -25,10 +25,12 @@ public class SignInServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
-
+        HttpSession session = request.getSession();
+        //session.setAttribute("idUser", request.getParameter("idUser"));
+        //session.setAttribute("fName", request.getParameter("fName"));
     }
+
     /**
-     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -42,7 +44,6 @@ public class SignInServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response

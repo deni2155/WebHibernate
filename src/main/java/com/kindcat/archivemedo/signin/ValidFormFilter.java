@@ -65,14 +65,14 @@ public class ValidFormFilter implements Filter {
             idUser = userDao.findUserInLoginByLogin(login);//ищу пользователя по логину в БД
             //пользователь не нйден в БД
             if (idUser == 0) {
-                logger.debug("Не удачная попытка авторизации, логин \"" + login + "\" не найден в БД");
+                logger.info("Не удачная попытка авторизации, логин \"" + login + "\" не найден в БД");
                 httpRequest.setAttribute("message", "Пользователь с логином \"" + login + "\" не найден");
                 httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
                 //пользователь найден
             } else if (idUser > 0) {
                 logger.debug("При авторизации в БД найден пользователь \"" + login + "\"");
                 if (BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())) {//верификация пароля пользователя
-                    logger.debug("Проверка пароля пользователя \"" + login + "\" прошла успешно");
+                    logger.info("Проверка пароля пользователя \"" + login + "\" прошла успешно");
                     httpRequest.setAttribute("idUser", idUser);
                     httpRequest.setAttribute("fName", userDao.findUserById(idUser).getFullName());
                 } else {

@@ -27,7 +27,7 @@
     -->
     <filter-mapping>
         <filter-name>existsSessionFilter</filter-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/S</url-pattern>
     </filter-mapping>
     <!--
 Логирование

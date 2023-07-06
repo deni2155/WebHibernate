@@ -6,13 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
-
 /**
  *
  * @author dreamer
-* @version 0.0.0.5
+* @version 1.0.0.5
  */
 @WebServlet(name = "SignInServlet", urlPatterns = {"/signInServlet"})
 public class SignInServlet extends HttpServlet {

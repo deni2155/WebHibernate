@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 /**
  *
  * @author dreamer
- * @version 0.0.0.5
+ * @version 1.0.0.0
  */
 @WebFilter(filterName = "existsSessionFilter",urlPatterns = {"/"})
 public class ExistsSessionFilter implements Filter {
@@ -58,13 +58,13 @@ public class ExistsSessionFilter implements Filter {
         String password = null;
         int idUser = 0;
         //получаю значение переменных из сессии
-        if (session != null) {
+        if (session != null && session.isNew()) {
             logger.debug("Найдена ранее созданная сессия, фильтр получает параметры из сессии");
-            if (session.getAttribute("login").toString() != null && session.getAttribute("password").toString() != null && session.getAttribute("idIser") != null) {
+            //if (session.getAttribute("login").toString() != null && session.getAttribute("password").toString() != null && session.getAttribute("idUser") != null) {
                 login = session.getAttribute("login").toString();
                 password = session.getAttribute("password").toString();
-                idUser = (int) session.getAttribute("idIser");
-            }
+                idUser = (int) session.getAttribute("idUser");
+            //}
         } else {
             logger.debug("Не найдена ранее существующая сессия");
         }

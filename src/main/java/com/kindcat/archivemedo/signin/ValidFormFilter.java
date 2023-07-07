@@ -22,7 +22,8 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author dreamer
  * @version 1.0.0.5
  */
-@WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"},dispatcherTypes = {DispatcherType.REQUEST})
+//@WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"},dispatcherTypes = {DispatcherType.REQUEST})
+@WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"})
 public class ValidFormFilter implements Filter {
 
     private final Logger logger;
@@ -80,17 +81,17 @@ public class ValidFormFilter implements Filter {
                     //request.setAttribute("idUser", idUserString);
                     //httpRequest.setAttribute("fName", userDao.findUserById(idUser).getFullName());
                     //httpRequest.setAttribute("login", userDao.findUserById(idUser).getLogin());
-HttpSession session = httpRequest.getSession(true);
-        //logger.info("Идентификатор пользователя в запросе " + request.getParameter("idUser"));
-        session.setAttribute("idUser", idUser);
-        logger.info("Идентификатор пользователя в сессии " + session.getAttribute("idUser"));
-        //logger.info("Полное имя пользователя в запросе " + request.getParameter("fName"));
-        session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
-        logger.info("Полное имя пользователя в сессии " + session.getAttribute("fName"));
-        //logger.info("Логин пользователя в запросе " + request.getParameter("login"));
-        session.setAttribute("login", login);
-        logger.info("Логин пользователя в сессии " + session.getAttribute("login"));
-        logger.info("Пользователь \"" + request.getParameter("login") + "\" успешно авторизован");
+//HttpSession session = httpRequest.getSession();
+//        //logger.info("Идентификатор пользователя в запросе " + request.getParameter("idUser"));
+//        session.setAttribute("idUser", idUser);
+//        logger.info("Идентификатор пользователя в сессии " + session.getAttribute("idUser"));
+//        //logger.info("Полное имя пользователя в запросе " + request.getParameter("fName"));
+//        session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
+//        logger.info("Полное имя пользователя в сессии " + session.getAttribute("fName"));
+//        //logger.info("Логин пользователя в запросе " + request.getParameter("login"));
+//        session.setAttribute("login", login);
+//        logger.info("Логин пользователя в сессии " + session.getAttribute("login"));
+//        logger.info("Пользователь \"" + request.getParameter("login") + "\" успешно авторизован");
         httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
                     chain.doFilter(request, response);
                 } else {

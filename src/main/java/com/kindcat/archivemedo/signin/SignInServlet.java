@@ -33,15 +33,15 @@ public class SignInServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        logger.info("Идентификатор пользователя в запросе " + request.getParameter("idUser"));
-        session.setAttribute("idUser", request.getParameter("idUser"));
-        logger.info("Идентификатор пользователя в сессии " + session.getAttribute("idUser"));
-        logger.info("Полное имя пользователя в запросе " + request.getParameter("fName"));
-        session.setAttribute("fName", request.getParameter("fName"));
-        logger.info("Полное имя пользователя в сессии " + session.getAttribute("fName"));
+//        logger.info("Идентификатор пользователя в запросе " + request.getParameter("idUser"));
+//        session.setAttribute("idUser", request.getParameter("idUser"));
+//        logger.info("Идентификатор пользователя в сессии " + session.getAttribute("idUser"));
+//        logger.info("Полное имя пользователя в запросе " + request.getParameter("fName"));
+//        session.setAttribute("fName", request.getParameter("fName"));
+//        logger.info("Полное имя пользователя в сессии " + session.getAttribute("fName"));
         logger.info("Логин пользователя в запросе " + request.getParameter("login"));
         session.setAttribute("login", request.getParameter("login"));
-        logger.info("Логин пользователя в сессии " + request.getParameter("login"));
+        logger.info("Логин пользователя в сессии " + session.getAttribute("login"));
         logger.info("Пользователь \"" + request.getParameter("login") + "\" успешно авторизован");
         request.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
     }

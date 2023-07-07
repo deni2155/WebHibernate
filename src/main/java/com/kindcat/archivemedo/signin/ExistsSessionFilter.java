@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 /**
  *
@@ -66,9 +67,9 @@ public class ExistsSessionFilter implements Filter {
             logger.debug("Найдена ранее созданная сессия, фильтр получает параметры из сессии");
 //            if (session.getAttribute("login").toString() != null && session.getAttribute("password").toString() != null && session.getAttribute("idUser") != null) {
 //                if (session.getAttribute("login").toString().isEmpty() == false && session.getAttribute("password").toString().isEmpty() == false && session.getAttribute("idUser").toString().isEmpty() == false) {
-                    login = session.getAttribute("login").toString();
+            login = (String) session.getAttribute("login");
 //                    password = session.getAttribute("password").toString();
-                    idUser = (int) session.getAttribute("idUser");
+            //idUser = (int) session.getAttribute("idUser");
 //                }
 //
 //            }
@@ -76,20 +77,26 @@ public class ExistsSessionFilter implements Filter {
             logger.debug("Не найдена ранее существующая сессия");
         }
         //если хотя бы один атрибут сессии пустой
-        if (idUser == 0 || login == null || password == null) {
+        //if (idUser == 0 || login == null || password == null) {
+        if (login == null) {
             logger.debug("Не найдены параметры сессии");
             request.getRequestDispatcher("/signin.jsp").forward(request, response);
-        } else if (idUser > 0 && !login.isEmpty() == false && !password.isEmpty() == false) {
+            //} else if (idUser > 0 && !login.isEmpty() == false && !password.isEmpty() == false) {
+        } else {
             logger.debug("Получены параметры сессии");
-            String inputRequest = httpRequest.getRequestURL().toString();//получаю url, с которого пришёл запрос
+            logger.debug(login);
+            String inputRequest = httpRequest.getHeader("referer");//получаю url, с которого пришёл запрос
+logger.debug(inputRequest);
+            //httpResponse.sendRedirect(inputRequest);
             if (inputRequest != null) {
                 request.getRequestDispatcher(inputRequest).forward(request, response);
             } else {
                 request.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
             }
-            chain.doFilter(httpRequest, httpResponse);
+
             //String referer = httpRequest.getHeader("referer");
         }
+        //chain.doFilter(httpRequest, httpResponse);
     }
 
     /**

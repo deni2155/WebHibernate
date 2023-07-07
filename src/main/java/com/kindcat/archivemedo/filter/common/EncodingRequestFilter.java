@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 /**
@@ -52,11 +53,6 @@ public class EncodingRequestFilter implements Filter {
         try {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-
-            //final HttpServletRequest httpRequest = (HttpServletRequest) request;
-            //final HttpServletResponse httpResponse = (HttpServletResponse) response;
-            //httpResponse.sendRedirect(httpRequest.getContextPath()+"/signin.jsp");
-            //httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
             chain.doFilter(request, response);
         } catch (IOException ex) {
             logger.error("Программная ошибка при работе фильтра для перекодировки запросов: " + ex);

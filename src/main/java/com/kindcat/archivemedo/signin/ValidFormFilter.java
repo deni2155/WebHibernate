@@ -3,6 +3,7 @@ package com.kindcat.archivemedo.signin;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
 import java.io.IOException;
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,6 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -20,7 +22,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author dreamer
  * @version 1.0.0.5
  */
-@WebFilter(filterName = "validFormFilter", urlPatterns = {"/signInServlet"})
+@WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"},dispatcherTypes = {DispatcherType.REQUEST})
 public class ValidFormFilter implements Filter {
 
     private final Logger logger;
@@ -72,9 +74,25 @@ public class ValidFormFilter implements Filter {
             } else if (idUser > 0) {
                 logger.debug("При авторизации в БД найден пользователь \"" + login + "\"");
                 if (BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())) {//верификация пароля пользователя
+                    logger.info("Идентификатор пользователя при верификации " + idUser);
                     logger.info("Проверка пароля пользователя \"" + login + "\" прошла успешно");
-                    httpRequest.setAttribute("idUser", idUser);
-                    httpRequest.setAttribute("fName", userDao.findUserById(idUser).getFullName());
+                    //String idUserString = String.valueOf(idUser);
+                    //request.setAttribute("idUser", idUserString);
+                    //httpRequest.setAttribute("fName", userDao.findUserById(idUser).getFullName());
+                    //httpRequest.setAttribute("login", userDao.findUserById(idUser).getLogin());
+HttpSession session = httpRequest.getSession(true);
+        //logger.info("Идентификатор пользователя в запросе " + request.getParameter("idUser"));
+        session.setAttribute("idUser", idUser);
+        logger.info("Идентификатор пользователя в сессии " + session.getAttribute("idUser"));
+        //logger.info("Полное имя пользователя в запросе " + request.getParameter("fName"));
+        session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
+        logger.info("Полное имя пользователя в сессии " + session.getAttribute("fName"));
+        //logger.info("Логин пользователя в запросе " + request.getParameter("login"));
+        session.setAttribute("login", login);
+        logger.info("Логин пользователя в сессии " + session.getAttribute("login"));
+        logger.info("Пользователь \"" + request.getParameter("login") + "\" успешно авторизован");
+        httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
+                    chain.doFilter(request, response);
                 } else {
                     logger.debug("Пользователь \"" + login + "\" ввёл не верный пароль");
                     httpRequest.setAttribute("message", "Не верный пароль");

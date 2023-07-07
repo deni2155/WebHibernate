@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -15,6 +16,12 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "SignInServlet", urlPatterns = {"/signInServlet"})
 public class SignInServlet extends HttpServlet {
+
+    private final Logger logger;
+
+    public SignInServlet() {
+        logger = Logger.getLogger(SignInServlet.class);
+    }
 
     /**
      *
@@ -26,8 +33,17 @@ public class SignInServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        //session.setAttribute("idUser", request.getParameter("idUser"));
-        //session.setAttribute("fName", request.getParameter("fName"));
+        logger.info("Идентификатор пользователя в запросе " + request.getParameter("idUser"));
+        session.setAttribute("idUser", request.getParameter("idUser"));
+        logger.info("Идентификатор пользователя в сессии " + session.getAttribute("idUser"));
+        logger.info("Полное имя пользователя в запросе " + request.getParameter("fName"));
+        session.setAttribute("fName", request.getParameter("fName"));
+        logger.info("Полное имя пользователя в сессии " + session.getAttribute("fName"));
+        logger.info("Логин пользователя в запросе " + request.getParameter("login"));
+        session.setAttribute("login", request.getParameter("login"));
+        logger.info("Логин пользователя в сессии " + request.getParameter("login"));
+        logger.info("Пользователь \"" + request.getParameter("login") + "\" успешно авторизован");
+        request.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
     }
 
     /**

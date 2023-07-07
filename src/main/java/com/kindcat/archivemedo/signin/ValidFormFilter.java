@@ -22,7 +22,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author dreamer
  * @version 1.0.0.5
  */
-//@WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"},dispatcherTypes = {DispatcherType.REQUEST})
+//@WebFilter(filterName = "signInServlet", urlPatterns = {"/*"},dispatcherTypes = {DispatcherType.REQUEST})
 @WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"})
 public class ValidFormFilter implements Filter {
     
@@ -73,13 +73,12 @@ public class ValidFormFilter implements Filter {
             } else if (idUser > 0) {
                 logger.debug("При авторизации в БД найден пользователь \"" + login + "\"");
                 if (BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())) {//верификация пароля пользователя
-                    logger.info("Идентификатор пользователя при верификации " + idUser);
+//                    logger.info("Идентификатор пользователя при верификации " + idUser);
                     logger.info("Проверка пароля пользователя \"" + login + "\" прошла успешно");
-                    HttpSession session = httpRequest.getSession(false);
-                    session.setAttribute("login", request.getAttribute("login"));
+                    HttpSession session = httpRequest.getSession();
+                    session.setAttribute("login", httpRequest.getParameter("login"));
                     session.setAttribute("idUser", idUser);
                     session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
-                    //httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
                     chain.doFilter(request, response);
                 } else {
                     logger.debug("Пользователь \"" + login + "\" ввёл не верный пароль");

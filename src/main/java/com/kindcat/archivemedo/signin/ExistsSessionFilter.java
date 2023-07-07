@@ -55,24 +55,23 @@ public class ExistsSessionFilter implements Filter {
 
         HttpSession session = httpRequest.getSession(false);//получаю существующую сессию
 
-        String login = null;
-        String password = null;
+        String login=null;
         int idUser = 0;
+        String fName=null;
         //получаю значение переменных из сессии
         if (session != null) {
             logger.debug("Найдена ранее созданная сессия, фильтр получает параметры из сессии");
             login = (String) session.getAttribute("login");
-
+            idUser = (int) session.getAttribute("idUser");
+            fName = (String) session.getAttribute("fName");
         } else {
             logger.debug("Не найдена ранее существующая сессия");
         }
         //если хотя бы один атрибут сессии пустой
-        if (login == null) {
-            logger.debug("Не найдены параметры сессии");
+        if (login == null || fName==null || idUser==0) {
             request.getRequestDispatcher("/signin.jsp").forward(request, response);
-        } else {
-            logger.debug("Получены параметры сессии");
-            logger.debug(login);
+        } else if(login.isEmpty()==false && fName.isEmpty()==false && idUser>0){
+            logger.debug("Получены параметры сессии пользователя \""+login+"\"");
             String inputRequest = httpRequest.getHeader("referer");//получаю url, с которого пришёл запрос
             if (inputRequest != null) {
                 request.getRequestDispatcher(inputRequest).forward(request, response);

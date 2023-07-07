@@ -25,9 +25,9 @@ import org.mindrot.jbcrypt.BCrypt;
 //@WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"},dispatcherTypes = {DispatcherType.REQUEST})
 @WebFilter(filterName = "ValidFormFilter", urlPatterns = {"/signInServlet"})
 public class ValidFormFilter implements Filter {
-
+    
     private final Logger logger;
-
+    
     public ValidFormFilter() {
         logger = Logger.getLogger(ValidFormFilter.class);
     }
@@ -56,8 +56,6 @@ public class ValidFormFilter implements Filter {
         logger.debug("Выполняется фильтр");
         final HttpServletRequest httpRequest = (HttpServletRequest) request;
         final HttpServletResponse httpResponse = (HttpServletResponse) response;
-        //получен параметры формы авторизации
-//        if (httpRequest.getParameter("login") != null && httpRequest.getParameter("login") != null) {
         //параметры формы не пустые
         if (httpRequest.getParameter("login").isEmpty() == false && httpRequest.getParameter("password").isEmpty() == false) {
             logger.debug("Получены данные формы для авторизации");
@@ -77,22 +75,11 @@ public class ValidFormFilter implements Filter {
                 if (BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())) {//верификация пароля пользователя
                     logger.info("Идентификатор пользователя при верификации " + idUser);
                     logger.info("Проверка пароля пользователя \"" + login + "\" прошла успешно");
-                    //String idUserString = String.valueOf(idUser);
-                    //request.setAttribute("idUser", idUserString);
-                    //httpRequest.setAttribute("fName", userDao.findUserById(idUser).getFullName());
-                    //httpRequest.setAttribute("login", userDao.findUserById(idUser).getLogin());
-//HttpSession session = httpRequest.getSession();
-//        //logger.info("Идентификатор пользователя в запросе " + request.getParameter("idUser"));
-//        session.setAttribute("idUser", idUser);
-//        logger.info("Идентификатор пользователя в сессии " + session.getAttribute("idUser"));
-//        //logger.info("Полное имя пользователя в запросе " + request.getParameter("fName"));
-//        session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
-//        logger.info("Полное имя пользователя в сессии " + session.getAttribute("fName"));
-//        //logger.info("Логин пользователя в запросе " + request.getParameter("login"));
-//        session.setAttribute("login", login);
-//        logger.info("Логин пользователя в сессии " + session.getAttribute("login"));
-//        logger.info("Пользователь \"" + request.getParameter("login") + "\" успешно авторизован");
-        httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
+                    HttpSession session = httpRequest.getSession(false);
+                    session.setAttribute("login", request.getAttribute("login"));
+                    session.setAttribute("idUser", idUser);
+                    session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
+                    //httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(request, response);
                     chain.doFilter(request, response);
                 } else {
                     logger.debug("Пользователь \"" + login + "\" ввёл не верный пароль");
@@ -105,13 +92,8 @@ public class ValidFormFilter implements Filter {
             logger.debug("Попытка авторизации без ввода логина и пароля");
             httpRequest.setAttribute("message", "Не заполнены логин и пароль");
             httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
-
+            
         }
-        //не получен запрос и ответ
-//        } else if (httpRequest.getParameter("login") == null && httpRequest.getParameter("login") == null) {
-//            httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
-//        }
-
     }
 
     /**

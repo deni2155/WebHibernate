@@ -17,7 +17,7 @@
     <body class="container">
         <div class="row text-center d-flex align-items-center justify-content-center vh-100">
             <div class="col-3">
-                <form class="custom-row-signin-form pb-2 pt-4 pe-4 ps-4 fw-bold" action="signInServlet" method="post">
+                <form class="custom-row-signin-form pb-2 pt-4 pe-4 ps-4 fw-bold" method="post" action="">
                     <label>Архив МЭДО</label>
                     <div class="text-danger h6">${message}</div>
                     <div class="form-group">

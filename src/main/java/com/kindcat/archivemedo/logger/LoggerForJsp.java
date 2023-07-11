@@ -16,6 +16,6 @@ public class LoggerForJsp implements LoggerForJspImpl {
      */
     @Override
     public void setLoggerSignInJsp(String login) {
-        logger.debug("Пользователь \"" + login + "\" успешно авторизован за счёт существующей сессии");
+        logger.debug(login);
     }
 }

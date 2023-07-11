@@ -19,7 +19,7 @@ import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author dreamer
- * @version 1.0.0.9
+ * @version 1.0.0.10
  */
 @WebFilter(filterName = "existsSessionFilter", urlPatterns = {"/*"})
 public class ExistsSessionFilter implements Filter {
@@ -57,77 +57,82 @@ public class ExistsSessionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
         httpResponse = (HttpServletResponse) response;
-        session = httpRequest.getSession();//получаю текущую сессию
-
-        if (session.getAttribute("login") != null && session.getAttribute("idUser") != null && (String) session.getAttribute("fName") != null) {
-            getSession();
-//            chain.doFilter(httpRequest, httpResponse);
-        } else if (session.getAttribute("login") == null || session.getAttribute("idUser") == null || (String) session.getAttribute("fName") == null) {
-            setSession();
-//            chain.doFilter(httpRequest, httpResponse);
+        //исключаю обработку фильтром сss, js и png файлы
+        if (httpRequest.getRequestURI().endsWith(".css")) {
+            httpResponse.setContentType("text/css");
+            chain.doFilter(request, response);
+        } else if (httpRequest.getRequestURI().endsWith(".js")) {
+            httpResponse.setContentType("text/javascript");
+            chain.doFilter(request, response);
+        } else if (httpRequest.getRequestURI().endsWith(".png")) {
+            httpResponse.setContentType("image/png");
+            chain.doFilter(request, response);
+            //остальное фильтруется
+        } else {
+            session = httpRequest.getSession();//получаю текущую сессию
+            //если сессия существует и в ней есть атрибуты
+            if (session.getAttribute("login") != null && session.getAttribute("idUser") != null && (String) session.getAttribute("fName") != null) {
+                //getSession();
+                chain.doFilter(request, response);//пропускаем выполнение запросов для перехода по ссылкам
+            //если нет сессии и атрибутов сессии
+            } else if (session.getAttribute("login") == null || session.getAttribute("idUser") == null || (String) session.getAttribute("fName") == null) {
+                setSession();
+            }
         }
-        //проверка на null
-//        String login = httpRequest.getParameter("login");
-//        String password = httpRequest.getParameter("password");
-
-//        HttpSession session = httpRequest.getSession();
-//        ImplDao userDao = new SuperDao();
-////авторизован ранее
-//        if (session != null && session.getAttribute("login") != null && session.getAttribute("password") != null) {
-////авторизовываетс
-//        } else if (userDao.findUserInLoginByLogin(login) > 0) {
-////пользователь не найден и редирект на главную
-//        } else {
-//        }
     }
 
     /**
      * Найдена ранее существующая сессия и найдены параметры сессии
      */
-    private void getSession() throws ServletException, IOException {
-        logger.debug("Фильтр нашёл параметры сессии пользоваетля \"" + session.getAttribute("login") + "\"");
-        String inputRequest = httpRequest.getHeader("referer");//получаю url, с которого пришёл запрос
-        if (inputRequest != null) {
-            httpRequest.getRequestDispatcher(inputRequest).forward(httpRequest, httpResponse);
-        } else {
-            httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
-        }
-    }
-
+//    private void getSession() throws ServletException, IOException {
+//        logger.debug("Фильтр нашёл параметры сессии пользоваетля \"" + session.getAttribute("login") + "\"");
+//        String inputRequest = httpRequest.getHeader("referer");//получаю url, с которого пришёл запрос
+//        if (inputRequest != null) {
+//            httpRequest.getRequestDispatcher(inputRequest).forward(httpRequest, httpResponse);
+//        } else {
+//            httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
+//        }
+//    }
     private void setSession() throws ServletException, IOException {
         logger.debug("Не найдена ранее существующая сессия");
-        if (httpRequest.getParameter("login") != null && httpRequest.getParameter("password") != null) {
-            logger.debug("Получены данные формы для авторизации");
-            ImplDao userDao = new SuperDao();
-            String login = httpRequest.getParameter("login");
-            String password = httpRequest.getParameter("password");
-            int idUser = 0;
-            idUser = userDao.findUserInLoginByLogin(login);//ищу пользователя по логину в БД
-            //пользователь не нйден в БД
-            if (idUser == 0) {
-                logger.info("Не удачная попытка авторизации, логин \"" + login + "\" не найден в БД");
-                httpRequest.setAttribute("message", "Пользователь с логином \"" + login + "\" не найден");
-                httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
-                //пользователь найден
-            } else if (idUser > 0) {
-                logger.debug("При авторизации в БД найден пользователь \"" + login + "\"");
-                if (BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())) {//верификация пароля пользователя
-//                    logger.info("Идентификатор пользователя при верификации " + idUser);
-                    logger.info("Проверка пароля пользователя \"" + login + "\" прошла успешно");
-                    session = httpRequest.getSession();
-                    session.setAttribute("login", httpRequest.getParameter("login"));
-                    session.setAttribute("idUser", idUser);
-                    session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
-                    httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
-                } else {
-                    logger.debug("Пользователь \"" + login + "\" ввёл не верный пароль");
-                    httpRequest.setAttribute("message", "Не верный пароль");
+        if ("POST".equals(httpRequest.getMethod())) {
+            if (httpRequest.getParameter("login") != null && httpRequest.getParameter("password") != null) {
+                logger.debug("Получены данные формы для авторизации");
+                ImplDao userDao = new SuperDao();
+                String login = httpRequest.getParameter("login").replace("\\", "").replace("'", "").replace("\"", "").replace("%", "").replace("+", "").replace("<", "").replace(">", "");
+                String password = httpRequest.getParameter("password").replace("\\", "\\\\").replace("'", "\\'").replace("\"", "\\\"").replace("%", "\\%").replace("+", "\\+").replace("<", "\\<").replace(">", "\\>");
+                int idUser = 0;
+                idUser = userDao.findUserInLoginByLogin(login);//ищу пользователя по логину в БД
+                //пользователь не нйден в БД
+                if (idUser == 0) {
+                    logger.info("Не удачная попытка авторизации, логин \"" + login + "\" не найден в БД");
+                    httpRequest.setAttribute("message", "Пользователь с логином \"" + login + "\" не найден");
                     httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
+                    //пользователь найден
+                } else if (idUser > 0) {
+                    logger.debug("При авторизации в БД найден пользователь \"" + login + "\"");
+                    if (BCrypt.checkpw(password, userDao.findUserById(idUser).getHash())) {//верификация пароля пользователя
+//                    logger.info("Идентификатор пользователя при верификации " + idUser);
+                        logger.info("Проверка пароля пользователя \"" + login + "\" прошла успешно");
+                        session = httpRequest.getSession();
+                        session.setAttribute("login", login);
+                        session.setAttribute("idUser", idUser);
+                        session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
+                        httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
+                    } else {
+                        logger.debug("Пользователь \"" + login + "\" ввёл не верный пароль");
+                        httpRequest.setAttribute("message", "Не верный пароль");
+                        httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
+                    }
                 }
+            } else if (httpRequest.getParameter("login") == null || httpRequest.getParameter("password") == null) {
+                //logger.debug("Попытка авторизации без ввода логина и пароля");
+                //httpRequest.setAttribute("message", "Не указаны логин и пароль");
+                httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
             }
-        } else if (httpRequest.getParameter("login") == null || httpRequest.getParameter("password") == null) {
-            //logger.debug("Попытка авторизации без ввода логина и пароля");
-            //httpRequest.setAttribute("message", "Не указаны логин и пароль");
+        } else {
+//            httpRequest.setAttribute("message", "Ой, а у кого тут шаловливые ручёнки:)");
+//            logger.warn("Выполнена попытка авторизации через get-запрос с клиента IP=" + httpRequest.getRemoteAddr());
             httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
         }
     }

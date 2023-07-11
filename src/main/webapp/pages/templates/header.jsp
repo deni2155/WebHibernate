@@ -1,26 +1,16 @@
+<%@page import="com.kindcat.archivemedo.logger.LoggerForJsp"%>
+<%@page import="com.kindcat.archivemedo.logger.LoggerForJspImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--
 
 Меню в шапке страницы
 
 -->
-<%
-    
-    /*
-    
-    Формирую путь к страницам для ссылок
-    
-     */
-    ServletContext context = getServletContext();
-    //страница с участниками взаимодействия
-    String guides = context.getContextPath() + "/pages/guides/listGuides.jsp";
-    String downloadGuides = context.getContextPath() + "/pages/guides/downloadGuides.jsp";
-    //out.println(path);
-%>
+<c:url var="homeUrl" value="/" />
 <div class="row custom-row-header fw-bold">
     <div class="col-1 text-start">
         <div class="icon-home">
-            <a href=<%=context.getContextPath()%> class="btn custom-link-hover" title="Главная страница">
+            <a href="linkHomeServlet" class="btn custom-link-hover" title="Главная страница">
                 <!--иконка домой-->
                 <img src=""/>
             </a>
@@ -54,11 +44,11 @@
             </a>
             <div class="dropdown-content-setting text-start">
                 <div class="list-show-submenu-setting">
-                    <a href=<%=guides%>>Справочник участников</a>
+                    <a href="linkListGuidesServlet">Справочник участников</a>
                     <div class="dropdown-content-sublevel-setting">
                         <a href="#">Скачать</a>
                         <!--a href="#" data-bs-toggle="modal" data-bs-target="#modal-win-download-listguides">Загрузить</a-->
-                        <a href="<%=downloadGuides%>">Загрузить</a>
+                        <a href="linkDownloadGuidesServlet">Загрузить</a>
                     </div>
                 </div>
                 <a href="#">Настройки</a>

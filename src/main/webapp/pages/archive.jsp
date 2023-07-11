@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--
 Таблица со списком пакетов
@@ -218,11 +219,5 @@
                 </div>
             </div>
         </div>
-        <!-- 
-
-        модальное окно
-
-        -->
-        <!--jsp:include page="templates/filedialog.jsp"/-->
     </body>
 </html>

@@ -1,0 +1,535 @@
+
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+<!-- Active URL: https://sql.toad.cz/ -->
+<sql>
+<datatypes db="mysql">
+	<group label="Numeric" color="rgb(238,238,170)">
+		<type label="Integer" length="0" sql="INTEGER" quote=""/>
+	 	<type label="TINYINT" length="0" sql="TINYINT" quote=""/>
+	 	<type label="SMALLINT" length="0" sql="SMALLINT" quote=""/>
+	 	<type label="MEDIUMINT" length="0" sql="MEDIUMINT" quote=""/>
+	 	<type label="INT" length="0" sql="INT" quote=""/>
+		<type label="BIGINT" length="0" sql="BIGINT" quote=""/>
+		<type label="Decimal" length="1" sql="DECIMAL" re="DEC" quote=""/>
+		<type label="Single precision" length="0" sql="FLOAT" quote=""/>
+		<type label="Double precision" length="0" sql="DOUBLE" re="DOUBLE" quote=""/>
+	</group>
+
+	<group label="Character" color="rgb(255,200,200)">
+		<type label="Char" length="1" sql="CHAR" quote="'"/>
+		<type label="Varchar" length="1" sql="VARCHAR" quote="'"/>
+		<type label="Text" length="0" sql="MEDIUMTEXT" re="TEXT" quote="'"/>
+		<type label="Binary" length="1" sql="BINARY" quote="'"/>
+		<type label="Varbinary" length="1" sql="VARBINARY" quote="'"/>
+		<type label="BLOB" length="0" sql="BLOB" re="BLOB" quote="'"/>
+	</group>
+
+	<group label="Date &amp; Time" color="rgb(200,255,200)">
+		<type label="Date" length="0" sql="DATE" quote="'"/>
+		<type label="Time" length="0" sql="TIME" quote="'"/>
+		<type label="Datetime" length="0" sql="DATETIME" quote="'"/>
+		<type label="Year" length="0" sql="YEAR" quote=""/>
+		<type label="Timestamp" length="0" sql="TIMESTAMP" quote="'"/>
+	</group>
+	
+	<group label="Miscellaneous" color="rgb(200,200,255)">
+		<type label="ENUM" length="1" sql="ENUM" quote=""/>
+		<type label="SET" length="1" sql="SET" quote=""/>
+		<type label="Bit" length="0" sql="bit" quote=""/>
+	</group>
+</datatypes><table x="50" y="50" name="type_msg">
+<row name="id_type_msg" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_type_msg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_type_msg</part>
+</key>
+<comment>:28B0=F8O, C254><;5=85, 4>:C<5=B, B@0=A?>@B=K9 :>=B59=5@</comment>
+</table>
+<table x="50" y="152" name="schema_msg">
+<row name="id_schema" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_schema" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_schema</part>
+</key>
+<comment>2.7,2.7.1,2.2</comment>
+</table>
+<table x="51" y="252" name="type_pck">
+<row name="id_type_pkg" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_type_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_type_pkg</part>
+</key>
+<comment>2E>4OI85\8AE>4OI85</comment>
+</table>
+<table x="279" y="34" name="package">
+<row name="id_pkg" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_type_msg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="type_msg" row="id_type_msg" />
+</row>
+<row name="id_schema" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="schema_msg" row="id_schema" />
+</row>
+<row name="id_type_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="type_pck" row="id_type_pkg" />
+</row>
+<row name="name_recipient" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_sender" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="datetime_insert" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="version_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>5A;8 ?0:5B ?>;CG5= ?>2B>@=>, C25;8G8205BAO 25@A8O ?0:5B0</comment>
+</row>
+<key type="PRIMARY" name="">
+<part>id_pkg</part>
+</key>
+</table>
+<table x="944" y="14" name="document">
+<row name="id_doc" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="package" row="id_pkg" />
+</row>
+<row name="uid_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="uid_doc" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="num_doc" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="date_doc" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="eds" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_doc</part>
+</key>
+</table>
+<table x="1268" y="35" name="receipt">
+<row name="id_receipt" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="package" row="id_pkg" />
+</row>
+<row name="uid_receipt" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="for_uid" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="delivery" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="comment" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_receipt</part>
+</key>
+</table>
+<table x="1446" y="135" name="notification">
+<row name="id_notif" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="package" row="id_pkg" />
+</row>
+<row name="id_type_notif" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="type_notif" row="id_type_notif" />
+</row>
+<row name="uid_notif" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="for_uid" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="inside_num" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="inside_date" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="external_num" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="external_date" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_notif</part>
+</key>
+</table>
+<table x="1251" y="237" name="type_notif">
+<row name="id_type_notif" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_type_notif" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_type_notif</part>
+</key>
+</table>
+<table x="799" y="254" name="guides">
+<row name="id_guid" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_org" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="guid" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="addressee" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_guid</part>
+</key>
+<comment>A?8A>: CG0AB=8:>2 -</comment>
+</table>
+<table x="569" y="105" name="sender">
+<row name="id_sender" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_guid" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="guides" row="id_guid" />
+</row>
+<row name="id_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="package" row="id_pkg" />
+</row>
+<key type="PRIMARY" name="">
+<part>id_sender</part>
+</key>
+<comment>>B?@028B5;L ?0:5B0</comment>
+</table>
+<table x="574" y="336" name="recipient">
+<row name="id_recipient" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_guid" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="guides" row="id_guid" />
+</row>
+<row name="id_pkg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="package" row="id_pkg" />
+</row>
+<key type="PRIMARY" name="">
+<part>id_recipient</part>
+</key>
+<comment>?>;CG0B5;L</comment>
+</table>
+<table x="1013" y="353" name="contacts">
+<row name="id_giud" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="guides" row="id_guid" />
+</row>
+<row name="id_credentials" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="credentials" row="id_credentials" />
+</row>
+<row name="id_contacts" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="position" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>4>;6=>ABL</comment>
+</row>
+<row name="fname" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>$</comment>
+</row>
+<row name="external_msg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>2=5H=85 @5:2878BK 4>:C<5=B0</comment>
+</row>
+<row name="internal_msg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>2=CB@5==85 @5:2878BK 4>:C<5=B0</comment>
+</row>
+<key type="PRIMARY" name="">
+<part>id_contacts</part>
+</key>
+<comment>A?8A>: :>=B0:B>2</comment>
+</table>
+<table x="1214" y="421" name="credentials">
+<row name="id_credentials" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_type_mng_doc" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="type_mng_doc" row="id_type_mng_doc" />
+</row>
+<row name="name_credentials" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="internal_msg" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>=CB@5=55 ?8AL<></comment>
+</row>
+<row name="dsp" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment><>3CB 8;8 =5B >1<5=820BLAO ?> dsp</comment>
+</row>
+<row name="comment" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_credentials</part>
+</key>
+<comment>B5E=8G5A:89 A?5F80;8AB, 45;>?@>872>48B5;L, C=825@A0;</comment>
+</table>
+<table x="1451" y="438" name="type_mng_doc">
+<row name="id_type_mng_doc" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_type_mng_doc" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_type_mng_doc</part>
+</key>
+<comment>5;>?@>872>48B5;8, >B25G0NI85 70 2E>4OI85 4>:C<5=BK, 8AE>4OI85 4>:C<5=BK 8;8 A@07C 70 2A5. C45B ?@8<5=OBLAO 4;O :>=B0:B>2 ?@8 2K1>@5 45;>?@>872>48B5;59</comment>
+</table>
+<table x="711" y="423" name="phone">
+<row name="id_phone" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_contcts" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="contacts" row="id_contacts" />
+</row>
+<row name="number_phone" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_phone</part>
+</key>
+<comment>><5@0 B5;5D>=>2, B.:. 8E <>65B 1KBL =5A:>;L:></comment>
+</table>
+<table x="715" y="544" name="email">
+<row name="id_email" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_contacts" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="contacts" row="id_contacts" />
+</row>
+<row name="name_email" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_email</part>
+</key>
+</table>
+<table x="168" y="1036" name="users">
+<row name="id_user" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="account_settings" row="id_user" />
+</row>
+<row name="login" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="hash" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="fname" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_user</part>
+</key>
+</table>
+<table x="725" y="701" name="details_docs">
+<row name="id_detail_docs" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="type_docs" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>2E>4OI89 8;8 8AE>4OI89 4>:C<5=B</comment>
+</row>
+<row name="details" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>@5:2878BK 4>:C<5=B0</comment>
+</row>
+<key type="PRIMARY" name="">
+<part>id_detail_docs</part>
+</key>
+<comment>@5:2878BK 4>:C<5=B>2, A>45@60I8E :>=B0:BK CG0AB=8:>2 -</comment>
+</table>
+<table x="976" y="671" name="in_details_docs">
+<row name="id_in_details_docs" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_contacts" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="contacts" row="id_contacts" />
+</row>
+<row name="id_deils_docs" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="details_docs" row="id_detail_docs" />
+</row>
+<key type="PRIMARY" name="">
+<part>id_in_details_docs</part>
+</key>
+</table>
+<table x="680" y="909" name="role">
+<row name="id_role" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_role" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_role</part>
+</key>
+<comment>@>;8 ?>;L7>20B5;59</comment>
+</table>
+<table x="965" y="906" name="group_role">
+<row name="id_group" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_group" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_group</part>
+</key>
+<comment>3@C??K @>;59</comment>
+</table>
+<table x="729" y="1066" name="group_roles">
+<row name="id_role" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="role" row="id_role" />
+</row>
+<row name="id_group_roles" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="account_group" row="id_account_group" />
+</row>
+<row name="id_group" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="group_role" row="id_group" />
+</row>
+<key type="PRIMARY" name="">
+<part>id_group_roles</part>
+</key>
+<comment>@C??K @>;5F</comment>
+</table>
+<table x="451" y="900" name="account_role">
+<row name="id_account_role" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_user" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id_user" />
+</row>
+<row name="id_role" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="role" row="id_role" />
+</row>
+<key type="PRIMARY" name="">
+<part>id_account_role</part>
+</key>
+</table>
+<table x="450" y="1026" name="account_group">
+<row name="id_account_group" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_user" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id_user" />
+</row>
+<row name="id_group_roles" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_account_group</part>
+</key>
+</table>
+<table x="603" y="1202" name="account_settings">
+<row name="id_user" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="logical_del" null="1" autoincrement="0">
+<datatype>SMALLINT(logic_del)</datatype>
+<default>NULL</default><comment>><5B8BL 4;O ;>38G5A:>3> C40;5=8O</comment>
+</row>
+<row name="date_full_del" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>0B0 ?>;4=>3> C40;5=8O</comment>
+</row>
+<row name="full_date" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>@07@5H8BL ?>;=>5 C40;5=85</comment>
+</row>
+<key type="PRIMARY" name="">
+<part>id_user</part>
+</key>
+<comment>0AB@>9:8 #</comment>
+</table>
+<table x="606" y="1367" name="account_history">
+<row name="id_user" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id_user" />
+</row>
+<row name="date_create" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="date_update" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="date_logical_del" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id_user</part>
+</key>
+<comment>AB>@8O 87<5=5=98 #</comment>
+</table>
+<table x="607" y="1551" name="account_activity">
+<row name="id_user" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id_user" />
+</row>
+<key type="PRIMARY" name="">
+<part>id_user</part>
+</key>
+<comment>:B82=>ABL #</comment>
+</table>
+</sql>

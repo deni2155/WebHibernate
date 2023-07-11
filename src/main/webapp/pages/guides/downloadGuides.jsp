@@ -9,7 +9,7 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.js"></script>
         <script src="js/jscript.js"></script>
-        <title>Загрузка участников МЭДО из файла</title>
+        <title>Загрузка участников МЭДО</title>
     </head>
     <body class="container-fluid">
         <jsp:include page="../templates/header.jsp"/>
@@ -24,22 +24,25 @@
                     Загрузка файла со списком участников МЭДО
                 </div>
                 <div class="pt-2">
-                    <form action="uploadListGuidesServlet" method="post" enctype="multipart/form-data">
+                    <form action="uploadFileServlet" method="post" enctype="multipart/form-data">
                         <!--div class="file-upload-guides"-->
-                            <label class="btn btn-primary text-center fw-bolder">
-                                <input type="file" id="file-input-guides" name="file" accept=".xlsx,.csv"/>
-                                Выберите файл
-                            </label>
-                            <input class="form-control mt-3" type="text" placeholder="Файл не выбран" id="file-name-guides" disabled readonly/>
-                            <!--div id="file-name-guides h5">aervaervaer</div-->
-                            <!--div id="file-name-guides1"></div-->
-                            <p class="fst-italic pt-2">Выполняется загрузка файлов в формате excel и csv</p>
-                            <input class="form-control btn-custom mt-3 mb-3" type="submit" value="Загрузить файл"/>
+                        <label class="btn btn-primary text-center fw-bolder">
+                            <input type="file" id="file-input-guides" name="file" accept=".xlsx,.csv"/>
+                            Выберите файл
+                        </label>
+                        <div class="pt-2">
+                            <p class="fst-italic pt-2">${message}</p>
+                        </div>
+                        <input class="form-control mt-3" type="text" placeholder="Файл не выбран" id="file-name-guides" disabled readonly/>
+                        <!--div id="file-name-guides h5">aervaervaer</div-->
+                        <!--div id="file-name-guides1"></div-->
+                        <p class="fst-italic pt-2">Список участников МЭДО можно загрузить из csv-файла</p>
+                        <input class="form-control btn-custom mt-3 mb-3" type="submit" value="Загрузить файл"/>
                         <!--/div-->
                     </form>
                     <div class="pb-4">
-                        <button class="btn btn-secondary col-5">На главную</button>
-                        <button class="btn btn-secondary col-5">Участники МЭДО</button>
+                        <a href="linkHomeServlet" class="btn btn-secondary col-5">На главную</a>
+                        <a href="linkListGuidesServlet" class="btn btn-secondary col-5">Участники МЭДО</a>
                     </div>
                 </div>
             </div>

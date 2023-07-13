@@ -4,6 +4,7 @@ com/kindcat/archivemedo/links/LinkHomeServlet.class
 com/kindcat/archivemedo/config/PathConfig.class
 com/kindcat/archivemedo/links/LinkDownloadGuidesServlet.class
 com/kindcat/archivemedo/beans/SuperBeansImpl.class
+com/kindcat/archivemedo/filter/UploadListGuidesFilter.class
 com/kindcat/archivemedo/config/TempFolder.class
 com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
 com/kindcat/archivemedo/config/ConfigFile.class

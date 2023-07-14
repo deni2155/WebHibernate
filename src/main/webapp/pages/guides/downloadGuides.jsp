@@ -24,14 +24,14 @@
                     Загрузка файла со списком участников МЭДО
                 </div>
                 <div class="pt-2">
-                    <form action="uploadFileServlet" method="post" enctype="multipart/form-data">
+                    <form action="uploadListGuidesFilter" method="post" enctype="multipart/form-data">
                         <!--div class="file-upload-guides"-->
                         <label class="btn btn-primary text-center fw-bolder">
-                            <input type="file" id="file-input-guides" name="file" accept=".xlsx,.csv"/>
+                            <input type="file" id="file-input-guides" name="file" accept=".csv"/>
                             Выберите файл
                         </label>
                         <div class="pt-2">
-                            <p class="fst-italic pt-2">${message}</p>
+                            <p class="fst-italic pt-2 text-danger h4">${message}</p>
                         </div>
                         <input class="form-control mt-3" type="text" placeholder="Файл не выбран" id="file-name-guides" disabled readonly/>
                         <!--div id="file-name-guides h5">aervaervaer</div-->

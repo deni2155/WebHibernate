@@ -17,15 +17,15 @@ import org.apache.log4j.Logger;
 /**
  * Распределяет файлы по расширению
  */
-class UploadFile {
+class UploadFile_old {
 
     private final Logger logger;//класс для логирования
     private final ConfigFileImpl configFile;//класс для работы с конфигурационным файлом
     private final DiskFileItemFactory diskFactory;//фабрика для загрузки файла
     private String message;//сообщение для пользователя, которое отправляется в запрос
 
-    UploadFile() throws IOException {
-        logger = Logger.getLogger(UploadFile.class);
+    UploadFile_old() throws IOException {
+        logger = Logger.getLogger(UploadFile_old.class);
         configFile = new ConfigFile();
         diskFactory = new DiskFileItemFactory();
     }
@@ -90,7 +90,7 @@ class UploadFile {
                 logger.debug(configFile.getTempFolder().getAbsolutePath());
                 File createTempDirs = new File(configFile.getTempFolder().getAbsolutePath());
                 isCreateTempDirs = createTempDirs.mkdirs();
-                logger.debug("Создан временнный каталог приложени: " + configFile.getTempFolder().getAbsolutePath());
+                logger.debug("Создан временнный каталог приложения: " + configFile.getTempFolder().getAbsolutePath());
             }
             if (isCreateTempDirs) {
                 int maxMemSize = 0;//если файлы не привышают этого размера в МБ, то они записываются в ОЗУ

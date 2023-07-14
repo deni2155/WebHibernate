@@ -1,86 +1,70 @@
 package com.kindcat.archivemedo.filter;
 
+import com.kindcat.archivemedo.guides.SuperUploadGuides;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author dreamer
- * @version 11
+ * @version 1.0.0.15
  */
-@WebFilter(filterName = "UploadListGuidesFilter", urlPatterns = {"/uploadListGuidesFilter"})
+//@WebFilter(filterName = "UploadListGuidesFilter", urlPatterns = {"/uploadListGuidesFilter"})
 public class UploadListGuidesFilter implements Filter {
 
-    private static final boolean debug = true;
-
-    // The filter configuration object we are associated with.  If
-    // this value is null, this filter instance is not currently
-    // configured. 
-    private FilterConfig filterConfig = null;
+    private DiskFileItemFactory diskFactory;//фабрика для загрузки файла
+    private SuperUploadGuides superUploadGuides;//ссылка на класс для работы с файлом
+    private ServletFileUpload sFileUpload;//слушатель для загрузки файлов
+    private final Logger logger;//класс для логирования
+    private File tempFolder;//ссылка на временную папку
 
     public UploadListGuidesFilter() {
+        logger = Logger.getLogger(UploadListGuidesFilter.class);
     }
 
-    private void doBeforeProcessing(ServletRequest request, ServletResponse response)
-            throws IOException, ServletException {
-        if (debug) {
-            log("UploadListGuidesFilter:DoBeforeProcessing");
+    /**
+     * Init method for this filter
+     *
+     * @param filterConfig
+     */
+    @Override
+    public void init(FilterConfig filterConfig) {
+        logger.debug("Запущена инициализация фильтра");
+        if (filterConfig.getInitParameter("tempFolder") != null) {
+            tempFolder = new File(filterConfig.getInitParameter("tempFolder"));
+            logger.debug("Из конфигурационного файла \"web.xml\" получена ссылка на временную дирректорию приложения: " + tempFolder.getAbsolutePath());
+            superUploadGuides = new SuperUploadGuides();
+            if (superUploadGuides.getExistsTempFolder(tempFolder)) {
+                diskFactory = new DiskFileItemFactory();
+                diskFactory.setSizeThreshold(0);//если файлы не привышают этого размера в МБ, то они записываются в ОЗУ
+                diskFactory.setRepository(tempFolder);//устанавливает папку для хранения файлов
+                logger.debug("Создана фабрика DiskFileItemFactory для загрузки файла со списком участников МЭДО");
+                sFileUpload = new ServletFileUpload(diskFactory);
+                int maxFileSize = 50 * 1024 * 1024;//максимальный размер загружаемого файла 50 Мб.
+                sFileUpload.setSizeMax(maxFileSize);
+                logger.debug("Создан слушатель ServletFileUpload для загрузки файла со списком участников МЭДО");
+            } else {
+                logger.debug("Не удалось создать фабрику DiskFileItemFactory для загрузки файла со списком участников МЭДО\nзагрузка файлов невозможна");
+            }
+        } else {
+            logger.debug("Переменная \"tempFolder\" в конфигурационном файле \"web.xml\" содержит значение null. Переменная должна содержать ссылку на временную дирректорию приложения");
         }
-
-        // Write code here to process the request and/or response before
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log items on the request object,
-        // such as the parameters.
-        /*
-	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    String values[] = request.getParameterValues(name);
-	    int n = values.length;
-	    StringBuffer buf = new StringBuffer();
-	    buf.append(name);
-	    buf.append("=");
-	    for(int i=0; i < n; i++) {
-	        buf.append(values[i]);
-	        if (i < n-1)
-	            buf.append(",");
-	    }
-	    log(buf.toString());
-	}
-         */
-    }
-
-    private void doAfterProcessing(ServletRequest request, ServletResponse response)
-            throws IOException, ServletException {
-        if (debug) {
-            log("UploadListGuidesFilter:DoAfterProcessing");
-        }
-
-        // Write code here to process the request and/or response after
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log the attributes on the
-        // request object after the request has been processed. 
-        /*
-	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    Object value = request.getAttribute(name);
-	    log("attribute: " + name + "=" + value.toString());
-
-	}
-         */
-        // For example, a filter might append something to the response.
-        /*
-	PrintWriter respOut = new PrintWriter(response.getWriter());
-	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
-         */
     }
 
     /**
@@ -92,136 +76,76 @@ public class UploadListGuidesFilter implements Filter {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-            throws IOException, ServletException {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpSession session = httpRequest.getSession(false);
+        String message;
 
-        if (debug) {
-            log("UploadListGuidesFilter:doFilter()");
-        }
-
-        doBeforeProcessing(request, response);
-
-        Throwable problem = null;
-        try {
-            chain.doFilter(request, response);
-        } catch (Throwable t) {
-            // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
-
-        doAfterProcessing(request, response);
-
-        // If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
-        if (problem != null) {
-            if (problem instanceof ServletException) {
-                throw (ServletException) problem;
+        //проверяю, что есть запрос на загрузку файла
+        if (ServletFileUpload.isMultipartContent(httpRequest)) {
+            logger.debug("Получен запрос на загрузку файла со списком участников МЭДО");
+            try {
+                List<FileItem> multiparts = sFileUpload.parseRequest(httpRequest);
+                String fileName = null;
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {// проверяем, что это не обычное текстовое поле, а файл
+                        if (!FilenameUtils.getName(item.getName()).isEmpty()) {//проверяю наличие файла в отправленной форме
+                            fileName = FilenameUtils.getName(item.getName());//получаю имя файла 
+                            File pathFile = new File(tempFolder.getAbsolutePath(), fileName);//формирую путь к файлу на сервере
+                            item.write(pathFile);
+                        } else {
+                            logger.warn("Пользователь \"" + session.getAttribute("login") + "\" отправил форму без файла");
+                            message = "Добавьте файл для загрузки";
+                            httpRequest.setAttribute("message", message);
+                            httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+                            break;
+                        }
+                    }
+                }
+                if (fileName != null) {
+                    if (fileName.endsWith("csv")) {
+                        logger.info("На сервер загружен список участников МЭДО в формате csv");
+//запускаем обработку 
+                    } else {
+                        logger.info("На сервер загружен список участников МЭДО в не соответствующем формате");
+                        message = "Загружен файла не соответсвующего формата";
+                        httpRequest.setAttribute("message", message);
+                        httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+                    }
+                } else {
+                    logger.warn("Не удалось определить расширение файла, т.к. имя файла равно null");
+                }
+            } catch (FileUploadException ex) {
+                logger.error("При загрузки файла со списком участников МЭДО произошла программная ошибка", ex);
+                message = "При загрузки файла произошла программная ошибка\r\nСообщите о проблеме администратору";
+                httpRequest.setAttribute("message", message);
+                httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+//                message = "При загрузки файла произошла программная ошибка\nСообщите об ошибке администратору";
+            } catch (Exception ex) {
+                logger.error("При загрузки файла со списком участников МЭДО произошла программная ошибка", ex);
+                message = "При загрузки файла произошла программная ошибка\r\nСообщите о проблеме администратору";
+                httpRequest.setAttribute("message", message);
+                httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+//                message = "При загрузки файла произошла программная ошибка\nСообщите об ошибке администратору";
             }
-            if (problem instanceof IOException) {
-                throw (IOException) problem;
-            }
-            sendProcessingError(problem, response);
+        } else {
+            logger.warn("Получен не пустой запрос на зугрузку файл, но без файл");
+            message = "На сервер отправлен не корректный запрос\r\nСообщите о проблеме администратору";
+            httpRequest.setAttribute("message", message);
+            httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
         }
-    }
-
-    /**
-     * Return the filter configuration object for this filter.
-     */
-    public FilterConfig getFilterConfig() {
-        return (this.filterConfig);
-    }
-
-    /**
-     * Set the filter configuration object for this filter.
-     *
-     * @param filterConfig The filter configuration object
-     */
-    public void setFilterConfig(FilterConfig filterConfig) {
-        this.filterConfig = filterConfig;
     }
 
     /**
      * Destroy method for this filter
      */
-    public void destroy() {
-    }
-
-    /**
-     * Init method for this filter
-     */
-    public void init(FilterConfig filterConfig) {
-        this.filterConfig = filterConfig;
-        if (filterConfig != null) {
-            if (debug) {
-                log("UploadListGuidesFilter:Initializing filter");
-            }
-        }
-    }
-
-    /**
-     * Return a String representation of this object.
-     */
     @Override
-    public String toString() {
-        if (filterConfig == null) {
-            return ("UploadListGuidesFilter()");
-        }
-        StringBuffer sb = new StringBuffer("UploadListGuidesFilter(");
-        sb.append(filterConfig);
-        sb.append(")");
-        return (sb.toString());
+    public void destroy() {
+        tempFolder = null;
+        diskFactory = null;
+        sFileUpload = null;
+        logger.debug("Фильтр завершил работу");
     }
-
-    private void sendProcessingError(Throwable t, ServletResponse response) {
-        String stackTrace = getStackTrace(t);
-
-        if (stackTrace != null && !stackTrace.equals("")) {
-            try {
-                response.setContentType("text/html");
-                PrintStream ps = new PrintStream(response.getOutputStream());
-                PrintWriter pw = new PrintWriter(ps);
-                pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
-
-                // PENDING! Localize this for next official release
-                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
-                pw.print(stackTrace);
-                pw.print("</pre></body>\n</html>"); //NOI18N
-                pw.close();
-                ps.close();
-                response.getOutputStream().close();
-            } catch (Exception ex) {
-            }
-        } else {
-            try {
-                PrintStream ps = new PrintStream(response.getOutputStream());
-                t.printStackTrace(ps);
-                ps.close();
-                response.getOutputStream().close();
-            } catch (Exception ex) {
-            }
-        }
-    }
-
-    public static String getStackTrace(Throwable t) {
-        String stackTrace = null;
-        try {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            t.printStackTrace(pw);
-            pw.close();
-            sw.close();
-            stackTrace = sw.getBuffer().toString();
-        } catch (Exception ex) {
-        }
-        return stackTrace;
-    }
-
-    public void log(String msg) {
-        filterConfig.getServletContext().log(msg);
-    }
-
 }

@@ -5,6 +5,7 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/beans/SuperBeans.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/links/LinkDownloadGuidesServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/dao/ImplDao.java
+/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/filter/AddMemberForListGuisedFilter.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/beans/UsersBeans.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/models/Users.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/logger/LoggerForJsp.java
@@ -17,7 +18,6 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/config/ConfigFileImpl.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/context/ReinitializingContext.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/config/TempFolder.java
-/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/guides/UploadCsv.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/config/ConfigFile.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/signin/ExistsSessionFilter.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/filter/UploadListGuidesFilter.java

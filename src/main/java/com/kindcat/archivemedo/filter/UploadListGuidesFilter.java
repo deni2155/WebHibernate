@@ -47,8 +47,7 @@ public class UploadListGuidesFilter implements Filter {
         logger.debug("Запущена инициализация фильтра");
         if (filterConfig.getInitParameter("tempFolder") != null) {
             tempFolder = new File(filterConfig.getInitParameter("tempFolder"));
-            logger.debug("Из конфигурационного файла \"config.properties\" получена ссылка на временную дирректорию приложения: " + tempFolder.getAbsolutePath());
-            //superUploadGuides = new SuperUploadGuides();
+            logger.debug("Из конфигурационного файла \"web.xml\" получена ссылка на временную дирректорию приложения: " + tempFolder.getAbsolutePath());
             if (getExistsFolder(tempFolder)) {
                 diskFactory = new DiskFileItemFactory();
                 diskFactory.setSizeThreshold(0);//если файлы не привышают этого размера в МБ, то они записываются в ОЗУ

@@ -25,7 +25,7 @@ public class UploadFileServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception {
-        UploadFile_old uploadFile = new UploadFile_old();
+        UploadFile uploadFile = new UploadFile();
         uploadFile.distributingExtensionFile(request);
         request.setAttribute("message", uploadFile.getMessage());
         request.getRequestDispatcher("/pages/guides/resultDownloadGuides.jsp").forward(request, response);

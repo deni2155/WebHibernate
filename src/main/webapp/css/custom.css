@@ -372,3 +372,16 @@ color:#EDF8FF;
     margin-top:20px;
     color:#f00;
 }*/
+
+/*
+Подсветка для не валидных полей при заполнении на основе pattern
+*/
+.valid-input-type:invalid:not(:placeholder-shown) {
+    /*border: 2px dashed red;*/
+    border-color: red;
+}
+
+.valid-input-type:valid:not(:placeholder-shown) {
+ /*border: 2px solid black;*/
+    border-color: green;
+}

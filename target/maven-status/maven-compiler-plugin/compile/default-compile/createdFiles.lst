@@ -6,10 +6,8 @@ com/kindcat/archivemedo/links/LinkDownloadGuidesServlet.class
 com/kindcat/archivemedo/beans/SuperBeansImpl.class
 com/kindcat/archivemedo/context/var/VarsApp.class
 com/kindcat/archivemedo/filter/UploadListGuidesFilter.class
-com/kindcat/archivemedo/guides/SuperUploadGuides.class
 com/kindcat/archivemedo/config/TempFolder.class
 com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
-com/kindcat/archivemedo/guides/ExistsTempFolder.class
 com/kindcat/archivemedo/config/ConfigFile.class
 com/kindcat/archivemedo/guides/UploadCsv.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
@@ -20,7 +18,7 @@ com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/beans/SuperBeans.class
 com/kindcat/archivemedo/context/ReinitializingContext.class
 com/kindcat/archivemedo/signin/ExistsSessionFilter.class
-com/kindcat/archivemedo/guides/UploadFile_old.class
+com/kindcat/archivemedo/guides/UploadFile.class
 com/kindcat/archivemedo/beans/UsersBeans.class
 com/kindcat/archivemedo/logger/LoggerForJsp.class
 com/kindcat/archivemedo/db/dao/ImplDao.class

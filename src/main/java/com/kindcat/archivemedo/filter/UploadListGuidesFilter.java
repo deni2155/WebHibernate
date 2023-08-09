@@ -1,6 +1,5 @@
 package com.kindcat.archivemedo.filter;
 
-import com.kindcat.archivemedo.guides.SuperUploadGuides;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +28,7 @@ import org.apache.log4j.Logger;
 public class UploadListGuidesFilter implements Filter {
 
     private DiskFileItemFactory diskFactory;//фабрика для загрузки файла
-    private SuperUploadGuides superUploadGuides;//ссылка на класс для работы с файлом
+    //private SuperUploadGuides superUploadGuides;//ссылка на класс для работы с файлом
     private ServletFileUpload sFileUpload;//слушатель для загрузки файлов
     private final Logger logger;//класс для логирования
     private File tempFolder;//ссылка на временную папку
@@ -48,9 +47,9 @@ public class UploadListGuidesFilter implements Filter {
         logger.debug("Запущена инициализация фильтра");
         if (filterConfig.getInitParameter("tempFolder") != null) {
             tempFolder = new File(filterConfig.getInitParameter("tempFolder"));
-            logger.debug("Из конфигурационного файла \"web.xml\" получена ссылка на временную дирректорию приложения: " + tempFolder.getAbsolutePath());
-            superUploadGuides = new SuperUploadGuides();
-            if (superUploadGuides.getExistsTempFolder(tempFolder)) {
+            logger.debug("Из конфигурационного файла \"config.properties\" получена ссылка на временную дирректорию приложения: " + tempFolder.getAbsolutePath());
+            //superUploadGuides = new SuperUploadGuides();
+            if (getExistsFolder(tempFolder)) {
                 diskFactory = new DiskFileItemFactory();
                 diskFactory.setSizeThreshold(0);//если файлы не привышают этого размера в МБ, то они записываются в ОЗУ
                 diskFactory.setRepository(tempFolder);//устанавливает папку для хранения файлов
@@ -64,6 +63,19 @@ public class UploadListGuidesFilter implements Filter {
             }
         } else {
             logger.debug("Переменная \"tempFolder\" в конфигурационном файле \"web.xml\" содержит значение null. Переменная должна содержать ссылку на временную дирректорию приложения");
+        }
+    }
+
+    /**
+     * Проверка существования временного каталога для загрузки файлов
+     */
+    boolean getExistsFolder(File tempDir) {
+        if (!tempDir.exists()) {
+            logger.debug("Создан временнный каталог приложения: " + tempDir.getAbsolutePath());
+            return tempDir.mkdirs();
+        } else {
+            logger.debug("Найден временнный каталог приложения: " + tempDir.getAbsolutePath());
+            return true;
         }
     }
 

@@ -17,15 +17,15 @@ import org.apache.log4j.Logger;
 /**
  * Распределяет файлы по расширению
  */
-class UploadFile_old {
+class UploadFile {
 
     private final Logger logger;//класс для логирования
     private final ConfigFileImpl configFile;//класс для работы с конфигурационным файлом
     private final DiskFileItemFactory diskFactory;//фабрика для загрузки файла
     private String message;//сообщение для пользователя, которое отправляется в запрос
 
-    UploadFile_old() throws IOException {
-        logger = Logger.getLogger(UploadFile_old.class);
+    UploadFile() throws IOException {
+        logger = Logger.getLogger(UploadFile.class);
         configFile = new ConfigFile();
         diskFactory = new DiskFileItemFactory();
     }

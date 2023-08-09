@@ -28,6 +28,15 @@
                     <form>
                         <table class="table table-striped table-hover fs-6 table-bordered">
                             <thead>
+                                <tr>
+                                    <th scope="col" colspan="9">
+                                        <div class="col-12 text-center">
+                                            <button type="button" class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" data-bs-toggle="modal" data-bs-target="#addMedoParticipant">
+                                                Добавить участника
+                                            </button>
+                                        </div>
+                                    </th>
+                                </tr>
                                 <tr class="text-center">
                                     <th scope="col">#</th>
                                     <th scope="col">
@@ -102,5 +111,30 @@
         модальное окно
         -->
         <!--jsp:include page="templates/filedialog.jsp"/-->
+        <!-- Модальное окно -->
+        <div class="modal fade" id="addMedoParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addMedoParticipantLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form>
+                        <div class="modal-header">
+                            <h5 class="modal-title">Добавление нового участника МЭДО</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="nameOrgMemberListGuides" class="form-label">Наименование организации</label>
+                            <input type="text" class="form-control valid-input-type" id="nameOrgMemberListGuides" placeholder=" " pattern="[А-Яа-яЁё\s]+" required/>
+                            <label for="emailMemberListGuides" class="form-label">Адресат</label>
+                            <input type="text" class="form-control valid-input-type" id="emailMemberListGuides" placeholder=" " pattern="[A-Z~]+" required/>
+                            <label for="guidMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
+                            <input type="text" class="form-control valid-input-type" id="guidMemberListGuides" placeholder=" " pattern="[a-z0-9\-]+" required/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-custom">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

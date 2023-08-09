@@ -1,5 +1,21 @@
 /*
  * 
+ * меняет текст input type text на странице с формой загрузки файла на странице pages/guides/downloadGuides.jsp
+ * */
+/*
+$('#nameOrgMemberListGuides').on('input', function() {
+  // проверяем, содержит ли поле ввода меньше 4 символов
+  if ($(this).val().length < 4) {
+    // если да, то задаем соответствующее сообщение об ошибке
+    this.setCustomValidity('Введите не менее 4 символов');
+  } else {
+    // иначе, очищаем сообщение об ошибке
+    this.setCustomValidity('');
+  }
+});
+
+/*
+ * 
  * меняет текст input ytpe text на странице с формой загрузки файла на странице pages/guides/downloadGuides.jsp
  * 
  */

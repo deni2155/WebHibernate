@@ -1,7 +1,6 @@
 package com.kindcat.archivemedo.links;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ public class LinkDownloadGuidesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-request.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(request, response);
     }
 
     /**

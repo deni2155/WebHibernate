@@ -1,3 +1,7 @@
+<%@page import="com.kindcat.archivemedo.db.dao.SuperDao"%>
+<%@page import="com.kindcat.archivemedo.db.dao.ImplDao"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="com.kindcat.archivemedo.db.models.Members"%>
 <!--
 Страница со спчастников МЭДО
 -->
@@ -51,7 +55,7 @@
                                     </th>
                                     <th scope="col">											
                                         <div>
-                                            <label for="number_doc_doc" class="form-label">E-mail</label>
+                                            <label for="number_doc_doc" class="form-label">Адресат</label>
                                             <div class="input-group">
                                                 <button class="btn btn-custom btn-custom-sort" type="button">
                                                     <!--Иконка сортировки-->
@@ -83,30 +87,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>2.2</td>
-                                    <td>25</td>
-                                    <td>21.08.2022</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>2.7</td>
-                                    <td>26</td>
-                                    <td>30.12.2001</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>2.7.1</td>
-                                    <td>37</td>
-                                    <td>17.03.2023</td>
-                                </tr>
+                                <c:forEach var="listMembers" items="${listMembers}">
+                                    <tr>
+                                        <th scope="row">${listMembers.idMembers}</th-->
+                                        <td>${listMembers.nameOrg}</td>
+                                        <td>${listMembers.addr}</td>
+                                        <td>${listMembers.guid}</td>
+                                    </tr>
+                                </c:forEach>
+                                <!--tr>
+                                <!--th scope="row">1</th-->
+                                <!--td>2.2</td>
+                                <td>25</td>
+                                <td>21.08.2022</td>
+                            </tr-->
+                                <!--tr>
+                                <!--th scope="row">2</th-->
+                                <!--td>2.7</td>
+                                <td>26</td>
+                                <td>30.12.2001</td>
+                            </tr-->
+                                <!--tr>
+                                <!--th scope="row">3</th-->
+                                <!--td>2.7.1</td>
+                                <td>37</td>
+                                <td>17.03.2023</td>
+                            </tr-->
                             </tbody>
                         </table>
                     </form>
                 </div>
             </div>
         </div>
+
+
+
         <!--
         модальное окно
         -->
@@ -115,7 +130,7 @@
         <div class="modal fade" id="addMedoParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addMedoParticipantLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form>
+                    <form method="get" action="linkListMembersServlet">
                         <div class="modal-header">
                             <h5 class="modal-title">Добавление нового участника МЭДО</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>

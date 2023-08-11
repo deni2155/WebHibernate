@@ -1,5 +1,7 @@
 package com.kindcat.archivemedo.links;
 
+import com.kindcat.archivemedo.db.dao.ImplDao;
+import com.kindcat.archivemedo.db.dao.SuperDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author dreamer
- * @verion 1.0.0.10
-*переход на страницу со списком участников МЭДО
+ * @verion 1.0.0.10 переход на страницу со списком участников МЭДО
  */
-@WebServlet(name = "LinkListGuidesServlet", urlPatterns = {"/linkListGuidesServlet"})
-public class LinkListGuidesServlet extends HttpServlet {
+@WebServlet(name = "LinkListMembersServlet", urlPatterns = {"/linkListMembersServlet"})
+public class LinkListMembersServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -25,8 +26,9 @@ public class LinkListGuidesServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ImplDao superDao = new SuperDao();
+        request.setAttribute("listMembers", superDao.getListMembers());
         request.getRequestDispatcher("/pages/guides/listGuides.jsp").forward(request, response);
     }
 

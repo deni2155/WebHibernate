@@ -1,9 +1,6 @@
 package com.kindcat.archivemedo.context;
 
-import com.kindcat.archivemedo.context.var.VarsApp;
 import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
-import java.io.File;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.apache.log4j.Logger;

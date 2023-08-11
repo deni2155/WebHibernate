@@ -46,6 +46,7 @@ public class UploadListGuidesFilter implements Filter {
     public void init(FilterConfig filterConfig) {
         logger.debug("Запущена инициализация фильтра");
         if (filterConfig.getInitParameter("tempFolder") != null) {
+            //получаю путь к временному каталогу приложения из настроек для фильтра в файле web.xml 
             tempFolder = new File(filterConfig.getInitParameter("tempFolder"));
             logger.debug("Из конфигурационного файла \"web.xml\" получена ссылка на временную дирректорию приложения: " + tempFolder.getAbsolutePath());
             if (getExistsFolder(tempFolder)) {

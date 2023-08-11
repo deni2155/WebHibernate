@@ -19,8 +19,8 @@ COMMENT ON COLUMN public.accounts.id_account IS 'Идентификатор УЗ
 
 INSERT INTO public.accounts (login, hash, fname, id_account) VALUES('admin', '$2a$12$VvHg0jN6n5v7GAP6sZUMVOeRoxxBpXuwDUxJX/PWomnLIeF1xyLRG', 'Администрастор', 1);
 --Таблица с участниками МЭДО
-CREATE TABLE public.guides (
-	id_guid smallserial NOT NULL,
+CREATE TABLE public.members (
+	id_members smallserial NOT NULL,
 	name_org varchar(250) NULL,
 	guid varchar(40) NULL,
 	addressee varchar(50) NULL

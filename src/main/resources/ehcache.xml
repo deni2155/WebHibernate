@@ -52,4 +52,12 @@ overflowToDisk = "false"
     timeToLiveSeconds = "0"
     overflowToDisk = "false"
     />
+    
+    <cache name = "Members"
+    maxElementsInMemory = "200"
+    eternal = "false"
+    timeToIdleSeconds = "0"
+    timeToLiveSeconds = "30"
+    overflowToDisk = "false"
+    />
 </ehcache>

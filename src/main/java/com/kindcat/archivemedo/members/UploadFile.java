@@ -1,3 +1,5 @@
+package com.kindcat.archivemedo.members;
+
 //package com.kindcat.archivemedo.guides;
 //
 ////import com.kindcat.archivemedo.config.ConfigFile;

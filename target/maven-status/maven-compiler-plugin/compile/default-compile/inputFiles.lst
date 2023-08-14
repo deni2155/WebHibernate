@@ -1,4 +1,5 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/dao/MembersDao.java
+/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/members/DeleteMemberServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/context/var/VarsApp.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/members/UploadFile.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/logger/LoggerForJspImpl.java

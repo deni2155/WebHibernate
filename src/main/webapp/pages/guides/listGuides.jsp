@@ -29,93 +29,96 @@
             <div class="col-12 table-responsive">
                 <!--Документы-->
                 <div class="tab-pane fade show active" id="nav-docs" role="tabpanel" aria-labelledby="nav-docs-tab" tabindex="0">
-                    <form>
-                        <table class="table table-striped table-hover fs-6 table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col" colspan="9">
-                                        <div class="col-12 text-center">
-                                            <button type="button" class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" data-bs-toggle="modal" data-bs-target="#addMedoParticipant">
-                                                Добавить участника
-                                            </button>
-                                        </div>
-                                    </th>
-                                </tr>
-                                <tr class="text-center">
-                                    <th scope="col">#</th>
-                                    <th scope="col">
-                                        <label for="format" class="form-label">Имя пользователя</label>
+                    <!--form-->
+                    <table class="table fs-6 table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="9">
+                                    <div class="col-12 text-center">
+                                        <button type="button" class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" data-bs-toggle="modal" data-bs-target="#addMedoParticipant">
+                                            Добавить участника
+                                        </button>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="col">#</th>
+                                <th scope="col">
+                                    <label for="format" class="form-label">Имя пользователя</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-custom btn-custom-sort">
+                                            <!--Иконка сортировки-->
+                                            <img src=""/>
+                                        </button>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </th>
+                                <th scope="col">											
+                                    <div>
+                                        <label for="number_doc_doc" class="form-label">Адресат</label>
                                         <div class="input-group">
-                                            <button class="btn btn-custom btn-custom-sort">
+                                            <button class="btn btn-custom btn-custom-sort" type="button">
                                                 <!--Иконка сортировки-->
                                                 <img src=""/>
                                             </button>
                                             <input type="text" class="form-control">
                                         </div>
-                                    </th>
-                                    <th scope="col">											
-                                        <div>
-                                            <label for="number_doc_doc" class="form-label">Адресат</label>
-                                            <div class="input-group">
-                                                <button class="btn btn-custom btn-custom-sort" type="button">
-                                                    <!--Иконка сортировки-->
-                                                    <img src=""/>
-                                                </button>
-                                                <input type="text" class="form-control">
-                                            </div>
+                                    </div>
+                                </th>
+                                <th scope="col">											
+                                    <div>
+                                        <label for="number_doc_doc" class="form-label">GUID</label>
+                                        <div class="input-group">
+                                            <button class="btn btn-custom btn-custom-sort" type="button">
+                                                <!--Иконка сортировки-->
+                                                <img src=""/>
+                                            </button>
+                                            <input type="text" class="form-control" id="number_doc_doc">
                                         </div>
-                                    </th>
-                                    <th scope="col">											
-                                        <div>
-                                            <label for="number_doc_doc" class="form-label">GUID</label>
-                                            <div class="input-group">
-                                                <button class="btn btn-custom btn-custom-sort" type="button">
-                                                    <!--Иконка сортировки-->
-                                                    <img src=""/>
-                                                </button>
-                                                <input type="text" class="form-control" id="number_doc_doc">
-                                            </div>
-                                        </div>
-                                    </th>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="col" colspan="4">
+                                    <div class="col-12 text-center">
+                                        <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter">Найти</button>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="listMembers" items="${listMembers}">
+                                <tr>
+                                    <th scope="row">${listMembers.idMembers}</th>
+                                    <td>
+                                        <a data-bs-toggle="collapse" href="#member${listMembers.idMembers}" role="button" aria-expanded="false" aria-controls="member${listMembers.idMembers}" class="text-decoration-none">
+                                            ${listMembers.nameOrg}
+                                        </a>
+                                    </td>
+                                    <td>${listMembers.addr}</td>
+                                    <td>${listMembers.guid}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="col" colspan="9">
-                                        <div class="col-12 text-center">
-                                            <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter">Найти</button>
+                                    <td colspan="4">
+                                        <div class="collapse text-center" id="member${listMembers.idMembers}">
+                                            <div class="row align-items-center">
+                                                <div class="col text-end">
+                                                    <button class="btn btn-custom">Изменить</button>
+                                                </div>
+                                                <div class="col text-start">
+                                                    <form method="get">
+                                                        <input type="hidden" id="idMemberForDelete" value="${listMembers.idMembers}"/>
+                                                        <input type="submit" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="Удалить" id="eventForDeletemembers">
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </th>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="listMembers" items="${listMembers}">
-                                    <tr>
-                                        <th scope="row">${listMembers.idMembers}</th-->
-                                        <td>${listMembers.nameOrg}</td>
-                                        <td>${listMembers.addr}</td>
-                                        <td>${listMembers.guid}</td>
-                                    </tr>
-                                </c:forEach>
-                                <!--tr>
-                                <!--th scope="row">1</th-->
-                                <!--td>2.2</td>
-                                <td>25</td>
-                                <td>21.08.2022</td>
-                            </tr-->
-                                <!--tr>
-                                <!--th scope="row">2</th-->
-                                <!--td>2.7</td>
-                                <td>26</td>
-                                <td>30.12.2001</td>
-                            </tr-->
-                                <!--tr>
-                                <!--th scope="row">3</th-->
-                                <!--td>2.7.1</td>
-                                <td>37</td>
-                                <td>17.03.2023</td>
-                            </tr-->
-                            </tbody>
-                        </table>
-                    </form>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                    <!--/form-->
                 </div>
             </div>
         </div>
@@ -123,7 +126,7 @@
 
 
         <!--
-        модальное окно
+        модальное окно для добавления нового участника МЭДО
         -->
         <!--jsp:include page="templates/filedialog.jsp"/-->
         <!-- Модальное окно -->
@@ -148,6 +151,28 @@
                             <button type="submit" class="btn btn-custom">Сохранить</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!--
+        Модальное окно для подтверждения удаления участника МЭДО
+        -->
+        <!-- Модальное окно -->
+        <div class="modal fade" id="deleteParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteParticipantLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteParticipantLabel">Удаление участника МЭДО</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        Вы действительно хотите удалить участника МЭДО
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary">Oк</button>
+                    </div>
                 </div>
             </div>
         </div>

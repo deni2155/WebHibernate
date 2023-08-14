@@ -23,11 +23,15 @@ class MembersDao {
         logger = Logger.getLogger(MembersDao.class);
     }
 
+    /**
+     * Получение списка участников МЭДО без выборки
+     */
     List<Members> getMembersFindAll() {
+        List<Members> members = null;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "from Members";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
-            List<Members> members = query.list();
+            members = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
 //            query.setFirstResult(41);
 //            query.setMaxResults(20);
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
@@ -35,14 +39,19 @@ class MembersDao {
             transaction.commit();
             session.close();
             logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
-            return members;
+        } catch (HibernateException ex) {
+            logger.fatal("При открытии сессии для подключения к БД и получении списка участников МЭДО произошла программная ошибка", ex);
         }
-//        } catch (HibernateException ex) {
-//            logger.fatal("При открытии сессии для подключения к БД и получении списка участников МЭДО произошла программная ошибка", ex);
-//        }
+        return members;
     }
-//    List<Members> MembersFindAll() {
-//        List<Members> members = (List<Members>)  SessionFactoryUtil.getSessionFactory().openSession().createQuery("from Members").list();
-//        return members;
-//    }
+
+    /**
+     * Получение данных о пользователе по id
+     *
+     * @param id - процедура получает идентификатор участника МЭДО
+     * @return возвращает информацию об участнике
+     */
+    Members findById(int id) {
+        return SessionFactoryUtil.getSessionFactory().openSession().find(Members.class, id);
+    }
 }

@@ -49,4 +49,15 @@ public class SuperDao implements ImplDao {
     public List<Members> getListMembers() {
         return membersDao.getMembersFindAll();
     }
+
+    /**
+     * Поиск участника МЭДО по идентифкатору
+     *
+     * @param id идентификатор участника
+     * @return - информация об участнике
+     */
+    @Override
+    public Members findMemberById(int id) {
+        return membersDao.findById(id);
+    }
 }

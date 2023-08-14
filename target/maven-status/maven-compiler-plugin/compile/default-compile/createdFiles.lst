@@ -4,6 +4,10 @@ com/kindcat/archivemedo/members/AddMemberForListMembersServlet.class
 com/kindcat/archivemedo/links/LinkHomeServlet.class
 com/kindcat/archivemedo/config/PathConfig.class
 com/kindcat/archivemedo/links/LinkDownloadGuidesServlet.class
+com/kindcat/archivemedo/filter/UploadListGuidesFilter.class
+com/kindcat/archivemedo/config/TempFolder.class
+com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
+com/kindcat/archivemedo/members/DeleteMemberServlet.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
 com/kindcat/archivemedo/logger/LoggerForJspImpl.class
 com/kindcat/archivemedo/db/models/Users.class
@@ -11,10 +15,7 @@ com/kindcat/archivemedo/links/LinkListMembersServlet.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/context/ReinitializingContext.class
 com/kindcat/archivemedo/signin/ExistsSessionFilter.class
-com/kindcat/archivemedo/filter/UploadListGuidesFilter.class
 com/kindcat/archivemedo/logger/LoggerForJsp.class
 com/kindcat/archivemedo/db/dao/ImplDao.class
 com/kindcat/archivemedo/db/models/Members.class
-com/kindcat/archivemedo/config/TempFolder.class
-com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
 com/kindcat/archivemedo/db/dao/SuperDao.class

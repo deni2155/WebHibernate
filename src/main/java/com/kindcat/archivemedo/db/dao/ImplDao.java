@@ -11,4 +11,6 @@ public interface ImplDao {
     public int findUserInLoginByLogin(String login);
 
     public List<Members> getListMembers();
+
+    public Members findMemberById(int id);
 }

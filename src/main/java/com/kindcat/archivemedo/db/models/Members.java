@@ -22,7 +22,7 @@ public class Members {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_member")
-    private int idMembers;
+    private Short idMembers;
 
     @Column(name = "name_org")
     private String nameOrg;
@@ -33,11 +33,11 @@ public class Members {
     @Column(name = "addressee")
     private String addr;
 
-    public int getIdMembers() {
+    public Short getIdMembers() {
         return idMembers;
     }
 
-    public void setIdMembers(int idMembers) {
+    public void setIdMembers(Short idMembers) {
         this.idMembers = idMembers;
     }
 

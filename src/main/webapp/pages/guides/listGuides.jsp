@@ -30,19 +30,15 @@
                 <!--Документы-->
                 <div class="tab-pane fade show active" id="nav-docs" role="tabpanel" aria-labelledby="nav-docs-tab" tabindex="0">
                     <!--form-->
-                    <table class="table fs-6 table-bordered">
+                    <table class="table table-striped table-hover align-middle fs-6">
                         <thead>
-                            <tr>
-                                <th scope="col" colspan="9">
-                                    <div class="col-12 text-center">
-                                        <button type="button" class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" data-bs-toggle="modal" data-bs-target="#addMedoParticipant">
-                                            Добавить участника
-                                        </button>
-                                    </div>
-                                </th>
-                            </tr>
                             <tr class="text-center">
-                                <th scope="col">#</th>
+                                <th scope="col">
+                                    <button class="btn btn-custom btn-custom-add-row" data-bs-toggle="modal" data-bs-target="#addMedoParticipant">
+                                        <!--Иконка добавления участника МЭДО-->
+                                        <img src="" title="Добавить запись"/>
+                                    </button>
+                                </th>
                                 <th scope="col">
                                     <label for="format" class="form-label">Имя пользователя</label>
                                     <div class="input-group">
@@ -77,11 +73,12 @@
                                         </div>
                                     </div>
                                 </th>
-                            </tr>
-                            <tr>
-                                <th scope="col" colspan="4">
-                                    <div class="col-12 text-center">
-                                        <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter">Найти</button>
+                                <th scope="col" class="ms-0 me-0 text-center">											
+                                    <div class="input-group">
+                                        <button class="btn btn-custom btn-custom-search" type="button">
+                                            <!--Иконка поиска-->
+                                            <img src=""/>
+                                        </button>
                                     </div>
                                 </th>
                             </tr>
@@ -89,30 +86,17 @@
                         <tbody>
                             <c:forEach var="listMembers" items="${listMembers}">
                                 <tr>
-                                    <th scope="row">${listMembers.idMembers}</th>
-                                    <td>
-                                        <a data-bs-toggle="collapse" href="#member${listMembers.idMembers}" role="button" aria-expanded="false" aria-controls="member${listMembers.idMembers}" class="text-decoration-none">
-                                            ${listMembers.nameOrg}
-                                        </a>
-                                    </td>
+                                    <th scope="row" class="text-center">${listMembers.idMembers}</th>
+                                    <td>${listMembers.nameOrg}</td>
                                     <td>${listMembers.addr}</td>
                                     <td>${listMembers.guid}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="collapse text-center" id="member${listMembers.idMembers}">
-                                            <div class="row align-items-center">
-                                                <div class="col text-end">
-                                                    <button class="btn btn-custom">Изменить</button>
-                                                </div>
-                                                <div class="col text-start">
-                                                    <form method="get">
-                                                        <input type="hidden" id="idMemberForDelete" value="${listMembers.idMembers}"/>
-                                                        <input type="submit" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="Удалить" id="eventForDeletemembers">
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <td>
+                                        <a href="#" class="btn-custom-update-row text-decoration-none text-reset">
+                                            <img src="" title="Редактировать"/>
+                                        </a>
+                                        <a href="#" class="btn-custom-delete-row text-decoration-none text-reset">
+                                            <img src="" title="Удалить"/>
+                                        </a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -133,18 +117,18 @@
         <div class="modal fade" id="addMedoParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addMedoParticipantLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form method="get" action="linkListMembersServlet">
+                    <form action="addMemberForListMembersServlet" method="get">
                         <div class="modal-header">
                             <h5 class="modal-title">Добавление нового участника МЭДО</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                         </div>
                         <div class="modal-body">
                             <label for="nameOrgMemberListGuides" class="form-label">Наименование организации</label>
-                            <input type="text" class="form-control valid-input-type" id="nameOrgMemberListGuides" placeholder=" " pattern="[А-Яа-яЁё\s]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="nameOrgMemberListGuides" id="nameOrgMemberListGuides" placeholder=" " pattern="[А-Яа-яЁё\s]+" required/>
                             <label for="emailMemberListGuides" class="form-label">Адресат</label>
-                            <input type="text" class="form-control valid-input-type" id="emailMemberListGuides" placeholder=" " pattern="[A-Z~]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="emailMemberListGuides" id="emailMemberListGuides" placeholder=" " pattern="[A-Z~_]+" required/>
                             <label for="guidMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
-                            <input type="text" class="form-control valid-input-type" id="guidMemberListGuides" placeholder=" " pattern="[a-z0-9\-]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="guidMemberListGuides" id="guidMemberListGuides" placeholder=" " pattern="[a-z0-9\-]+" required/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>

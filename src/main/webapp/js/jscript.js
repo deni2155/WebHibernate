@@ -16,7 +16,7 @@ $('#nameOrgMemberListGuides').on('input', function() {
 
 /*
  * 
- * меняет текст input ytpe text на странице с формой загрузки файла на странице pages/guides/downloadGuides.jsp
+ * меняет текст input type text на странице с формой загрузки файла на странице pages/guides/downloadGuides.jsp
  * 
  */
 $(document).ready(function () {

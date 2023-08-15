@@ -2,6 +2,7 @@ body{
     /*background-color: #3e92cc;*/
     background-color:#9fc3e7;
 }
+
 /*
 
 Общий дизайн кнопок в таблице
@@ -15,6 +16,46 @@ body{
 .btn-custom:hover{
     background-color:#133457;
     color:#EDF8FF;
+}
+
+/*
+кнопка поиска
+*/
+.btn-custom-search img{
+    content:url(../icon/search.png);
+}
+
+/*
+кнопка сортировки
+*/
+.btn-custom-sort img{
+    content:url(../icon/sort.png);
+}
+/*
+кнопка добавления записи в таблицу
+*/
+.btn-custom-add-row img{
+    content: url(../icon/add-row-table.png);
+}
+/*
+редактировать участника МЭДО
+*/
+.btn-custom-update-row img{
+    content:url(../icon/update-row-table.png);
+}
+
+.btn-custom-update-row:hover img{
+    content:url(../icon/update-row-table_hover.png);
+}
+/*
+Удаление участника МЭДО
+*/
+.btn-custom-delete-row img{
+    content:url(../icon/delete-row-table.png);
+}
+
+.btn-custom-delete-row:hover img{
+    content:url(../icon/delete-row-table_hover.png);
 }
 
 /*
@@ -38,6 +79,19 @@ body{
 }
 
 /*
+
+
+Иконки
+
+
+*/
+#div-login{
+    background:#275996;
+}
+#div-password{
+    background:#275996;
+}
+/*
 иконка домой
 */
 .icon-home {
@@ -46,8 +100,8 @@ body{
 
 .icon-home img {
     content: url(../icon/home.png);
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
 }
 
 .icon-home:hover img {
@@ -291,59 +345,6 @@ body{
     margin-left:-135px;
 }
 
-/*
-Дизайн кнопки на странице авторизации
-*/
-/*
-.btn-custom-signin{
-  /*background-color: #0B2E59;*/
-/*background-color:#275996;
-color:#EDF8FF;
-}
-.btn-custom-signin:hover{
-/*background-color: #3E92CC;*/
-/*background-color:#728CA6;
-color:#EDF8FF;
-}*/
-
-/*
-
-Кнопки в таблице
-
-*/
-/*
-Дизвайн кнопок для сортировки
-*/
-/*.btn-custom-sort{*/
-/*background-color:#F7F9F9;
-}*/
-/*
-.btn-custom-sort:hover{
-  background-color: #0b2e59;
-}*/
-
-/*.btn-custom-sort:hover img{
-  content: url(../icon/sort_hover.png);*/
-/*background-color: #0b2e59;*/
-/*}
-/*
-Кнопка найти, загрузить список участников
-*/
-/*
-.btn-custom-search{
-  color:#0B2E59;
-  background-color:#F7F9F9;
-}*/
-/*иконка кнопки сортировки*/
-.btn-custom-sort img{
-    content:url(../icon/sort.png);
-}
-/*
-.btn-custom-search:hover{
-  color:#edf8ff;
-  background-color: #0b2e59;
-  /*background-color:#204763;
-}*/
 
 /*
 
@@ -356,22 +357,6 @@ color:#EDF8FF;
 #file-input-guides{
     display:none;
 }
-/*.file-upload-guides label {*/
-    /*cursor:pointer;*/
-    /*border-radius:3px;*/
-    /*padding:10px 25px;*/
-     /*   background-color:#275996;
-    font-weight:bold;
-    text-align: center;*/
-/*}*/
-/*.file-upload-guides label:hover {
-    background-color:#133457;
-    color:#EDF8FF; 
-}*/
-/*#file-name-guides {
-    margin-top:20px;
-    color:#f00;
-}*/
 
 /*
 Подсветка для не валидных полей при заполнении на основе pattern
@@ -382,6 +367,6 @@ color:#EDF8FF;
 }
 
 .valid-input-type:valid:not(:placeholder-shown) {
- /*border: 2px solid black;*/
+    /*border: 2px solid black;*/
     border-color: green;
 }

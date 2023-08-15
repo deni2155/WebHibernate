@@ -60,4 +60,17 @@ public class SuperDao implements ImplDao {
     public Members findMemberById(int id) {
         return membersDao.findById(id);
     }
+
+    /**
+     * Добавление участника МЭДО
+     *
+     * @param nameOrg - наименование организации
+     * @param email
+     * @param guid - идентификатор участника
+     * @return успешно добавлен участник или нет
+     */
+    @Override
+    public boolean addNewMember(String nameOrg, String email, String guid) {
+        return membersDao.addMember(nameOrg, email, guid);
+    }
 }

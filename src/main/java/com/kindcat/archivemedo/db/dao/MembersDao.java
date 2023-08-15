@@ -54,4 +54,30 @@ class MembersDao {
     Members findById(int id) {
         return SessionFactoryUtil.getSessionFactory().openSession().find(Members.class, id);
     }
+
+    /**
+     * Добавление участника МЭДО
+     *
+     * @param nameOrg - наименование организации
+     * @param email - email участника
+     * @param guid - идентификатор участника
+     * @return boolean - успешно или не успешно добавлен
+     */
+    boolean addMember(String nameOrg, String email, String guid) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Members members = new Members();
+            members.setNameOrg(nameOrg);
+            members.setAddr(email);
+            members.setGuid(guid);
+            Transaction transaction = session.beginTransaction();
+            session.persist(members);
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для добавления нового участника МЭДО");
+            return true;
+        } catch (HibernateException ex) {
+            logger.fatal("При добавлении нового участника МЭДО произошла программная ошибка", ex);
+            return false;
+        }
+    }
 }

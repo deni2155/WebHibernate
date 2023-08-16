@@ -21,8 +21,7 @@ public class SuperDao implements ImplDao {
     /**
      * Конструктор класса
      */
-    public SuperDao() {
-    }
+    public SuperDao() {}
 
     /**
      * @param id - процедура получает идентификатор УЗ пользователя

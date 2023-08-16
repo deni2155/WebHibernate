@@ -10,7 +10,7 @@
 <div class="row custom-row-header fw-bold">
     <div class="col-1 text-start">
         <div class="icon-home">
-            <a href="linkHomeServlet" class="btn custom-link-hover" title="Главная страница">
+            <a href="linkArchiveServlet" class="btn custom-link-hover" title="Главная страница">
                 <!--иконка домой-->
                 <img src=""/>
             </a>

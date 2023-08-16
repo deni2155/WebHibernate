@@ -31,9 +31,9 @@ public class AddMemberServlet extends HttpServlet {
 //        response.setContentType("text/html;charset=UTF-8");
         ImplDao superDao = new SuperDao();
         if (request.getParameter("nameOrgMemberListGuides") != null && request.getParameter("emailMemberListGuides") != null && request.getParameter("guidMemberListGuides") != null) {
-            String orgName = request.getParameter("nameOrgMemberListGuides");
-            String orgEmail = request.getParameter("emailMemberListGuides");
-            String orgGuid = request.getParameter("guidMemberListGuides");
+            String orgName = request.getParameter("nameOrgAddMember");
+            String orgEmail = request.getParameter("emailAddMemberList");
+            String orgGuid = request.getParameter("guidAddMember");
             //соответствует ли полученная от пользователя информация регулярным вырабжения строки
             boolean verificationRegx = true;
             //если хотя бы одна строка не соответствует регулярному выражения, то проверка не выполнится

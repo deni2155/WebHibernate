@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author dreamer
  * @version 1.0.0.10 переход по ссылке на страницу со списком пакетов МЭДО
  */
-@WebServlet(name = "LinkHomeServlet", urlPatterns = {"/linkHomeServlet"})
-public class LinkHomeServlet extends HttpServlet {
+@WebServlet(name = "LinkArchiveServlet", urlPatterns = {"/linkArchiveServlet"})
+public class LinkArchiveServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

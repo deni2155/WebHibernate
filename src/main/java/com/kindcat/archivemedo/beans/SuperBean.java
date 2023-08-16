@@ -1,6 +1,45 @@
-//package com.kindcat.archivemedo.beans;
-//
-//public class SuperBeans implements SuperBeansImpl {
+package com.kindcat.archivemedo.beans;
+
+public class SuperBean implements SuperBeanImpl {
+
+    /*
+
+
+Участники МЭДО
+
+
+     */
+    MembersBean memberBean = new MembersBean();
+
+    @Override
+    public String getBeanNameOrg() {
+        return memberBean.getNameOrg();
+    }
+
+    @Override
+    public void setBeanNameOrg(String nameOrg) {
+        memberBean.setNameOrg(nameOrg);
+    }
+
+    @Override
+    public String getBeanEmailOrg() {
+        return memberBean.getEmailOrg();
+    }
+
+    @Override
+    public void setBeanEmailOrg(String emailOrg) {
+        memberBean.setEmailOrg(emailOrg);
+    }
+
+    @Override
+    public String getBeanGuidOrg() {
+        return memberBean.getGuidOrg();
+    }
+
+    @Override
+    public void setBeanGuidOrg(String guidOrg) {
+        memberBean.setGuidOrg(guidOrg);
+    }
 //
 //    UsersBeans userBeans = new UsersBeans();//ссылка на бины УЗ пользователя
 //
@@ -72,4 +111,4 @@
 //    public void setUserBeansFName(String beansFName) {
 //        userBeans.setBeansFName(beansFName);
 //    }
-//}
+}

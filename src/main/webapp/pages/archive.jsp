@@ -1,4 +1,3 @@
-<%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--
 Таблица со списком пакетов

@@ -118,7 +118,7 @@ public class ExistsSessionFilter implements Filter {
                         session.setAttribute("login", login);
                         session.setAttribute("idUser", idUser);
                         session.setAttribute("fName", userDao.findUserById(idUser).getFullName());
-                        httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
+                        httpRequest.getRequestDispatcher("linkArchiveServlet").forward(httpRequest, httpResponse);
                     } else {
                         logger.debug("Пользователь \"" + login + "\" ввёл не верный пароль");
                         httpRequest.setAttribute("message", "Не верный пароль");

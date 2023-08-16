@@ -1,6 +1,24 @@
-//package com.kindcat.archivemedo.beans;
-//
-//public interface SuperBeansImpl {
+package com.kindcat.archivemedo.beans;
+
+public interface SuperBeanImpl {
+/*
+
+
+Участники МЭДО
+
+
+*/
+    public String getBeanNameOrg();
+
+    public void setBeanNameOrg(String nameOrg);
+
+    public String getBeanEmailOrg();
+
+    public void setBeanEmailOrg(String emailOrg);
+
+    public String getBeanGuidOrg();
+
+    public void setBeanGuidOrg(String guidOrg);
 //
 //    /**
 //     *
@@ -30,4 +48,4 @@
 //    public String getUserBeansFName();
 //
 //    public void setUserBeansFName(String beansFName);
-//}
+}

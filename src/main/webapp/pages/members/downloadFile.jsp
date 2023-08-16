@@ -24,7 +24,7 @@
                     Загрузка файла со списком участников МЭДО
                 </div>
                 <div class="pt-2">
-                    <form action="uploadListGuidesFilter" method="post" enctype="multipart/form-data">
+                    <form action="uploadListMembersFilter" method="post" enctype="multipart/form-data">
                         <!--div class="file-upload-guides"-->
                         <label class="btn btn-primary text-center fw-bolder">
                             <input type="file" id="file-input-guides" name="file" accept=".csv"/>

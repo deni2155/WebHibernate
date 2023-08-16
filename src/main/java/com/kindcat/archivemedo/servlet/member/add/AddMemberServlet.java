@@ -1,4 +1,4 @@
-package com.kindcat.archivemedo.members;
+package com.kindcat.archivemedo.servlet.member.add;
 
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
  * @author dreamer
  * @version 1.0.0.1 класс для добавления участников МЭДО
  */
-@WebServlet(name = "AddMemberForListMembersServlet", urlPatterns = {"/addMemberForListMembersServlet"})
-public class AddMemberForListMembersServlet extends HttpServlet {
+@WebServlet(name = "AddMemberServlet", urlPatterns = {"/addMemberServlet"})
+public class AddMemberServlet extends HttpServlet {
 
     /**
      * @param request servlet request
@@ -25,7 +25,7 @@ public class AddMemberForListMembersServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Logger logger = Logger.getLogger(AddMemberForListMembersServlet.class);
+        Logger logger = Logger.getLogger(AddMemberServlet.class);
 //        StringBuilder stringBuilder = new StringBuilder();
 //        HttpSession session = request.getSession(false);//получаю текущую сессию
 //        response.setContentType("text/html;charset=UTF-8");
@@ -37,7 +37,7 @@ public class AddMemberForListMembersServlet extends HttpServlet {
             //соответствует ли полученная от пользователя информация регулярным вырабжения строки
             boolean verificationRegx = true;
             //если хотя бы одна строка не соответствует регулярному выражения, то проверка не выполнится
-            if (!orgName.matches("^[а-яА-Я\\s]+$")) {
+            if (!orgName.matches("^[а-яА-Я\\s()]+$")) {
                 logger.debug("Не прошла валидация имени организации");
                 verificationRegx = false;
             }
@@ -52,7 +52,7 @@ public class AddMemberForListMembersServlet extends HttpServlet {
             //если значение переменных соответствует регулярным выражениям
             if (verificationRegx == true) {
                 if (superDao.addNewMember(orgName, orgEmail, orgGuid)) {
-                    logger.debug("Добавлен новый участника МЭДО с идентификатором"+orgGuid);
+                    logger.debug("Добавлен новый участника МЭДО с идентификатором "+orgGuid);
                 }
                 //значение переменных не соответствует регулярным выражениям
             } else {

@@ -27,12 +27,12 @@
                     <p class="fst-italic pt-2">${message}</p>
                 </div>
                 <div class="pt-2">
-                    <a href="linkDownloadGuidesServlet" class="form-control btn btn-custom mt-3 mb-3">Загрузка файла</a>
+                    <a href="linkDownloadMembersesServlet" class="form-control btn btn-custom mt-3 mb-3">Загрузка файла</a>
                 </div>
                 <div class="pt-2">
                     <div class="pb-4">
                         <a href="linkHomeServlet" class="btn btn-secondary col-5">На главную</a>
-                        <a href="linkListGuidesServlet" class="btn btn-secondary col-5">Участники МЭДО</a>
+                        <a href="linkListMembersServlet" class="btn btn-secondary col-5">Участники МЭДО</a>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-package com.kindcat.archivemedo.filter;
+package com.kindcat.archivemedo.filter.members.upload;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,10 +22,10 @@ import org.apache.log4j.Logger;
 /**
  *
  * @author dreamer
- * @version 1.0.0.15
+ * @version 1.0.0.15 Класс для загрузки файлов на сервер и дальнейшей загрузки
+ * списка участников МЭДО из файла в БД
  */
-//@WebFilter(filterName = "UploadListGuidesFilter", urlPatterns = {"/uploadListGuidesFilter"})
-public class UploadListGuidesFilter implements Filter {
+public class UploadListMembersFilter implements Filter {
 
     private DiskFileItemFactory diskFactory;//фабрика для загрузки файла
     //private SuperUploadGuides superUploadGuides;//ссылка на класс для работы с файлом
@@ -33,8 +33,8 @@ public class UploadListGuidesFilter implements Filter {
     private final Logger logger;//класс для логирования
     private File tempFolder;//ссылка на временную папку
 
-    public UploadListGuidesFilter() {
-        logger = Logger.getLogger(UploadListGuidesFilter.class);
+    public UploadListMembersFilter() {
+        logger = Logger.getLogger(UploadListMembersFilter.class);
     }
 
     /**
@@ -111,7 +111,7 @@ public class UploadListGuidesFilter implements Filter {
                             logger.warn("Пользователь \"" + session.getAttribute("login") + "\" отправил форму без файла");
                             message = "Добавьте файл для загрузки";
                             httpRequest.setAttribute("message", message);
-                            httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+                            httpRequest.getRequestDispatcher("/linkDownloadMembersServlet").forward(httpRequest, httpResponse);
                             break;
                         }
                     }
@@ -124,7 +124,7 @@ public class UploadListGuidesFilter implements Filter {
                         logger.info("На сервер загружен список участников МЭДО в не соответствующем формате");
                         message = "Загружен файла не соответсвующего формата";
                         httpRequest.setAttribute("message", message);
-                        httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+                        httpRequest.getRequestDispatcher("/linkDownloadMembersServlet").forward(httpRequest, httpResponse);
                     }
                 } else {
                     logger.warn("Не удалось определить расширение файла, т.к. имя файла равно null");
@@ -133,20 +133,21 @@ public class UploadListGuidesFilter implements Filter {
                 logger.error("При загрузки файла со списком участников МЭДО произошла программная ошибка", ex);
                 message = "При загрузки файла произошла программная ошибка\r\nСообщите о проблеме администратору";
                 httpRequest.setAttribute("message", message);
-                httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+                httpRequest.getRequestDispatcher("/linkDownloadMembersServlet").forward(httpRequest, httpResponse);
 //                message = "При загрузки файла произошла программная ошибка\nСообщите об ошибке администратору";
             } catch (Exception ex) {
                 logger.error("При загрузки файла со списком участников МЭДО произошла программная ошибка", ex);
                 message = "При загрузки файла произошла программная ошибка\r\nСообщите о проблеме администратору";
                 httpRequest.setAttribute("message", message);
-                httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+                httpRequest.getRequestDispatcher("/linkDownloadMembersServlet").forward(httpRequest, httpResponse);
 //                message = "При загрузки файла произошла программная ошибка\nСообщите об ошибке администратору";
             }
         } else {
             logger.warn("Получен не пустой запрос на зугрузку файл, но без файл");
             message = "На сервер отправлен не корректный запрос\r\nСообщите о проблеме администратору";
             httpRequest.setAttribute("message", message);
-            httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+            //httpRequest.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(httpRequest, httpResponse);
+            httpRequest.getRequestDispatcher("/linkDownloadMembersServlet").forward(httpRequest, httpResponse);
         }
     }
 

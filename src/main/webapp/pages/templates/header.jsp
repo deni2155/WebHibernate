@@ -48,7 +48,7 @@
                     <div class="dropdown-content-sublevel-setting">
                         <a href="#">Скачать</a>
                         <!--a href="#" data-bs-toggle="modal" data-bs-target="#modal-win-download-listguides">Загрузить</a-->
-                        <a href="linkDownloadGuidesServlet">Загрузить</a>
+                        <a href="linkDownloadMembersServlet">Загрузить</a>
                     </div>
                 </div>
                 <a href="#">Настройки</a>

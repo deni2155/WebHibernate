@@ -12,21 +12,19 @@
     -->
     <filter>
         <filter-name>existsSessionFilter</filter-name>
-        <filter-class>com.kindcat.archivemedo.signin.ExistsSessionFilter</filter-class>
+        <filter-class>com.kindcat.archivemedo.filter.signin.ExistsSessionFilter</filter-class>
     </filter>
     <!--
 Фильтр загрузки файлов
     -->
     <filter>
-        <filter-name>uploadListGuidesFilter</filter-name>
-        <filter-class>com.kindcat.archivemedo.filter.UploadListGuidesFilter</filter-class>
+        <filter-name>uploadListMembersFilter</filter-name>
+        <filter-class>com.kindcat.archivemedo.filter.members.upload.UploadListMembersFilter</filter-class>
         <init-param>
             <param-name>tempFolder</param-name>
             <param-value>/var/tmp/appmedo</param-value>
         </init-param>
     </filter>
-    
-    
     <!--
 Фильтр кодировки
     -->
@@ -41,14 +39,13 @@
         <filter-name>existsSessionFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-        <!--
+    <!--
 Фильтр загрузки файлов
     -->
     <filter-mapping>
-        <filter-name>uploadListGuidesFilter</filter-name>
-        <url-pattern>/uploadListGuidesFilter</url-pattern>
+        <filter-name>uploadListMembersFilter</filter-name>
+        <url-pattern>/uploadListMembersFilter</url-pattern>
     </filter-mapping>
-    
     <!--
 Логирование
     -->

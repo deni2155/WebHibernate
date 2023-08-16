@@ -1,4 +1,4 @@
-package com.kindcat.archivemedo.links;
+package com.kindcat.archivemedo.servlet.links.member.file;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0.0.10 переход по ссылке для открытия страницы для загрузки списка
  * участников МЭДО из файла
  */
-@WebServlet(name = "LinkDownloadGuidesServlet", urlPatterns = {"/linkDownloadGuidesServlet"})
-public class LinkDownloadGuidesServlet extends HttpServlet {
+@WebServlet(name = "LinkDownloadMembersServlet", urlPatterns = {"/linkDownloadMembersServlet"})
+public class LinkDownloadMembersServlet extends HttpServlet {
 
     /**
      *
@@ -25,7 +25,7 @@ public class LinkDownloadGuidesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/pages/guides/downloadGuides.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/members/downloadFile.jsp").forward(request, response);
     }
 
     /**

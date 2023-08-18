@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  * @version 1.0.0.23 Выполняет фильтрацию полей при добавлении, редактировании и
  * удалении участников МЭДО
  */
-@WebFilter(filterName = "linkListMembersServlet", urlPatterns = {"/linkListMembersServlet"})
+//@WebFilter(filterName = "linkListMembersServlet", urlPatterns = {"/linkListMembersServlet"})
 public class AddUpdateDeleteMemberFilter implements Filter {
 
     private final Logger logger;

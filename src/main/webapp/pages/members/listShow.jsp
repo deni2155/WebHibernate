@@ -1,11 +1,8 @@
-<%@page import="com.kindcat.archivemedo.db.dao.SuperDao"%>
-<%@page import="com.kindcat.archivemedo.db.dao.ImplDao"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="com.kindcat.archivemedo.db.models.Members"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!--
 Страница со спчастников МЭДО
 -->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -13,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.js"></script>
+        <script src="js/ajax.js"></script>
         <script src="js/jscript.js"></script>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
         <link href="css/custom.css" rel="stylesheet"/>
@@ -117,24 +115,26 @@
         <div class="modal fade" id="addMedoParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addMedoParticipantLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="linkListMembersServlet" method="get">
+                    <!--form action="linkListMembersServlet" method="get"-->
+                    <form id="formAddMember">
                         <div class="modal-header">
                             <h5 class="modal-title">Добавление нового участника МЭДО</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                         </div>
                         <div class="modal-body">
                             <label for="nameOrgMemberListGuides" class="form-label">Наименование организации</label>
-                            <input type="text" class="form-control valid-input-type" name="nameOrgAddMember" id="nameOrgMemberListGuides" placeholder=" " pattern="[А-Яа-яЁё\s()]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="nameOrgAddMember" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)]+$" required/>
                             <label for="emailMemberListGuides" class="form-label">Адресат</label>
-                            <input type="text" class="form-control valid-input-type" name="emailAddMemberList" id="emailMemberListGuides" placeholder=" " pattern="[A-Z~_]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="emailAddMemberList" placeholder=" " pattern="[A-Z~_]+" required/>
                             <label for="guidMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
-                            <input type="text" class="form-control valid-input-type" name="guidAddMember" id="guidMemberListGuides" placeholder=" " pattern="[a-z0-9\-]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="guidAddMember" placeholder=" " pattern="[a-z0-9\-]+" required/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <!--button type="submit" class="btn btn-custom">Сохранить</button-->
                             <button type="submit" class="btn btn-custom">Сохранить</button>
                         </div>
-                    </form>
+                    <!--/form-->
                 </div>
             </div>
         </div>

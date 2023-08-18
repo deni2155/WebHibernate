@@ -19,14 +19,14 @@ $('#nameOrgMemberListGuides').on('input', function() {
  * меняет текст input type text на странице с формой загрузки файла на странице pages/guides/downloadGuides.jsp
  * 
  */
-$(document).ready(function () {
+/*$(document).ready(function () {
     $("#file-input-guides").change(function () {
         //var filename = 'Выбран файл:'+$(this).val().replace(/.*\\/, "") || 'Файл не выбран';
         //$("#file-name-guides1").html(filename);
         var filename = $(this).val().replace(/.*\\/, "");
         $("#file-name-guides").val(filename);
     });
-});
+});*/
 
 /*Авторизация, отправка данных формы авторизации через ajax*/
 /*$(document).ready(function(){

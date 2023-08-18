@@ -1,13 +1,16 @@
 package com.kindcat.archivemedo.servlet.member.add;
 
-import com.kindcat.archivemedo.db.dao.ImplDao;
-import com.kindcat.archivemedo.db.dao.SuperDao;
+import com.kindcat.archivemedo.beans.SuperBean;
+import com.kindcat.archivemedo.beans.SuperBeanImpl;
+import com.kindcat.archivemedo.members.SuperMemberProcess;
+import com.kindcat.archivemedo.members.SuperMemberProcessImpl;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,10 +28,27 @@ public class AddMemberServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Logger logger = Logger.getLogger(AddMemberServlet.class);
 //        StringBuilder stringBuilder = new StringBuilder();
 //        HttpSession session = request.getSession(false);//получаю текущую сессию
 //        response.setContentType("text/html;charset=UTF-8");
+        Logger logger = Logger.getLogger(AddMemberServlet.class);
+        SuperMemberProcessImpl memberProcess = new SuperMemberProcess();
+
+        HttpSession session = request.getSession(false);
+        SuperBeanImpl beans = new SuperBean();
+        /*
+Если получены атрибуты для добавления нового участника МЭДО
+         */
+        if (request.getParameter("nameOrgAddMember") != null && request.getParameter("emailAddMemberList") != null && request.getParameter("guidAddMember") != null) {
+            beans.setBeanNameOrg(request.getParameter("nameOrgAddMember"));
+            beans.setBeanEmailOrg(request.getParameter("emailAddMemberList"));
+            beans.setBeanGuidOrg(request.getParameter("guidAddMember"));
+            memberProcess.addMemberProcess(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+logger.debug("Прошёл");
+        }else{
+logger.debug("Не прошёл");
+}
+        /*
         ImplDao superDao = new SuperDao();
         if (request.getParameter("nameOrgMemberListGuides") != null && request.getParameter("emailMemberListGuides") != null && request.getParameter("guidMemberListGuides") != null) {
             String orgName = request.getParameter("nameOrgAddMember");
@@ -70,7 +90,8 @@ public class AddMemberServlet extends HttpServlet {
 //        if (superDao.getListMembers().isEmpty()) {
 //            logger.info("Получен пустой массив со списком участников МЭДО");
 //        }
-//        request.getRequestDispatcher("/pages/guides/listGuides.jsp").forward(request, response);
+        request.getRequestDispatcher("linkListMembersServlet").forward(request, response);
+         */
     }
 
     /**

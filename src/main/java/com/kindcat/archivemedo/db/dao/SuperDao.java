@@ -21,7 +21,8 @@ public class SuperDao implements ImplDao {
     /**
      * Конструктор класса
      */
-    public SuperDao() {}
+    public SuperDao() {
+    }
 
     /**
      * @param id - процедура получает идентификатор УЗ пользователя
@@ -71,5 +72,17 @@ public class SuperDao implements ImplDao {
     @Override
     public boolean addNewMember(String nameOrg, String email, String guid) {
         return membersDao.addMember(nameOrg, email, guid);
+    }
+
+    /**
+     * Проверка существования записи в БД при добавлении нового участника МЭДО
+     *
+     * @param email-адреса участника
+     * @param guid-идентификатор участника
+     * @return идентификатори записи при её наличи
+     */
+    @Override
+    public int existsEntryMembers(String email, String guid) {
+        return membersDao.existsEntry(email, guid);
     }
 }

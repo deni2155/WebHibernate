@@ -7,12 +7,10 @@ com/kindcat/archivemedo/servlet/links/member/file/LinkDownloadMembersServlet.cla
 com/kindcat/archivemedo/servlet/links/home/LinkArchiveServlet.class
 com/kindcat/archivemedo/config/PathConfig.class
 com/kindcat/archivemedo/servlet/links/member/list/LinkListMembersServlet.class
-com/kindcat/archivemedo/filter/members/AddUpdateDeleteMemberFilter.class
 com/kindcat/archivemedo/filter/signin/ExistsSessionFilter.class
 com/kindcat/archivemedo/beans/SuperBean.class
 com/kindcat/archivemedo/config/TempFolder.class
 com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
-com/kindcat/archivemedo/members/AddMemberProcess.class
 com/kindcat/archivemedo/filter/members/upload/UploadListMembersFilter.class
 com/kindcat/archivemedo/members/SuperMemberProcess.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
@@ -20,6 +18,7 @@ com/kindcat/archivemedo/logger/LoggerForJspImpl.class
 com/kindcat/archivemedo/db/models/Users.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/context/ReinitializingContext.class
+com/kindcat/archivemedo/members/VerifMemberForAddProcess.class
 com/kindcat/archivemedo/logger/LoggerForJsp.class
 com/kindcat/archivemedo/db/dao/ImplDao.class
 com/kindcat/archivemedo/db/models/Members.class

@@ -1,5 +1,6 @@
 package com.kindcat.archivemedo.db.models;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "Members")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Members")
-public class Members {
+public class Members implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,6 +2,8 @@ package com.kindcat.archivemedo.servlet.member.add;
 
 import com.kindcat.archivemedo.beans.SuperBean;
 import com.kindcat.archivemedo.beans.SuperBeanImpl;
+import com.kindcat.archivemedo.db.dao.ImplDao;
+import com.kindcat.archivemedo.db.dao.SuperDao;
 import com.kindcat.archivemedo.members.SuperMemberProcess;
 import com.kindcat.archivemedo.members.SuperMemberProcessImpl;
 import java.io.IOException;
@@ -29,25 +31,65 @@ public class AddMemberServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        StringBuilder stringBuilder = new StringBuilder();
-//        HttpSession session = request.getSession(false);//получаю текущую сессию
-//        response.setContentType("text/html;charset=UTF-8");
         Logger logger = Logger.getLogger(AddMemberServlet.class);
-        SuperMemberProcessImpl memberProcess = new SuperMemberProcess();
-
+        //получаю сеществующую сессию
         HttpSession session = request.getSession(false);
-        SuperBeanImpl beans = new SuperBean();
-        /*
-Если получены атрибуты для добавления нового участника МЭДО
-         */
+        String login = session.getAttribute("login").toString();
+
+        //если пользователь отправил форму не с пустыми полями
         if (request.getParameter("nameOrgAddMember") != null && request.getParameter("emailAddMemberList") != null && request.getParameter("guidAddMember") != null) {
+            //получаю ссылку на класс для работы с данными формы            
+            SuperBeanImpl beans = new SuperBean();
+            //добавляю в класс значения, полученные из запроса для более удобной работы
             beans.setBeanNameOrg(request.getParameter("nameOrgAddMember"));
             beans.setBeanEmailOrg(request.getParameter("emailAddMemberList"));
             beans.setBeanGuidOrg(request.getParameter("guidAddMember"));
-            memberProcess.addMemberProcess(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
-logger.debug("Прошёл");
-        }else{
-logger.debug("Не прошёл");
-}
+
+            //создаю ссылку на класс для работы с БД
+            SuperMemberProcessImpl memberProcess = new SuperMemberProcess(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+            //проверяю, чтобы отправленные данные пользователя соответствовали регулярным выражения
+            if (memberProcess.verifProcessRegex()) {
+                ImplDao memberDao = new SuperDao();
+
+                //проверяю наличие в БД участника МЭДО по email и GUID
+                StringBuilder logBuilder = new StringBuilder();
+                //если записей по указанным критериям нет
+                if (memberDao.existsEntryMembers(beans.getBeanEmailOrg(), beans.getBeanGuidOrg()) == 0) {
+                    //добавляем запись
+                    memberDao.addNewMember(beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+                } else {
+                    logBuilder.append("Пользователь \"");
+                    logBuilder.append(login);
+                    logBuilder.append("\" пытался добавить в систему уже существующего участника МЭДО \"");
+                    logBuilder.append(beans.getBeanNameOrg());
+                    logBuilder.append("\" c GUID \"");
+                    logBuilder.append(beans.getBeanGuidOrg());
+                    logBuilder.append("\" и email \"");
+                    logBuilder.append(beans.getBeanEmailOrg());
+                    logBuilder.append("\"");
+                    String logString = logBuilder.toString();
+                    logger.info(logString);
+                }
+                //отправленные данные пользователя для добавления участника МЭДО не соответствуют регулярным выражения
+            } else {
+                logger.info("Пользователь \"" + login + "\" умудрился отправить форму с полями, не соответствующими регулярным выражениям");
+            }
+            //memberProcess.addMemberProcess(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+            //форма отправлена с пустыми полями
+        } else {
+            logger.info("Пользователь \"" + login + "\" умудрился отправить форму для добавления участников МЭДО с пустыми полями");
+        }
+//        SuperBeanImpl beans = new SuperBean();
+        /*
+Если получены атрибуты для добавления нового участника МЭДО
+         */
+//        if (request.getParameter("nameOrgAddMember") != null && request.getParameter("emailAddMemberList") != null && request.getParameter("guidAddMember") != null) {
+//            beans.setBeanNameOrg(request.getParameter("nameOrgAddMember"));
+//            beans.setBeanEmailOrg(request.getParameter("emailAddMemberList"));
+//            beans.setBeanGuidOrg(request.getParameter("guidAddMember"));
+//            //memberProcess.addMemberProcess(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+//        } else {
+//        }
         /*
         ImplDao superDao = new SuperDao();
         if (request.getParameter("nameOrgMemberListGuides") != null && request.getParameter("emailMemberListGuides") != null && request.getParameter("guidMemberListGuides") != null) {

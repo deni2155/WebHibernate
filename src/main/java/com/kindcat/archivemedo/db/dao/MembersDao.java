@@ -2,6 +2,7 @@ package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
@@ -18,6 +19,7 @@ import org.hibernate.Transaction;
 class MembersDao {
 
     private final Logger logger;
+    private List<Members> listMembers;
 
     MembersDao() {
         logger = Logger.getLogger(MembersDao.class);
@@ -27,11 +29,10 @@ class MembersDao {
      * Получение списка участников МЭДО без выборки
      */
     List<Members> getMembersFindAll() {
-        List<Members> members = null;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "from Members";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
-            members = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
 //            query.setFirstResult(41);
 //            query.setMaxResults(20);
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
@@ -42,11 +43,11 @@ class MembersDao {
         } catch (HibernateException ex) {
             logger.fatal("При открытии сессии для подключения к БД и получении списка участников МЭДО произошла программная ошибка", ex);
         }
-        return members;
+        return listMembers;
     }
 
     /**
-     * Получение данных о пользователе по id
+     * Получение данных об участнике по id
      *
      * @param id - процедура получает идентификатор участника МЭДО
      * @return возвращает информацию об участнике
@@ -79,5 +80,31 @@ class MembersDao {
             logger.fatal("При добавлении нового участника МЭДО произошла программная ошибка", ex);
             return false;
         }
+    }
+
+    /**
+     * Проверка существования записи в БД при добавлении нового участника МЭДО
+     */
+    int existsEntry(String email, String guid) {
+        int idMember = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members where addr=:a or guid=:g";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query<Members> query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("a", email);
+            query.setParameter("g", guid);
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            for (Iterator<Members> it = query.list().iterator(); it.hasNext();) {
+                idMember = it.next().getIdMembers();
+            }
+            //listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
+//            query.setFirstResult(41);
+//            query.setMaxResults(20);
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logger.fatal("При открытии сессии для подключения к БД и выполнения запроса для проверки наличия добавляемого пользователем участника МЭДО в системе возникла программная ошибка", ex);
+        }
+        return idMember;
     }
 }

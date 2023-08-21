@@ -15,4 +15,6 @@ public interface ImplDao {
     public Members findMemberById(int id);
 
     public boolean addNewMember(String nameOrg, String email, String guid);
+
+    public int existsEntryMembers(String email, String guid);
 }

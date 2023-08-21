@@ -7,5 +7,7 @@ package com.kindcat.archivemedo.members;
  */
 public interface SuperMemberProcessImpl {
 
-    public void addMemberProcess(String userLogin, String nameOrg, String emailOrg, String guidOrg);
+    public void addMemberProcess();
+
+    public boolean verifProcessRegex();
 }

@@ -14,6 +14,13 @@ import org.hibernate.Transaction;
  * Получение данных с таблицы Users, класс для работы с моделью БД пользователя
  */
 class UsersDao {
+
+    private final Logger logger;
+
+    UsersDao() {
+        logger = Logger.getLogger(UsersDao.class);
+    }
+
     /**
      * Получение данных о пользователе по id
      *
@@ -31,7 +38,6 @@ class UsersDao {
      * @return id пользователя
      */
     int findInLoginById(String login) {
-        Logger logger = Logger.getLogger(UsersDao.class);
         int idUser = 0;
         //если передан путсой логин пользователя
         if (!login.isEmpty()) {
@@ -40,7 +46,7 @@ class UsersDao {
                 Query<Users> query = session.createQuery(hql, Users.class);//создаю массив объектов с клссом Users и созданным запросом
                 query.setParameter("login", login);//добавляю параметр в запрос
                 query.setCacheMode(CacheMode.NORMAL); // данные читаются из кеша и добавляются в него
-                Transaction transaction=session.beginTransaction();//запускаю транзакцию
+                Transaction transaction = session.beginTransaction();//запускаю транзакцию
                 for (Iterator<Users> it = query.list().iterator(); it.hasNext();) {
                     idUser = it.next().getIdUser();
                 }

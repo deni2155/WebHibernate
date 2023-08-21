@@ -12,11 +12,9 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/beans/UsersBeans.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/models/Users.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/logger/LoggerForJsp.java
-/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/members/AddMemberProcess.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/links/home/LinkArchiveServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/filter/common/EncodingRequestFilter.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/dao/UsersDao.java
-/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/filter/members/AddUpdateDeleteMemberFilter.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/utils/SessionFactoryUtil.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/dao/SuperDao.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/models/Members.java
@@ -28,3 +26,4 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/members/SuperMemberProcessImpl.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/member/add/AddMemberServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/config/PathConfig.java
+/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/members/VerifMemberForAddProcess.java

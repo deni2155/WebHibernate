@@ -7,21 +7,27 @@ package com.kindcat.archivemedo.members;
  */
 public class SuperMemberProcess implements SuperMemberProcessImpl {
 
-    private final AddMemberProcess addMemberProcess;
+    private final VerifMemberForAddProcess addMemberProcess;
 
-    public SuperMemberProcess() {
-        addMemberProcess = new AddMemberProcess();
+    public SuperMemberProcess(String userLogin, String nameOrg, String emailOrg, String guidOrg) {
+        addMemberProcess = new VerifMemberForAddProcess(userLogin, nameOrg, emailOrg, guidOrg);
     }
 
     /**
      * Добавление участника МЭДО
-     * @param userLogin - имя пользователя
-     * @param nameOrg - наименование организации
-     * @param emailOrg - email организации
-     * @param guidOrg - идентификатор организации
      */
     @Override
-    public void addMemberProcess(String userLogin, String nameOrg, String emailOrg, String guidOrg) {
-        addMemberProcess.addMember(userLogin, nameOrg, emailOrg, guidOrg);
+    public void addMemberProcess() {
+        addMemberProcess.addMember();
+    }
+
+    /**
+     * Проверяю на соответствие добавляемых данных регулярным выражениям
+     *
+     * @return true, если все поля заполнены верно
+     */
+    @Override
+    public boolean verifProcessRegex() {
+        return addMemberProcess.verifRegex();
     }
 }

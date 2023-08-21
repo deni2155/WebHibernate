@@ -115,7 +115,6 @@
         <div class="modal fade" id="addMedoParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addMedoParticipantLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <!--form action="linkListMembersServlet" method="get"-->
                     <form id="formAddMember">
                         <div class="modal-header">
                             <h5 class="modal-title">Добавление нового участника МЭДО</h5>
@@ -123,18 +122,19 @@
                         </div>
                         <div class="modal-body">
                             <label for="nameOrgMemberListGuides" class="form-label">Наименование организации</label>
-                            <input type="text" class="form-control valid-input-type" name="nameOrgAddMember" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)]+$" required/>
+                            <input type="text" class="form-control valid-input-type" name="nameOrgAddMember" id="nameOrgMemberListGuides" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)«»]+$" required/>
                             <label for="emailMemberListGuides" class="form-label">Адресат</label>
-                            <input type="text" class="form-control valid-input-type" name="emailAddMemberList" placeholder=" " pattern="[A-Z~-_]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="emailAddMemberList" id="emailMemberListGuides" placeholder=" " pattern="[A-Z~-_]+" required/>
                             <label for="guidMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
-                            <input type="text" class="form-control valid-input-type" name="guidAddMember" placeholder=" " pattern="[a-z0-9\-]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="guidAddMember" id="guidMemberListGuides" placeholder=" " pattern="[a-z0-9\-]+" required/>
                         </div>
+                        <!--Сообщение после добавления участника МЭДО-->
+                        <div id="message-for-proccess" class="text-center pt-1 pb-2"></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                             <!--button type="submit" class="btn btn-custom">Сохранить</button-->
                             <button type="submit" class="btn btn-custom">Сохранить</button>
                         </div>
-                    <!--/form-->
                 </div>
             </div>
         </div>

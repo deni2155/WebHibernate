@@ -125,7 +125,7 @@
                             <label for="nameOrgMemberListGuides" class="form-label">Наименование организации</label>
                             <input type="text" class="form-control valid-input-type" name="nameOrgAddMember" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)]+$" required/>
                             <label for="emailMemberListGuides" class="form-label">Адресат</label>
-                            <input type="text" class="form-control valid-input-type" name="emailAddMemberList" placeholder=" " pattern="[A-Z~_]+" required/>
+                            <input type="text" class="form-control valid-input-type" name="emailAddMemberList" placeholder=" " pattern="[A-Z~-_]+" required/>
                             <label for="guidMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
                             <input type="text" class="form-control valid-input-type" name="guidAddMember" placeholder=" " pattern="[a-z0-9\-]+" required/>
                         </div>

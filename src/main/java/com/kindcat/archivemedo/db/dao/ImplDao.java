@@ -16,5 +16,5 @@ public interface ImplDao {
 
     public boolean addNewMember(String nameOrg, String email, String guid);
 
-    public int existsEntryMembers(String email, String guid);
+    public long existsEntryMembers(String email, String guid);
 }

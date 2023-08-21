@@ -85,18 +85,19 @@ class MembersDao {
     /**
      * Проверка существования записи в БД при добавлении нового участника МЭДО
      */
-    int existsEntry(String email, String guid) {
-        int idMember = 0;
+    long existsEntry(String email, String guid) {
+        long idMember = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            String hql = "from Members where addr=:a or guid=:g";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
-            Query<Members> query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            String hql = "select count(idMembers) from Members where addr=:a or guid=:g";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("a", email);
             query.setParameter("g", guid);
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            idMember =(long) query.uniqueResult();
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
-            for (Iterator<Members> it = query.list().iterator(); it.hasNext();) {
-                idMember = it.next().getIdMembers();
-            }
+//            for (Iterator<Members> it = query.list().iterator(); it.hasNext();) {
+//                idMember = it.next().getIdMembers();
+//            }
             //listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
 //            query.setFirstResult(41);
 //            query.setMaxResults(20);

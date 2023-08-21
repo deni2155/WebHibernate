@@ -4,8 +4,7 @@ import com.kindcat.archivemedo.beans.SuperBean;
 import com.kindcat.archivemedo.beans.SuperBeanImpl;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
-import com.kindcat.archivemedo.members.SuperMemberProcess;
-import com.kindcat.archivemedo.members.SuperMemberProcessImpl;
+import com.kindcat.archivemedo.members.verif.SuperVerification;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+import com.kindcat.archivemedo.members.verif.SuperVerificationImpl;
 
 /**
  *
@@ -35,6 +35,7 @@ public class AddMemberServlet extends HttpServlet {
         //получаю сеществующую сессию
         HttpSession session = request.getSession(false);
         String login = session.getAttribute("login").toString();
+        String logString = null;
 
         //если пользователь отправил форму не с пустыми полями
         if (request.getParameter("nameOrgAddMember") != null && request.getParameter("emailAddMemberList") != null && request.getParameter("guidAddMember") != null) {
@@ -46,7 +47,7 @@ public class AddMemberServlet extends HttpServlet {
             beans.setBeanGuidOrg(request.getParameter("guidAddMember"));
 
             //создаю ссылку на класс для работы с БД
-            SuperMemberProcessImpl memberProcess = new SuperMemberProcess(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+            SuperVerificationImpl memberProcess = new SuperVerification(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
             //проверяю, чтобы отправленные данные пользователя соответствовали регулярным выражения
             if (memberProcess.verifProcessRegex()) {
                 ImplDao memberDao = new SuperDao();
@@ -56,8 +57,36 @@ public class AddMemberServlet extends HttpServlet {
                 //если записей по указанным критериям нет
                 if (memberDao.existsEntryMembers(beans.getBeanEmailOrg(), beans.getBeanGuidOrg()) == 0) {
                     //добавляем запись
-                    memberDao.addNewMember(beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+                    if (memberDao.addNewMember(beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg())) {
+                        logBuilder.setLength(0);
+                        logBuilder.append("Пользователь \"");
+                        logBuilder.append(login);
+                        logBuilder.append("\" успешно добавил добавил участника МЭДО \"");
+                        logBuilder.append(beans.getBeanNameOrg());
+                        logBuilder.append("\" c GUID \"");
+                        logBuilder.append(beans.getBeanGuidOrg());
+                        logBuilder.append("\" и email \"");
+                        logBuilder.append(beans.getBeanEmailOrg());
+                        logBuilder.append("\"");
+                        logString = logBuilder.toString();
+                        logger.info(logString);
+                    } else {
+                        logBuilder.setLength(0);
+                        logBuilder.append("При добавлении нового участника МЭДО \"");
+                        logBuilder.append(beans.getBeanNameOrg());
+                        logBuilder.append("\"");
+                        logBuilder.append("\" c GUID \"");
+                        logBuilder.append(beans.getBeanGuidOrg());
+                        logBuilder.append("\" и email \"");
+                        logBuilder.append(beans.getBeanEmailOrg());
+                        logBuilder.append("\" пользователем \"");
+                        logBuilder.append(login);
+                        logBuilder.append("\" успешно возникла программная ошибка.\r\n\tКласс - MembersDao, процедура - addMember");
+                        logString = logBuilder.toString();
+                        logger.info(logString);
+                    }
                 } else {
+                    logBuilder.setLength(0);
                     logBuilder.append("Пользователь \"");
                     logBuilder.append(login);
                     logBuilder.append("\" пытался добавить в систему уже существующего участника МЭДО \"");
@@ -67,7 +96,7 @@ public class AddMemberServlet extends HttpServlet {
                     logBuilder.append("\" и email \"");
                     logBuilder.append(beans.getBeanEmailOrg());
                     logBuilder.append("\"");
-                    String logString = logBuilder.toString();
+                    logString = logBuilder.toString();
                     logger.info(logString);
                 }
                 //отправленные данные пользователя для добавления участника МЭДО не соответствуют регулярным выражения

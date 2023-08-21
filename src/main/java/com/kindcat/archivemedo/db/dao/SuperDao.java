@@ -82,7 +82,7 @@ public class SuperDao implements ImplDao {
      * @return идентификатори записи при её наличи
      */
     @Override
-    public int existsEntryMembers(String email, String guid) {
+    public long existsEntryMembers(String email, String guid) {
         return membersDao.existsEntry(email, guid);
     }
 }

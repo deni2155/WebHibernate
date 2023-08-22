@@ -41,11 +41,11 @@ public class AddMemberServlet extends HttpServlet {
         out.print("");
 
         //если пользователь отправил форму не с пустыми полями
-        if (request.getParameter("nameOrgAddMember") != null && request.getParameter("emailAddMemberList") != null && request.getParameter("guidAddMember") != null) {
+        if (request.getParameter("nameAddOrgMember") != null && request.getParameter("emailAddMemberList") != null && request.getParameter("guidAddMember") != null) {
             //получаю ссылку на класс для работы с данными формы            
             SuperBeanImpl beans = new SuperBean();
             //добавляю в класс значения, полученные из запроса для более удобной работы
-            beans.setBeanNameOrg(request.getParameter("nameOrgAddMember"));
+            beans.setBeanNameOrg(request.getParameter("nameAddOrgMember"));
             beans.setBeanEmailOrg(request.getParameter("emailAddMemberList"));
             beans.setBeanGuidOrg(request.getParameter("guidAddMember"));
 
@@ -73,6 +73,7 @@ public class AddMemberServlet extends HttpServlet {
                         logBuilder.append("\"");
                         logString = logBuilder.toString();
                         logger.info(logString);
+                        out.println("green");
                         out.print("Участник успешно добавлен");
                     } else {
                         logBuilder.setLength(0);
@@ -88,6 +89,7 @@ public class AddMemberServlet extends HttpServlet {
                         logBuilder.append("\" возникла программная ошибка.\r\n\tКласс - MembersDao, процедура - addMember");
                         logString = logBuilder.toString();
                         logger.info(logString);
+                        out.println("red");
                         out.print("При добавлении участника возникла ошибка в JAVA");
                     }
                 } else {
@@ -103,6 +105,7 @@ public class AddMemberServlet extends HttpServlet {
                     logBuilder.append("\"");
                     logString = logBuilder.toString();
                     logger.info(logString);
+                    out.println("red");
                     out.print("Участник \"" + beans.getBeanNameOrg() + "\" присутствует в системе");
                 }
                 //отправленные данные пользователя для добавления участника МЭДО не соответствуют регулярным выражения

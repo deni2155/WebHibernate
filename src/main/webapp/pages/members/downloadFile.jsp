@@ -8,7 +8,7 @@
         <link href="css/custom.css" rel="stylesheet"/>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.js"></script>
-        <script src="js/jscript.js"></script>
+        <script src="js/jscript-member.js"></script>
         <title>Загрузка участников МЭДО</title>
     </head>
     <body class="container-fluid">

@@ -5,10 +5,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="css/custom.css" rel="stylesheet"/>
-        <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.js"></script>
-        <script src="js/jscript-member.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <link href="css/custom.css" rel="stylesheet"/>
+        <script src="js/member/jscript-member.js"></script>
         <title>Загрузка участников МЭДО</title>
     </head>
     <body class="container-fluid">

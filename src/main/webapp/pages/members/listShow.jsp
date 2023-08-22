@@ -32,7 +32,7 @@
                         <thead>
                             <tr class="text-center">
                                 <th scope="col">
-                                    <button class="btn btn-custom btn-custom-add-row" data-bs-toggle="modal" data-bs-target="#addMedoParticipant">
+                                    <button class="btn btn-custom btn-custom-add-row" data-bs-toggle="modal" data-bs-target="#add-medo-participant">
                                         <!--Иконка добавления участника МЭДО-->
                                         <img src="" title="Добавить запись"/>
                                     </button>
@@ -89,10 +89,8 @@
                                     <td>${listMembers.addr}</td>
                                     <td>${listMembers.guid}</td>
                                     <td>
-                                        <!--a href="#" class="btn-custom-update-row text-decoration-none text-reset href-window-for-update-member" data-value="${listMembers.idMembers}" data-bs-toggle="modal" data-bs-target="#update-medo-participant">
-                                            <img src="" title="Редактировать"/>
-                                        </a-->
-                                        <a class="btn-custom-update-row text-decoration-none text-reset href-window-for-update-member" href="#" data-value="${listMembers.idMembers}" data-bs-toggle="modal" data-bs-target="#update-medo-participant">
+                                        <!--a class="btn-custom-update-row text-decoration-none text-reset href-window-for-update-member" href="#" data-update-id-value="" data-name-org="" data-bs-toggle="modal" data-bs-target="#update-medo-participant"-->
+                                        <a class="btn-custom-update-row text-decoration-none text-reset href-window-for-update-member" href="#" data-bs-toggle="modal" data-bs-target="#update-medo-participant" data-update-id-value="${listMembers.idMembers}" data-update-name-org="${listMembers.nameOrg}" data-update-email-org="${listMembers.addr}" data-update-guid-org="${listMembers.guid}">    
                                             <img src="" title="Редактировать"/>
                                         </a>
                                         <a href="#" class="btn-custom-delete-row text-decoration-none text-reset">
@@ -113,7 +111,7 @@
         <!--
         модальное окно для добавления нового участника МЭДО
         -->
-        <div class="modal fade" id="addMedoParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addMedoParticipantLabel" aria-hidden="true">
+        <div class="modal fade" id="add-medo-participant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addMedoParticipantLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <form id="formAddMember">
@@ -143,18 +141,45 @@
         <!--
        Модальное окно для редактирования участника МЭДО
         -->
-        <div class="modal fade" id="update-medo-participant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update-participant-label" aria-hidden="true">
+        <div class="modal fade" id="update-medo-participant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateMedoParticipantLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="formAddMember">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Изменение участника МЭДО</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="id-member-update-id-value" id="selector-for-member-id-update"/>
+                            <label for="nameUpdateOrgMemberListGuides" class="form-label">Наименование организации</label>
+                            <input type="text" class="form-control valid-input-type name-update-org-member-value" name="nameUpdateOrgMember" id="selector-for-member-name-update" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)«»]+$" required/>
+                            <label for="emailUpdateMemberListGuides" class="form-label">Адресат</label>
+                            <input type="text" class="form-control valid-input-type email-org-update-value" name="emailUpdateMemberList" id="selector-for-member-email-update" placeholder=" " pattern="[A-Z~-_]+" required/>
+                            <label for="guidUpdateMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
+                            <input type="text" class="form-control valid-input-type" name="guidUpdateMember" id="selector-for-member-guid-update" placeholder=" " pattern="[a-z0-9\-]+" required/>
+                        </div>
+                        <!--Сообщение после добавления участника МЭДО-->
+                        <div id="message-for-add-proccess" class="text-center pb-3"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-custom">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--div class="modal fade" id="update-medo-participant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update-participant-label" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <form id="formUpdateMember">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="update-participant-header-label">Изменение участника МЭДО</h5>
+                            <h5 class="modal-title ps-2 pe-2" id="update-participant-header-label">Изменение участника МЭДО</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                         </div>
                         <div class="modal-body">
-                            <!--span class="class-for-out-id-member-update" id="selector-for-member-update"></span-->
-                            <!--div class="id-member-value" id="selector-for-member-update"></div-->
-                            <input type="hidden" class="id-member-value" id="selector-for-member-update"/>
+                            <input type="hidden" class="id-member-update-id-value" id="selector-for-member-id-update"/>
+                            <label for="namUpdateOrgMemberListGuides" class="form-label">Наименование организации</label>
+                            <input type="text" class="form-control valid-input-type name-org-member-value" id="selector-for-member-name-update" name="namUpdateOrgMemberListGuides" id="nameUpdateOrgMemberListGuides" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)«»]+$" required/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
@@ -163,7 +188,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div-->
 
         <!--
         Модальное окно для подтверждения удаления участника МЭДО

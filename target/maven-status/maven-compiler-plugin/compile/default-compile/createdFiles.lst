@@ -5,6 +5,7 @@ com/kindcat/archivemedo/db/dao/MembersDao.class
 com/kindcat/archivemedo/servlet/links/member/file/LinkDownloadMembersServlet.class
 com/kindcat/archivemedo/servlet/links/home/LinkArchiveServlet.class
 com/kindcat/archivemedo/config/PathConfig.class
+com/kindcat/archivemedo/string/StringWork.class
 com/kindcat/archivemedo/members/verif/VerificationMembers.class
 com/kindcat/archivemedo/servlet/links/member/list/LinkListMembersServlet.class
 com/kindcat/archivemedo/filter/signin/ExistsSessionFilter.class
@@ -14,6 +15,7 @@ com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
 com/kindcat/archivemedo/filter/members/upload/UploadListMembersFilter.class
 com/kindcat/archivemedo/members/verif/SuperVerification.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
+com/kindcat/archivemedo/servlet/member/update/UpdateMemberServlet.class
 com/kindcat/archivemedo/logger/LoggerForJspImpl.class
 com/kindcat/archivemedo/members/verif/SuperVerificationImpl.class
 com/kindcat/archivemedo/db/models/Users.class

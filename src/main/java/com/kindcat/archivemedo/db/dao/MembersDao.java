@@ -2,7 +2,6 @@ package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
@@ -30,13 +29,13 @@ class MembersDao {
      */
     List<Members> getMembersFindAll() {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            String hql = "from Members";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
 //            query.setFirstResult(41);
 //            query.setMaxResults(20);
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
             logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
@@ -83,17 +82,39 @@ class MembersDao {
     }
 
     /**
+     * Обновление участника МЭДО
+     */
+    int updateMember(int idMember, String nameOrg, String email, String guid) {
+        int resultUpdate = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            String hql = "update Members set nameOrg=:n, addr=:a, guid=:g where idMembers="+idMember;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("n", nameOrg);
+            query.setParameter("a", email);
+            query.setParameter("g", guid);
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            resultUpdate = query.executeUpdate();
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logger.fatal("При открытии сессии для подключения к БД и выполнения запроса для изменения участника МЭДО возникла программная ошибка", ex);
+        }
+        return resultUpdate;
+    }
+
+    /**
      * Проверка существования записи в БД при добавлении нового участника МЭДО
      */
-    long existsEntry(String email, String guid) {
-        long idMember = 0;
+    long getCountByEmailOrGuid(String email, String guid) {
+        long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "select count(idMembers) from Members where addr=:a or guid=:g";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("a", email);
             query.setParameter("g", guid);
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
-            idMember =(long) query.uniqueResult();
+            count = (long) query.uniqueResult();
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
 //            for (Iterator<Members> it = query.list().iterator(); it.hasNext();) {
 //                idMember = it.next().getIdMembers();
@@ -104,8 +125,80 @@ class MembersDao {
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
-            logger.fatal("При открытии сессии для подключения к БД и выполнения запроса для проверки наличия добавляемого пользователем участника МЭДО в системе возникла программная ошибка", ex);
+            logger.fatal("При выполнения запроса к БД для проверки наличия добавляемого пользователем участника МЭДО в системе возникла программная ошибка", ex);
         }
-        return idMember;
+        return count;
     }
+
+    /**
+     * проверка сущестование других записей в БД с такими же данными при
+     * обновлении текущей записи
+     */
+    long getCountByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members where (not(idMembers=" + idMember + ")) and (addr=:a or guid=:g)";
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("a", email);
+            query.setParameter("g", guid);
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logger.fatal("При проверки наличия участника МЭДО для внесения изменений под пользователем участника МЭДО в системе возникла программная ошибка", ex);
+        }
+        return count;
+    }
+    /**
+     * Поиск участников в системе по email для проверки при внесении изменений
+     */
+//    long getCountByEmailOrg(String email) {
+//        long count = 0;
+//        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+//            String hql = "select count(idMembers) from Members where addr=:a";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+//            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+//            query.setParameter("a", email);
+//            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+//            count = (long) query.uniqueResult();
+//            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+////            for (Iterator<Members> it = query.list().iterator(); it.hasNext();) {
+////                idMember = it.next().getIdMembers();
+////            }
+//            //listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
+////            query.setFirstResult(41);
+////            query.setMaxResults(20);
+//            transaction.commit();
+//            session.close();
+//        } catch (HibernateException ex) {
+//            logger.fatal("При выполнения запроса к БД для проверки наличия записи по email в системе возникла программная ошибка", ex);
+//        }
+//        return count;
+//    }
+    /**
+     * Поиск участников в системе по GUID для проверки при внесении изменений
+     */
+//    long countGuidOrg(String guid) {
+//        long count = 0;
+//        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+//            String hql = "select count(idMembers) from Members where guid=:g";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+//            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+//            query.setParameter("g", guid);
+//            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+//            count = (long) query.uniqueResult();
+//            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+////            for (Iterator<Members> it = query.list().iterator(); it.hasNext();) {
+////                idMember = it.next().getIdMembers();
+////            }
+//            //listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
+////            query.setFirstResult(41);
+////            query.setMaxResults(20);
+//            transaction.commit();
+//            session.close();
+//        } catch (HibernateException ex) {
+//            logger.fatal("При выполнении запроса для проверки наличия записи по GUID в системе возникла программная ошибка", ex);
+//        }
+//        return count;
+//    }
 }

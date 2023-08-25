@@ -16,5 +16,13 @@ public interface ImplDao {
 
     public boolean addNewMember(String nameOrg, String email, String guid);
 
-    public long existsEntryMembers(String email, String guid);
+    public int updateOldMember(int idMember, String nameOrg, String email, String guid);
+
+    public long getCountMembersByEmailOrGuid(String email, String guid);
+
+    public long getCountMembersByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid);
+//
+//    public long countEmailOrgMembers(String email);
+//
+//    public long countGuidMembers(String guid);
 }

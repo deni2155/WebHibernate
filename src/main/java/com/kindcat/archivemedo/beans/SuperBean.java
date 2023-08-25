@@ -12,6 +12,16 @@ public class SuperBean implements SuperBeanImpl {
     MembersBean memberBean = new MembersBean();
 
     @Override
+    public int getBeanIdOrg() {
+        return memberBean.getIdOrg();
+    }
+
+    @Override
+    public void setBeanIdOrg(int idOrg) {
+        memberBean.setIdOrg(idOrg);
+    }
+
+    @Override
     public String getBeanNameOrg() {
         return memberBean.getNameOrg();
     }

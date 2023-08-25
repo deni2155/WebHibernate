@@ -8,6 +8,10 @@ public interface SuperBeanImpl {
 
 
 */
+    public int getBeanIdOrg();
+
+    public void setBeanIdOrg(int idOrg);
+
     public String getBeanNameOrg();
 
     public void setBeanNameOrg(String nameOrg);

@@ -75,14 +75,63 @@ public class SuperDao implements ImplDao {
     }
 
     /**
+     * Изменение существующего участника МЭДО
+     *
+     * @param idMember - идентификатор записи в БД
+     * @param nameOrg - наименование организации
+     * @param email - email организации
+     * @param guid организации
+     * @return число изменённых записей
+     */
+    @Override
+    public int updateOldMember(int idMember, String nameOrg, String email, String guid) {
+        return membersDao.updateMember(idMember, nameOrg, email, guid);
+    }
+
+    /**
      * Проверка существования записи в БД при добавлении нового участника МЭДО
      *
      * @param email-адреса участника
      * @param guid-идентификатор участника
-     * @return идентификатори записи при её наличи
+     * @return количество записей в БД
      */
     @Override
-    public long existsEntryMembers(String email, String guid) {
-        return membersDao.existsEntry(email, guid);
+    public long getCountMembersByEmailOrGuid(String email, String guid) {
+        return membersDao.getCountByEmailOrGuid(email, guid);
     }
+
+    /**
+     * проверка сущестование других записей в БД с такими же данными при
+     * обновлении текущей записи
+     * @param idMember
+     * @param email
+     * @param guid
+     * @return количество записей в БД
+     */
+    @Override
+    public long getCountMembersByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid) {
+        return membersDao.getCountByEmailOrGuidAndNotEqualsId(idMember, email, guid);
+    }
+
+//    /**
+//     * Проверка существования записи в БД по email при изменении участника МЭДО
+//     *
+//     * @param email
+//     * @return идентификатор записи в БД
+//     */
+//    @Override
+//    public long countEmailOrgMembers(String email) {
+//        return membersDao.countEmailOrg(email);
+//    }
+//
+//    /**
+//     * Проверка существования записи в БД по GUID при изменении участника МЭДО
+//     *
+//     * @param guid
+//     * @return идентификатор записи в БД
+//     */
+//    @Override
+//    public long countGuidMembers(String guid) {
+//        return membersDao.countGuidOrg(guid);
+//    }
 }

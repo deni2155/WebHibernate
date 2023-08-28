@@ -1,26 +1,11 @@
-/*
- *Работает с перезагрузкой страницы 
- */
-/*$('#addMember_click').submit(function(){
- //Чтобы заблокировать отправку и перезагрузку страницы, функция возвращает false
- $.post(
- 'addMemberServlet',
- {
- nameOrgAddMember:$('#nameOrgAddMember').val(),
- emailAddMemberList:$('#emailAddMemberList').val(),
- guidAddMember:$('#guidAddMember').val()
- }
- );
- return false;
- });*/
-/*
- * Добавление участника МЭДО
- */
 $(document).ready(function () {
+    /*
+     * Добавление участника МЭДО
+     */
     $('#form-add-member').submit(function (event) {
         //event.preventDefault();
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: 'addMemberServlet',
             data: $('#form-add-member').serialize(),
             success: function (response) {
@@ -42,11 +27,13 @@ $(document).ready(function () {
         });
         return false;
     });
-
+    /*
+     * Изменение участника МЭДО
+     */
     $('#form-update-member').submit(function (event) {
         //event.preventDefault();
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: 'updateMemberServlet',
             data: $('#form-update-member').serialize(),
             success: function (response) {
@@ -66,10 +53,31 @@ $(document).ready(function () {
         });
         return false;
     });
+
+/**
+ * Удаление участника МЭДО
+ */
+    $('#form-delete-member').submit(function (event) {
+        //event.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: 'deleteMemberServlet',
+            data: $('#form-delete-member').serialize(),
+            success: function (response) {
+                console.log(response);
+//                //отправляем ответ на страницу, ответ состоит из двух объектов - цвет текста и сообщение
+                var responses = response.split("\n");
+                var response1 = responses[0];
+                var response2 = responses[1];
+                $('#message-for-delete-proccess').css("color", response1);
+                $('#message-for-delete-proccess').html(response2);
+            },
+            error: function () {
+                console.log("Ошибка");
+                $('#message-for-delete-proccess').css('color', 'red');
+                $('#message-for-delete-proccess').html("При удалении участника возникла ошибка в jquery");
+            }
+        });
+        return false;
+    });
 });
-///*
-// * Изменение участника МЭДО
-// */
-//$(document).ready(function () {
-//
-//});

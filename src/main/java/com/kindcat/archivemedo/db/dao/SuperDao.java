@@ -89,6 +89,16 @@ public class SuperDao implements ImplDao {
     }
 
     /**
+     * Удаление участника МЭДО
+     * @param idMember - идентификатор участника МЭДО в БД
+     * @return количество удаленных записей
+     */
+    @Override
+    public int deleteOldMember(int idMember) {
+        return membersDao.deleteMember(idMember);
+    }
+
+    /**
      * Проверка существования записи в БД при добавлении нового участника МЭДО
      *
      * @param email-адреса участника
@@ -103,6 +113,7 @@ public class SuperDao implements ImplDao {
     /**
      * проверка сущестование других записей в БД с такими же данными при
      * обновлении текущей записи
+     *
      * @param idMember
      * @param email
      * @param guid

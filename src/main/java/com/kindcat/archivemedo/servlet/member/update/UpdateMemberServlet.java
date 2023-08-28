@@ -56,6 +56,14 @@ public class UpdateMemberServlet extends HttpServlet {
                     //проверяю наличие в БД участника МЭДО по email и GUID
                     StringBuilder logBuilder = new StringBuilder();
                     logger.debug("Получен идентификатор записи в БД " + beans.getBeanIdOrg());
+//
+//
+//
+//Если для участника, которого хочет изменить пользователь, в бд есть документы
+///запретить менять реквизиты организации, что бы ничего не сломалось
+//
+//
+//
                     //если с полученными данными от пользователя (с email не найдено записей и c GUID не найдено записей) не найдено записей
                     if (memberDao.getCountMembersByEmailOrGuidAndNotEqualsId(beans.getBeanIdOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg()) == 0) {
                         //изменяем запись
@@ -98,7 +106,7 @@ public class UpdateMemberServlet extends HttpServlet {
                         logString = logBuilder.toString();
                         logger.info(logString);
                     out.println("red");
-                    out.print("Указанный адрест или уникальный идентификатор участника  \"" + beans.getBeanNameOrg() + "\" присутствует в системе");
+                    out.print("Указанный адресат или уникальный идентификатор участника  \"" + beans.getBeanNameOrg() + "\" присутствует в системе");
                     }
                     //отправленные данные пользователя для добавления участника МЭДО не соответствуют регулярным выражения
                 } else {
@@ -110,7 +118,7 @@ public class UpdateMemberServlet extends HttpServlet {
                 logger.info("Пользователь \"" + login + "\" умудрился отправить форму для изменения участников МЭДО с пустыми полями");
             }
         } catch (Exception ex) {
-            logger.error("При измененииs участника МЭДО возникла программная ошибка " + ex);
+            logger.error("При изменении участника МЭДО возникла программная ошибка " + ex);
         }
 
     }

@@ -88,7 +88,7 @@ class MembersDao {
         int resultUpdate = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
-            String hql = "update Members set nameOrg=:n, addr=:a, guid=:g where idMembers="+idMember;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            String hql = "update Members set nameOrg=:n, addr=:a, guid=:g where idMembers=" + idMember;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("n", nameOrg);
             query.setParameter("a", email);
@@ -98,9 +98,28 @@ class MembersDao {
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
-            logger.fatal("При открытии сессии для подключения к БД и выполнения запроса для изменения участника МЭДО возникла программная ошибка", ex);
+            logger.fatal("При открытии сессии для выполнения запроса на имзменение участника МЭДО возникла программная ошибка", ex);
         }
         return resultUpdate;
+    }
+
+    /**
+     * Удаление участника МЭДО
+     */
+    int deleteMember(int idMember) {
+        int resultDelete = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            String hql = "delete Members where idMembers=" + idMember;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            resultDelete = query.executeUpdate();
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logger.fatal("При открытии сессии для выполнения запроса для удаления участника МЭДО возникла программная ошибка", ex);
+        }
+        return resultDelete;
     }
 
     /**
@@ -109,13 +128,13 @@ class MembersDao {
     long getCountByEmailOrGuid(String email, String guid) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members where addr=:a or guid=:g";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("a", email);
             query.setParameter("g", guid);
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
 //            for (Iterator<Members> it = query.list().iterator(); it.hasNext();) {
 //                idMember = it.next().getIdMembers();
 //            }
@@ -137,13 +156,13 @@ class MembersDao {
     long getCountByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members where (not(idMembers=" + idMember + ")) and (addr=:a or guid=:g)";
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("a", email);
             query.setParameter("g", guid);
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -151,6 +170,10 @@ class MembersDao {
         }
         return count;
     }
+
+    /**
+     * удаление участника МЭДО
+     */
     /**
      * Поиск участников в системе по email для проверки при внесении изменений
      */

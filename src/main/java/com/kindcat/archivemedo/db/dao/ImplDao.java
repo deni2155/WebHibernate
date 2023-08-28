@@ -21,6 +21,8 @@ public interface ImplDao {
     public long getCountMembersByEmailOrGuid(String email, String guid);
 
     public long getCountMembersByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid);
+
+    public int deleteOldMember(int idMember);
 //
 //    public long countEmailOrgMembers(String email);
 //

@@ -12,6 +12,7 @@ com/kindcat/archivemedo/filter/signin/ExistsSessionFilter.class
 com/kindcat/archivemedo/beans/SuperBean.class
 com/kindcat/archivemedo/config/TempFolder.class
 com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
+com/kindcat/archivemedo/servlet/member/delete/DeleteMemberServlet.class
 com/kindcat/archivemedo/filter/members/upload/UploadListMembersFilter.class
 com/kindcat/archivemedo/members/verif/SuperVerification.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class

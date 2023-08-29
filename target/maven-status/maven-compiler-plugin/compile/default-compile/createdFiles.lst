@@ -4,6 +4,7 @@ com/kindcat/archivemedo/beans/MembersBean.class
 com/kindcat/archivemedo/db/dao/MembersDao.class
 com/kindcat/archivemedo/servlet/links/member/file/LinkDownloadMembersServlet.class
 com/kindcat/archivemedo/servlet/links/home/LinkArchiveServlet.class
+com/kindcat/archivemedo/servlet/signin/CreateSessionServlet.class
 com/kindcat/archivemedo/config/PathConfig.class
 com/kindcat/archivemedo/string/StringWork.class
 com/kindcat/archivemedo/members/verif/VerificationMembers.class
@@ -22,6 +23,7 @@ com/kindcat/archivemedo/members/verif/SuperVerificationImpl.class
 com/kindcat/archivemedo/db/models/Users.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/context/ReinitializingContext.class
+com/kindcat/archivemedo/beans/UsersBeans.class
 com/kindcat/archivemedo/logger/LoggerForJsp.class
 com/kindcat/archivemedo/db/dao/ImplDao.class
 com/kindcat/archivemedo/db/models/Members.class

@@ -12,6 +12,8 @@ $(document).ready(function () {
 //                console.log(response);
                 //очищаем поля формы
                 $('#form-add-member')[0].reset();
+                //очищаю div
+                $('#message-for-add-proccess').html("");
                 //отправляем ответ на страницу, ответ состоит из двух объектов - цвет текста и сообщение
                 var responses = response.split("\n");
                 var response1 = responses[0];

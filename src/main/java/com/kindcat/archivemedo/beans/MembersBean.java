@@ -12,35 +12,35 @@ class MembersBean {
     private String emailOrg;//наименование организации
     private String guidOrg;//наименование организации
 
-    int getIdOrg() {
+    int getBeansIdOrg() {
         return idOrg;
     }
 
-    void setIdOrg(int idOrg) {
+    void setBeansIdOrg(int idOrg) {
         this.idOrg = idOrg;
     }
 
-    String getNameOrg() {
+    String getBeansNameOrg() {
         return nameOrg;
     }
 
-    void setNameOrg(String nameOrg) {
+    void setBeansNameOrg(String nameOrg) {
         this.nameOrg = nameOrg;
     }
 
-    String getEmailOrg() {
+    String getBeansEmailOrg() {
         return emailOrg;
     }
 
-    void setEmailOrg(String emailOrg) {
+    void setBeansEmailOrg(String emailOrg) {
         this.emailOrg = emailOrg;
     }
 
-    String getGuidOrg() {
+    String getBeansGuidOrg() {
         return guidOrg;
     }
 
-    void setGuidOrg(String guidOrg) {
+    void setBeansGuidOrg(String guidOrg) {
         this.guidOrg = guidOrg;
     }
 }

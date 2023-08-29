@@ -57,6 +57,7 @@ public class ExistsSessionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
         httpResponse = (HttpServletResponse) response;
+
         //исключаю обработку фильтром сss, js и png файлы
         if (httpRequest.getRequestURI().endsWith(".css")) {
             httpResponse.setContentType("text/css");
@@ -67,32 +68,35 @@ public class ExistsSessionFilter implements Filter {
         } else if (httpRequest.getRequestURI().endsWith(".png")) {
             httpResponse.setContentType("image/png");
             chain.doFilter(request, response);
-            //остальное фильтруется
+        //если пользователь отправил данные авторизациии, то фильтруется сервлет для создания сессии
+        } else if ("/createSessionServlet".equals(httpRequest.getServletPath())) {
+            //если запрос формы авторизации получен через POST
+            if ("POST".equals(httpRequest.getMethod())) {
+                chain.doFilter(request, response);
+            } else {
+                logger.info("Пользователь умудрился отправить форму авторизации get-запросом");
+            }
         } else {
             session = httpRequest.getSession();//получаю текущую сессию
             //если сессия существует и в ней есть атрибуты
             if (session.getAttribute("login") != null && session.getAttribute("idUser") != null && (String) session.getAttribute("fName") != null) {
                 //getSession();
                 chain.doFilter(request, response);//пропускаем выполнение запросов для перехода по ссылкам
-            //если нет сессии и атрибутов сессии
+                //httpRequest.getRequestDispatcher("/linkListMembersServlet").forward(httpRequest, httpResponse);
+                //если нет сессии и атрибутов сессии
             } else if (session.getAttribute("login") == null || session.getAttribute("idUser") == null || (String) session.getAttribute("fName") == null) {
-                setSession();
+                httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
+                //chain.doFilter(request, response);//пропускаем выполнение запросов для перехода по ссылкам
             }
+//else if (session.getAttribute("login") == null || session.getAttribute("idUser") == null || (String) session.getAttribute("fName") == null) {
+//                setSession();
+//            }
         }
     }
 
     /**
      * Найдена ранее существующая сессия и найдены параметры сессии
      */
-//    private void getSession() throws ServletException, IOException {
-//        logger.debug("Фильтр нашёл параметры сессии пользоваетля \"" + session.getAttribute("login") + "\"");
-//        String inputRequest = httpRequest.getHeader("referer");//получаю url, с которого пришёл запрос
-//        if (inputRequest != null) {
-//            httpRequest.getRequestDispatcher(inputRequest).forward(httpRequest, httpResponse);
-//        } else {
-//            httpRequest.getRequestDispatcher("/pages/archive.jsp").forward(httpRequest, httpResponse);
-//        }
-//    }
     private void setSession() throws ServletException, IOException {
         logger.debug("Не найдена ранее существующая сессия");
         if ("POST".equals(httpRequest.getMethod())) {

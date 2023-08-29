@@ -5,6 +5,55 @@ public class SuperBean implements SuperBeanImpl {
     /*
 
 
+    Пользователи системы
+
+
+
+     */
+    UsersBeans usersBeans = new UsersBeans();
+
+    @Override
+    public int getBeansIdUser() {
+        return usersBeans.getBeanIdUser();
+    }
+
+    @Override
+    public void setBeansIdUser(int beansIdUser) {
+        usersBeans.setBeanIdUser(beansIdUser);
+    }
+
+    @Override
+    public String getBeansLogin() {
+        return usersBeans.getBeanLogin();
+    }
+
+    @Override
+    public void setBeansLogin(String beansLogin) {
+        usersBeans.setBeanLogin(beansLogin);
+    }
+
+    @Override
+    public String getBeansHash() {
+        return usersBeans.getBeanHash();
+    }
+
+    @Override
+    public void setBeansHash(String beansHash) {
+        usersBeans.setBeansHash(beansHash);
+    }
+
+    @Override
+    public String getBeansFName() {
+        return usersBeans.getBeanFName();
+    }
+
+    @Override
+    public void setBeanFName(String beansFName) {
+        usersBeans.setBeanFName(beansFName);
+    }
+    /*
+
+
 Участники МЭДО
 
 
@@ -13,42 +62,42 @@ public class SuperBean implements SuperBeanImpl {
 
     @Override
     public int getBeanIdOrg() {
-        return memberBean.getIdOrg();
+        return memberBean.getBeansIdOrg();
     }
 
     @Override
     public void setBeanIdOrg(int idOrg) {
-        memberBean.setIdOrg(idOrg);
+        memberBean.setBeansIdOrg(idOrg);
     }
 
     @Override
     public String getBeanNameOrg() {
-        return memberBean.getNameOrg();
+        return memberBean.getBeansNameOrg();
     }
 
     @Override
     public void setBeanNameOrg(String nameOrg) {
-        memberBean.setNameOrg(nameOrg);
+        memberBean.setBeansNameOrg(nameOrg);
     }
 
     @Override
     public String getBeanEmailOrg() {
-        return memberBean.getEmailOrg();
+        return memberBean.getBeansEmailOrg();
     }
 
     @Override
     public void setBeanEmailOrg(String emailOrg) {
-        memberBean.setEmailOrg(emailOrg);
+        memberBean.setBeansEmailOrg(emailOrg);
     }
 
     @Override
     public String getBeanGuidOrg() {
-        return memberBean.getGuidOrg();
+        return memberBean.getBeansGuidOrg();
     }
 
     @Override
     public void setBeanGuidOrg(String guidOrg) {
-        memberBean.setGuidOrg(guidOrg);
+        memberBean.setBeansGuidOrg(guidOrg);
     }
 //
 //    UsersBeans userBeans = new UsersBeans();//ссылка на бины УЗ пользователя

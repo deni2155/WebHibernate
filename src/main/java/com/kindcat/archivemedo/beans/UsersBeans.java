@@ -1,44 +1,44 @@
-//package com.kindcat.archivemedo.beans;
-//
-///**
-// * Класс для хранения информации о пользователе
-// */
-//class UsersBeans {
-//
-//    private int beansIdUser;
-//    private String beansLogin;
-//    private String beansHash;
-//    private String beansFName;
-//
-//    int getBeansIdUser() {
-//        return beansIdUser;
-//    }
-//
-//    void setBeansIdUser(int beansIdUser) {
-//        this.beansIdUser = beansIdUser;
-//    }
-//
-//    String getBeansLogin() {
-//        return beansLogin;
-//    }
-//
-//    void setBeansLogin(String beansLogin) {
-//        this.beansLogin = beansLogin;
-//    }
-//
-//    String getBeansHash() {
-//        return beansHash;
-//    }
-//
-//    void setBeansHash(String beansHash) {
-//        this.beansHash = beansHash;
-//    }
-//
-//    String getBeansFName() {
-//        return beansFName;
-//    }
-//
-//    void setBeansFName(String beansFName) {
-//        this.beansFName = beansFName;
-//    }
-//}
+package com.kindcat.archivemedo.beans;
+
+/**
+ * Класс для хранения информации о пользователе
+ */
+class UsersBeans {
+
+    private int beanIdUser;
+    private String beanLogin;
+    private String beanHash;
+    private String beanFName;
+
+    int getBeanIdUser() {
+        return beanIdUser;
+    }
+
+    void setBeanIdUser(int beansIdUser) {
+        this.beanIdUser = beansIdUser;
+    }
+
+    String getBeanLogin() {
+        return beanLogin;
+    }
+
+    void setBeanLogin(String beansLogin) {
+        this.beanLogin = beansLogin;
+    }
+
+    String getBeanHash() {
+        return beanHash;
+    }
+
+    void setBeansHash(String beansHash) {
+        this.beanHash = beansHash;
+    }
+
+    String getBeanFName() {
+        return beanFName;
+    }
+
+    void setBeanFName(String beansFName) {
+        this.beanFName = beansFName;
+    }
+}

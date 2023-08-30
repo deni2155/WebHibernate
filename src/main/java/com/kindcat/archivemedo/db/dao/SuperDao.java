@@ -74,11 +74,13 @@ public class SuperDao implements ImplDao {
     }
 
     /**
+     * @param skip - число пропущенных записей для вывода постранично
+     * @param countMembers - число записей на одной странице
      * @return список участников МЭДО из БД
      */
     @Override
-    public List<Members> getListMembers() {
-        return membersDao.getMembersFindAll();
+    public List<Members> getAllListMembers(int skip, int countMembers) {
+        return membersDao.getAllListMembers(skip, countMembers);
     }
 
     /**

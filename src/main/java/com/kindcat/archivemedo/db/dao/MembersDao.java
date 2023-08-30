@@ -43,13 +43,13 @@ class MembersDao {
     /**
      * Получение списка участников МЭДО без выборки
      */
-    List<Members> getMembersFindAll() {
+    List<Members> getAllListMembers(int skip, int countMembers) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
-//            query.setFirstResult(20);//число пропущенных элементов
-//            query.setMaxResults(20);//число отображаемых элементов
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             transaction.commit();

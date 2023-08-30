@@ -19,19 +19,30 @@ import org.apache.log4j.Logger;
 public class LinkListMembersServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ImplDao superDao = new SuperDao();
-        request.setAttribute("listMembers", superDao.getListMembers());
-        if (superDao.getListMembers().isEmpty()) {
-            Logger logger = Logger.getLogger(LinkListMembersServlet.class);
+        //request.getRequestDispatcher("/pages/members/listShow.jsp").forward(request, response);
+        Logger logger = Logger.getLogger(LinkListMembersServlet.class);
+        ImplDao membersDao = new SuperDao();
+//
+//        int membersCountForOnePage = 20;//число записей на одной странице
+//        int countMembers = Math.toIntExact(membersDao.getAllCountMembers());
+//        int pageCount = countMembers / membersCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
+//        int page = 0;
+//        String link = "/pages/members/listShow.jsp";
+//        if (request.getAttribute("page") != null) {
+//            page = (int) request.getAttribute("page");
+//            link = link + "page=" + page;
+//        }
+//        int skip = membersCountForOnePage * page;
+        request.setAttribute("listMembers", membersDao.getAllListMembers(0, 20));
+//        request.setAttribute("pageCount", pageCount);
+//
+        if (membersDao.getAllListMembers(0, 20).isEmpty()) {
             logger.info("Получен пустой массив со списком участников МЭДО");
         }
         request.getRequestDispatcher("/pages/members/listShow.jsp").forward(request, response);

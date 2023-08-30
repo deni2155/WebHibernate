@@ -68,7 +68,7 @@ public class ExistsSessionFilter implements Filter {
         } else if (httpRequest.getRequestURI().endsWith(".png")) {
             httpResponse.setContentType("image/png");
             chain.doFilter(request, response);
-        //если пользователь отправил данные авторизациии, то фильтруется сервлет для создания сессии
+            //если пользователь отправил данные авторизациии, то фильтруется сервлет для создания сессии
         } else if ("/createSessionServlet".equals(httpRequest.getServletPath())) {
             //если запрос формы авторизации получен через POST
             if ("POST".equals(httpRequest.getMethod())) {
@@ -81,7 +81,8 @@ public class ExistsSessionFilter implements Filter {
             //если сессия существует и в ней есть атрибуты
             if (session.getAttribute("login") != null && session.getAttribute("idUser") != null && (String) session.getAttribute("fName") != null) {
                 //getSession();
-                chain.doFilter(request, response);//пропускаем выполнение запросов для перехода по ссылкам
+                httpRequest.getRequestDispatcher("linkArchiveServlet").forward(httpRequest, httpResponse);
+//                chain.doFilter(request, response);//пропускаем выполнение запросов для перехода по ссылкам
                 //httpRequest.getRequestDispatcher("/linkListMembersServlet").forward(httpRequest, httpResponse);
                 //если нет сессии и атрибутов сессии
             } else if (session.getAttribute("login") == null || session.getAttribute("idUser") == null || (String) session.getAttribute("fName") == null) {

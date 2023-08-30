@@ -1,4 +1,4 @@
-package com.kindcat.archivemedo.members.verif;
+package com.kindcat.archivemedo.members.regex;
 
 /**
  *

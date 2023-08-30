@@ -4,7 +4,7 @@ import com.kindcat.archivemedo.beans.SuperBean;
 import com.kindcat.archivemedo.beans.SuperBeanImpl;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
-import com.kindcat.archivemedo.members.verif.SuperVerification;
+import com.kindcat.archivemedo.members.regex.SuperVerification;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
-import com.kindcat.archivemedo.members.verif.SuperVerificationImpl;
+import com.kindcat.archivemedo.members.regex.SuperVerificationImpl;
 import java.io.PrintWriter;
 
 /**

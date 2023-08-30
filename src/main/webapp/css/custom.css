@@ -372,3 +372,25 @@ body{
     /*border: 2px solid black;*/
     border-color: green;
 }
+
+/*
+
+
+стилизация пагинации
+
+
+*/
+/*цвет активного элемента*/
+.pagination .page-item.active .page-link{
+    color: #F7F9F9;
+    background-color: #275996;
+}
+/*цвет выключенного элемента*/
+.pagination .page-item.disabled .page-link{
+    color:#767777;
+}
+/*цвет не активного элемента*/
+.pagination .page-item .page-link {
+    color:#275996;
+}
+

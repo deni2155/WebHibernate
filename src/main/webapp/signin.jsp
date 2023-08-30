@@ -25,13 +25,13 @@
                             <div id="div-login" class="rounded-start">
                                 <img src="icon/login.png" class="rounded-start p-1"/>
                             </div>
-                            <input type="text" class="form-control valid-input-type" name="login" placeholder="логин"/>
+                            <input type="text" class="form-control" name="login" placeholder="логин"/>
                         </div>
                         <div class="m-2 input-group">
                             <div id="div-password" class="rounded-start">
                                 <img src="icon/password.png" class="rounded-start p-1"/>
                             </div>
-                            <input type="password" class="form-control valid-input-type" name="password" placeholder="пароль"/>
+                            <input type="password" class="form-control" name="password" placeholder="пароль"/>
                         </div>
                     </div>
                     <div class="pb-4">

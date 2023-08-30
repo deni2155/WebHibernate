@@ -6,24 +6,37 @@ import java.util.List;
 
 /**
  * Главный класс пакета dao
+@version 1.0.1.33s
  */
 public class SuperDao implements ImplDao {
 
     /**
      * Ссылка на класс для работы с моделю данных таблицы user
      */
-    private final UsersDao userDao = new UsersDao();
+    private final UsersDao userDao;
     /**
      * Ссылка на класс для работы с моделью данных таблицы с участниками МЭДО
      */
-    private final MembersDao membersDao = new MembersDao();
+    private final MembersDao membersDao;
 
     /**
      * Конструктор класса
      */
     public SuperDao() {
+        userDao = new UsersDao();
+        membersDao = new MembersDao();
     }
 
+    /*
+*
+*
+*
+*
+*Пользователи
+*
+*
+*
+     */
     /**
      * @param id - процедура получает идентификатор УЗ пользователя
      * @return idUser возвращает информацию о пользователю
@@ -40,6 +53,24 @@ public class SuperDao implements ImplDao {
     @Override
     public int findUserInLoginByLogin(String login) {
         return userDao.findInLoginById(login);
+    }
+
+    /*
+*
+*
+*
+*
+*Участники МЭДО
+*
+*
+*
+     */
+    /**
+     * @return общее число записей из таблицы с участниками МЭДО
+     */
+    @Override
+    public long getCountMembers() {
+        return membersDao.getCountMembers();
     }
 
     /**
@@ -90,6 +121,7 @@ public class SuperDao implements ImplDao {
 
     /**
      * Удаление участника МЭДО
+     *
      * @param idMember - идентификатор участника МЭДО в БД
      * @return количество удаленных записей
      */

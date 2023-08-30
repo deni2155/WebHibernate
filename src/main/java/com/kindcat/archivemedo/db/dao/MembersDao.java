@@ -13,7 +13,7 @@ import org.hibernate.Transaction;
 /**
  *
  * @author dreamer
- * @version 1.0.0.18 класс для работы со списком участников МЭДО в БД
+ * @version 1.0.1.33 класс для работы со списком участников МЭДО в БД
  */
 class MembersDao {
 
@@ -24,6 +24,22 @@ class MembersDao {
         logger = Logger.getLogger(MembersDao.class);
     }
 
+    long getCountMembers() {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logger.fatal("При выполнения запроса к БД для проверки наличия записи по email в системе возникла программная ошибка", ex);
+        }
+        return count;
+    }
+
     /**
      * Получение списка участников МЭДО без выборки
      */
@@ -32,9 +48,9 @@ class MembersDao {
             String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+//            query.setFirstResult(20);//число пропущенных элементов
+//            query.setMaxResults(20);//число отображаемых элементов
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
-//            query.setFirstResult(41);
-//            query.setMaxResults(20);
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             transaction.commit();
             session.close();
@@ -123,7 +139,8 @@ class MembersDao {
     }
 
     /**
-     * Проверка существования записи в БД при добавлении нового участника МЭДО
+     * Проверка существования записи с такими же данными в БД при добавлении
+     * нового участника МЭДО
      */
     long getCountByEmailOrGuid(String email, String guid) {
         long count = 0;

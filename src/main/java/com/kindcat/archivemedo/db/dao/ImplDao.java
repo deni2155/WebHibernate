@@ -6,9 +6,35 @@ import java.util.List;
 
 public interface ImplDao {
 
+    /*
+*
+*
+*
+*
+*Пользователи
+*
+*
+*
+     */
     public Users findUserById(int id);
 
     public int findUserInLoginByLogin(String login);
+
+    /*
+*
+*
+*
+*
+*
+*
+*Участники МЭДО
+*
+*
+*
+*
+*
+     */
+    public long getCountMembers();
 
     public List<Members> getListMembers();
 

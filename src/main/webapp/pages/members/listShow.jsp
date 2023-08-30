@@ -24,6 +24,12 @@
 
         -->
         <div class="row custom-tables mt-4 ms-1 me-1 rounded">
+            <!--
+            пагинация
+            -->
+            <div class="pt-3">
+            <jsp:include page="../templates/members/pagination.jsp"/>
+            </div>
             <div class="col-12 table-responsive">
                 <!--Документы-->
                 <div class="tab-pane fade show active" id="nav-docs" role="tabpanel" aria-labelledby="nav-docs-tab" tabindex="0">
@@ -103,21 +109,24 @@
                     <!--/form-->
                 </div>
             </div>
-        </div>
+
+            <!--
+            пагинация
+            -->
+            <jsp:include page="../templates/members/pagination.jsp"/>
 
 
-
-        <!--
-        модальное окно для добавления нового участника МЭДО
-        -->
-        <jsp:include page="../templates/winmodal/member/add_member.jsp"/>
-        <!--
-        Модальное окно для редактирования участника МЭДО
-        -->
-        <jsp:include page="../templates/winmodal/member/update_member.jsp"/>
-        <!--
-        Модальное окно для подтверждения удаления участника МЭДО
-        -->
-        <jsp:include page="../templates/winmodal/member/delete_member.jsp"/>
+            <!--
+            модальное окно для добавления нового участника МЭДО
+            -->
+            <jsp:include page="../templates/members/winmodal/add_member.jsp"/>
+            <!--
+            Модальное окно для редактирования участника МЭДО
+            -->
+            <jsp:include page="../templates/members/winmodal/update_member.jsp"/>
+            <!--
+            Модальное окно для подтверждения удаления участника МЭДО
+            -->
+            <jsp:include page="../templates/members/winmodal/delete_member.jsp"/>
     </body>
 </html>

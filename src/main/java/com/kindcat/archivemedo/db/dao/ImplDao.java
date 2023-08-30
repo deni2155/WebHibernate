@@ -34,7 +34,7 @@ public interface ImplDao {
 *
 *
      */
-    public long getCountMembers();
+    public long getAllCountMembers();
 
     public List<Members> getListMembers();
 

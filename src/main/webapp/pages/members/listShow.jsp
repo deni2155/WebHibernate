@@ -44,36 +44,36 @@
                                     </button>
                                 </th>
                                 <th scope="col">
-                                    <label for="format" class="form-label">Имя пользователя</label>
+                                    <label for="format" class="form-label font-custom-table-header">Имя пользователя</label>
                                     <div class="input-group">
                                         <button class="btn btn-custom btn-custom-sort">
                                             <!--Иконка сортировки-->
                                             <img src=""/>
                                         </button>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control form-control-sm">
                                     </div>
                                 </th>
                                 <th scope="col">											
                                     <div>
-                                        <label for="number_doc_doc" class="form-label">Адресат</label>
+                                        <label for="number_doc_doc" class="form-label font-custom-table-header">Адресат</label>
                                         <div class="input-group">
                                             <button class="btn btn-custom btn-custom-sort" type="button">
                                                 <!--Иконка сортировки-->
                                                 <img src=""/>
                                             </button>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                 </th>
                                 <th scope="col">											
                                     <div>
-                                        <label for="number_doc_doc" class="form-label">GUID</label>
+                                        <label for="number_doc_doc" class="form-label font-custom-table-header">GUID</label>
                                         <div class="input-group">
                                             <button class="btn btn-custom btn-custom-sort" type="button">
                                                 <!--Иконка сортировки-->
                                                 <img src=""/>
                                             </button>
-                                            <input type="text" class="form-control" id="number_doc_doc">
+                                            <input type="text" class="form-control form-control-sm" id="number_doc_doc">
                                         </div>
                                     </div>
                                 </th>
@@ -90,10 +90,10 @@
                         <tbody>
                             <c:forEach var="listMembers" items="${listMembers}">
                                 <tr>
-                                    <th scope="row" class="text-center">${listMembers.idMembers}</th>
-                                    <td>${listMembers.nameOrg}</td>
-                                    <td>${listMembers.addr}</td>
-                                    <td>${listMembers.guid}</td>
+                                    <th scope="row" class="text-center font-custom-table-content">${listMembers.idMembers}</th>
+                                    <td class="font-custom-table-content">${listMembers.nameOrg}</td>
+                                    <td class="font-custom-table-content">${listMembers.addr}</td>
+                                    <td class="font-custom-table-content">${listMembers.guid}</td>
                                     <td>
                                         <a href="#" class="btn-custom-update-row text-decoration-none text-reset href-window-for-update-member" data-bs-toggle="modal" data-bs-target="#update-medo-participant" data-update-id-value="${listMembers.idMembers}" data-update-name-org="${listMembers.nameOrg}" data-update-email-org="${listMembers.addr}" data-update-guid-org="${listMembers.guid}">    
                                             <img src="" title="Редактировать"/>

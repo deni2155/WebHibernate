@@ -69,8 +69,8 @@ public class SuperDao implements ImplDao {
      * @return общее число записей из таблицы с участниками МЭДО
      */
     @Override
-    public long getCountMembers() {
-        return membersDao.getCountMembers();
+    public long getAllCountMembers() {
+        return membersDao.getAllCountMembers();
     }
 
     /**

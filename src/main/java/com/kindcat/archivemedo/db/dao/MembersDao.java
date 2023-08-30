@@ -24,7 +24,7 @@ class MembersDao {
         logger = Logger.getLogger(MembersDao.class);
     }
 
-    long getCountMembers() {
+    long getAllCountMembers() {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "select count(idMembers) from Members";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users

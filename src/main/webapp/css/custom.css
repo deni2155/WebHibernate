@@ -141,6 +141,18 @@ body{
     background-color:#728CA6;
     color:#0B2E59;
 }
+/*
+текст содержимого таблицы
+*/
+.font-custom-table-content{
+    font-size: 0.9em
+}
+/*
+текст заголовков таблицы
+*/
+.font-custom-table-header{
+    font-size: 0.9em
+}
 
 /*
 

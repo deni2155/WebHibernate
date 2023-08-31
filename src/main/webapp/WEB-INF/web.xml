@@ -64,4 +64,7 @@
         <param-name>tempDir</param-name>
         <param-value>/var/tmp/appmedo</param-value>
     </context-param-->
+    <welcome-file-list>
+        <welcome-file>linkArchiveServlet</welcome-file>
+    </welcome-file-list>
 </web-app>

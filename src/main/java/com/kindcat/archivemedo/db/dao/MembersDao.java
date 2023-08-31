@@ -5,10 +5,13 @@ import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 
 /**
  *
@@ -46,12 +49,13 @@ class MembersDao {
     List<Members> getAllListMembers(int skip, int countMembers) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+//            String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(countMembers);//число отображаемых элементов
-            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массиву
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
             session.close();
             logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");

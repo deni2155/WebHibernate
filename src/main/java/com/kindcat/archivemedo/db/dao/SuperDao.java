@@ -6,7 +6,8 @@ import java.util.List;
 
 /**
  * Главный класс пакета dao
-@version 1.0.1.33s
+ *
+ * @version 1.0.1.33s
  */
 public class SuperDao implements ImplDao {
 

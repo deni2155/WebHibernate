@@ -6,9 +6,9 @@
 <div class="col-12">
     <div class="d-flex justify-content-center">
         <ul class="pagination">
-            <c:forEach var="page" begin="1" end="${pageCount}">
+            <c:forEach var="pageForCurrent" begin="1" end="${pageCount}">
                 <li class="page-item">
-                    <a href="?page=${page}">${page}</a>
+                    <a href="?page=${pageForCurrent}">${pageForCurrent}</a>
                 </li>
             </c:forEach>
         </ul>

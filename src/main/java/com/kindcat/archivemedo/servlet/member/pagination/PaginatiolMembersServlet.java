@@ -13,8 +13,7 @@ import org.apache.log4j.Logger;
 /**
  *
  * @author dreamer
- * @version 1.0.1.35
-Класс для пагинации в разделе со списком участников МЭДО
+ * @version 1.0.1.35 Класс для пагинации в разделе со списком участников МЭДО
  */
 @WebServlet(name = "PaginatiolMembersServlet", urlPatterns = {"/paginatiolMembersServlet"})
 public class PaginatiolMembersServlet extends HttpServlet {
@@ -31,20 +30,30 @@ public class PaginatiolMembersServlet extends HttpServlet {
 
         int membersCountForOnePage = 20;//число записей на одной странице
         int countMembers = Math.toIntExact(membersDao.getAllCountMembers());//общее число записей в БД
+
         int pageCount = countMembers / membersCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
-        int page = 0;
-        String link = "linkListMembersServlet";
-        if (request.getAttribute("page") != null) {
-            page = (int) request.getAttribute("page");
-            link = link + "page=" + page;
+        //если остаток от деления больше нуля при делении общего числа записей на число записей на одной странице, добавляем одну страницу
+        if ((countMembers % membersCountForOnePage) > 0) {
+            pageCount++;
         }
-        int skip = membersCountForOnePage * page;//число пропущенных записей
-        request.setAttribute("listMembers", membersDao.getAllListMembers(skip, 20));//массив с записями для отображения на странице
+        int currentPage = 0;
+        String link = "linkListMembersServlet";
+        if (request.getParameter("page") != null) {
+            currentPage = Integer.parseInt(request.getParameter("page"));
+        }
+        //иначе считает не правильно
+        if (currentPage == 1) {
+            currentPage = 0;
+        } else if (currentPage > 1) {
+            currentPage--;
+        }
+        int skip = membersCountForOnePage * currentPage;//число пропущенных записей
+        request.setAttribute("listMembers", membersDao.getAllListMembers(skip, membersCountForOnePage));//массив с записями для отображения на странице
         request.setAttribute("pageCount", pageCount);//число странице для отображения
-        if (membersDao.getAllListMembers(skip, 20).isEmpty()) {
+        if (membersDao.getAllListMembers(skip, membersCountForOnePage).isEmpty()) {
             logger.info("Получен пустой массив со списком участников МЭДО");
         } else {
-            request.getRequestDispatcher("/"+link).forward(request, response);
+            request.getRequestDispatcher(link).forward(request, response);
         }
     }
 

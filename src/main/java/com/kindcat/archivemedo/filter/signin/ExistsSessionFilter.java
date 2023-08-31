@@ -75,14 +75,13 @@ public class ExistsSessionFilter implements Filter {
                 chain.doFilter(request, response);
             } else {
                 logger.info("Пользователь умудрился отправить форму авторизации get-запросом");
+                httpRequest.getRequestDispatcher("/signin.jsp").forward(httpRequest, httpResponse);
             }
         } else {
             session = httpRequest.getSession();//получаю текущую сессию
             //если сессия существует и в ней есть атрибуты
             if (session.getAttribute("login") != null && session.getAttribute("idUser") != null && (String) session.getAttribute("fName") != null) {
-                //getSession();
-                httpRequest.getRequestDispatcher("linkArchiveServlet").forward(httpRequest, httpResponse);
-//                chain.doFilter(request, response);//пропускаем выполнение запросов для перехода по ссылкам
+                chain.doFilter(request, response);//пропускаем выполнение запросов для перехода по ссылкам
                 //httpRequest.getRequestDispatcher("/linkListMembersServlet").forward(httpRequest, httpResponse);
                 //если нет сессии и атрибутов сессии
             } else if (session.getAttribute("login") == null || session.getAttribute("idUser") == null || (String) session.getAttribute("fName") == null) {

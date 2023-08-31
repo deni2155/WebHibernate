@@ -25,9 +25,9 @@ public class LinkListMembersServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //request.getRequestDispatcher("/pages/members/listShow.jsp").forward(request, response);
-        Logger logger = Logger.getLogger(LinkListMembersServlet.class);
-        ImplDao membersDao = new SuperDao();
+        request.getRequestDispatcher("/pages/members/listShow.jsp").forward(request, response);
+//        Logger logger = Logger.getLogger(LinkListMembersServlet.class);
+//        ImplDao membersDao = new SuperDao();
 //
 //        int membersCountForOnePage = 20;//число записей на одной странице
 //        int countMembers = Math.toIntExact(membersDao.getAllCountMembers());
@@ -39,13 +39,13 @@ public class LinkListMembersServlet extends HttpServlet {
 //            link = link + "page=" + page;
 //        }
 //        int skip = membersCountForOnePage * page;
-        request.setAttribute("listMembers", membersDao.getAllListMembers(0, 20));
+//        request.setAttribute("listMembers", membersDao.getAllListMembers(0, 20));
 //        request.setAttribute("pageCount", pageCount);
 //
-        if (membersDao.getAllListMembers(0, 20).isEmpty()) {
-            logger.info("Получен пустой массив со списком участников МЭДО");
-        }
-        request.getRequestDispatcher("/pages/members/listShow.jsp").forward(request, response);
+//        if (membersDao.getAllListMembers(0, 20).isEmpty()) {
+//            logger.info("Получен пустой массив со списком участников МЭДО");
+//        }
+//        request.getRequestDispatcher("/pages/members/listShow.jsp").forward(request, response);
     }
 
     /**

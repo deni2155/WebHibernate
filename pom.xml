@@ -4,7 +4,7 @@
 
     <groupId>com.kindcat</groupId>
     <artifactId>WebMedo</artifactId>
-    <version>1.0.1.34</version>
+    <version>1.0.1.35</version>
     <packaging>war</packaging>
 
     <name>WebMedo</name>

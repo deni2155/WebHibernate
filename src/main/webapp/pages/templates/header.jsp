@@ -44,7 +44,7 @@
             </a>
             <div class="dropdown-content-setting text-start">
                 <div class="list-show-submenu-setting">
-                    <a href="linkListMembersServlet">Справочник участников</a>
+                    <a href="paginatiolMembersServlet">Справочник участников</a>
                     <div class="dropdown-content-sublevel-setting">
                         <a href="#">Скачать</a>
                         <!--a href="#" data-bs-toggle="modal" data-bs-target="#modal-win-download-listguides">Загрузить</a-->

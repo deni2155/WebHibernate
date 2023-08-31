@@ -28,7 +28,7 @@
             пагинация
             -->
             <div class="pt-3">
-            <jsp:include page="../templates/members/pagination.jsp"/>
+                <jsp:include page="../templates/members/pagination.jsp"/>
             </div>
             <div class="col-12 table-responsive">
                 <!--Документы-->
@@ -88,22 +88,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="listMembers" items="${listMembers}">
+                            <!--если получен не пустой массив-->
+                            <c:if test="${not empty listMembers}">
+                                <c:forEach var="listMembers" items="${listMembers}">
+                                    <tr>
+                                        <th scope="row" class="text-center font-custom-table-content">${listMembers.idMembers}</th>
+                                        <td class="font-custom-table-content">${listMembers.nameOrg}</td>
+                                        <td class="font-custom-table-content">${listMembers.addr}</td>
+                                        <td class="font-custom-table-content">${listMembers.guid}</td>
+                                        <td>
+                                            <a href="#" class="btn-custom-update-row text-decoration-none text-reset href-window-for-update-member" data-bs-toggle="modal" data-bs-target="#update-medo-participant" data-update-id-value="${listMembers.idMembers}" data-update-name-org="${listMembers.nameOrg}" data-update-email-org="${listMembers.addr}" data-update-guid-org="${listMembers.guid}">    
+                                                <img src="" title="Редактировать"/>
+                                            </a>
+                                            <a href="#" class="btn-custom-delete-row text-decoration-none text-reset href-window-for-delete-member" data-bs-toggle="modal" data-bs-target="#delete-medo-participant" data-delete-id-value="${listMembers.idMembers}" data-delete-name-org="${listMembers.nameOrg}">
+                                                <img src="" title="Удалить"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                            <!--Если массив пустой-->
+                            <c:if test="${empty listMembers}">
                                 <tr>
-                                    <th scope="row" class="text-center font-custom-table-content">${listMembers.idMembers}</th>
-                                    <td class="font-custom-table-content">${listMembers.nameOrg}</td>
-                                    <td class="font-custom-table-content">${listMembers.addr}</td>
-                                    <td class="font-custom-table-content">${listMembers.guid}</td>
-                                    <td>
-                                        <a href="#" class="btn-custom-update-row text-decoration-none text-reset href-window-for-update-member" data-bs-toggle="modal" data-bs-target="#update-medo-participant" data-update-id-value="${listMembers.idMembers}" data-update-name-org="${listMembers.nameOrg}" data-update-email-org="${listMembers.addr}" data-update-guid-org="${listMembers.guid}">    
-                                            <img src="" title="Редактировать"/>
-                                        </a>
-                                        <a href="#" class="btn-custom-delete-row text-decoration-none text-reset href-window-for-delete-member" data-bs-toggle="modal" data-bs-target="#delete-medo-participant" data-delete-id-value="${listMembers.idMembers}" data-delete-name-org="${listMembers.nameOrg}">
-                                            <img src="" title="Удалить"/>
-                                        </a>
-                                    </td>
+                                    <th scope="row" class="text-center font-custom-table-content">null</th>
+                                    <td class="font-custom-table-content">Записи не найдены</td>
+                                    <td class="font-custom-table-content">Записи не найдены</td>
+                                    <td class="font-custom-table-content">Записи не найдены</td>
+                                    <td>null</td>
                                 </tr>
-                            </c:forEach>
+                            </c:if>
                         </tbody>
                     </table>
                     <!--/form-->

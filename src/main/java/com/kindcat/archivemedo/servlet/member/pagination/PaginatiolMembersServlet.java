@@ -41,6 +41,15 @@ public class PaginatiolMembersServlet extends HttpServlet {
         if (request.getParameter("page") != null) {
             currentPage = Integer.parseInt(request.getParameter("page"));
         }
+
+        //если от пользователя получен номер страницы, превышающий общее число страниц
+        if (currentPage > pageCount) {
+            currentPage = pageCount;//отправляем пользователя на последнюю страницу
+        }//если от пользователя получен номер страницы меньше нуля, отпавляем на персую страницу
+        if (currentPage < 0) {
+            currentPage = 0;
+        }
+
         //иначе считает не правильно
         if (currentPage == 1) {
             currentPage = 0;
@@ -52,9 +61,8 @@ public class PaginatiolMembersServlet extends HttpServlet {
         request.setAttribute("pageCount", pageCount);//число странице для отображения
         if (membersDao.getAllListMembers(skip, membersCountForOnePage).isEmpty()) {
             logger.info("Получен пустой массив со списком участников МЭДО");
-        } else {
-            request.getRequestDispatcher(link).forward(request, response);
         }
+        request.getRequestDispatcher(link).forward(request, response);
     }
 
     /**

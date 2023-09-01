@@ -28,7 +28,7 @@
             пагинация
             -->
             <div class="pt-3">
-                <jsp:include page="../templates/members/pagination.jsp"/>
+                <jsp:include page="../templates/pagination.jsp"/>
             </div>
             <div class="col-12 table-responsive">
                 <!--Документы-->
@@ -126,7 +126,7 @@
             <!--
             пагинация
             -->
-            <jsp:include page="../templates/members/pagination.jsp"/>
+            <jsp:include page="../templates/pagination.jsp"/>
 
 
             <!--

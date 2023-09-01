@@ -1,14 +1,11 @@
 package com.kindcat.archivemedo.servlet.links.member.list;
 
-import com.kindcat.archivemedo.db.dao.ImplDao;
-import com.kindcat.archivemedo.db.dao.SuperDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 
 /**
  *

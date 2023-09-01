@@ -2,8 +2,9 @@ $(document).ready(function () {
     /*
      * Добавление участника МЭДО
      */
-    $('#form-add-member').submit(function (event) {
-        //event.preventDefault();
+    $('#form-add-member').submit(function () {
+        //очищаю div
+        $('#message-for-add-proccess').html("");
         $.ajax({
             type: 'GET',
             url: 'addMemberServlet',
@@ -12,8 +13,6 @@ $(document).ready(function () {
 //                console.log(response);
                 //очищаем поля формы
                 $('#form-add-member')[0].reset();
-                //очищаю div
-                $('#message-for-add-proccess').html("");
                 //отправляем ответ на страницу, ответ состоит из двух объектов - цвет текста и сообщение
                 var responses = response.split("\n");
                 var response1 = responses[0];
@@ -32,14 +31,16 @@ $(document).ready(function () {
     /*
      * Изменение участника МЭДО
      */
-    $('#form-update-member').submit(function (event) {
-        //event.preventDefault();
+    $('#form-update-member').submit(function () {
+        //очищаю div
+        $('#message-for-update-proccess').html("");
         $.ajax({
             type: 'GET',
             url: 'updateMemberServlet',
             data: $('#form-update-member').serialize(),
             success: function (response) {
-                console.log(response);
+                //console.log(response);
+
 //                //отправляем ответ на страницу, ответ состоит из двух объектов - цвет текста и сообщение
                 var responses = response.split("\n");
                 var response1 = responses[0];
@@ -56,11 +57,12 @@ $(document).ready(function () {
         return false;
     });
 
-/**
- * Удаление участника МЭДО
- */
-    $('#form-delete-member').submit(function (event) {
-        //event.preventDefault();
+    /**
+     * Удаление участника МЭДО
+     */
+    $('#form-delete-member').submit(function () {
+        //очищаю div
+        $('#message-for-delete-proccess').html("");
         $.ajax({
             type: 'GET',
             url: 'deleteMemberServlet',

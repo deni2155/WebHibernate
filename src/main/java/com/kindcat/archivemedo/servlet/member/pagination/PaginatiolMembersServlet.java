@@ -28,7 +28,7 @@ public class PaginatiolMembersServlet extends HttpServlet {
         Logger logger = Logger.getLogger(PaginatiolMembersServlet.class);
         ImplDao membersDao = new SuperDao();
 
-        int membersCountForOnePage = 2;//число записей на одной странице
+        int membersCountForOnePage = 20;//число записей на одной странице
         int countMembers = Math.toIntExact(membersDao.getAllCountMembers());//общее число записей в БД
         int pageCount = countMembers / membersCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
         int currentPage = 1;//выбранная страинца для расчёта пагинации

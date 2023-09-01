@@ -110,11 +110,11 @@
                             <!--Если массив пустой-->
                             <c:if test="${empty listMembers}">
                                 <tr>
-                                    <th scope="row" class="text-center font-custom-table-content">null</th>
+                                    <th scope="row" class="text-center font-custom-table-content"></th>
                                     <td class="font-custom-table-content">Записи не найдены</td>
                                     <td class="font-custom-table-content">Записи не найдены</td>
                                     <td class="font-custom-table-content">Записи не найдены</td>
-                                    <td>null</td>
+                                    <td></td>
                                 </tr>
                             </c:if>
                         </tbody>

@@ -28,16 +28,18 @@ public class PaginatiolMembersServlet extends HttpServlet {
         Logger logger = Logger.getLogger(PaginatiolMembersServlet.class);
         ImplDao membersDao = new SuperDao();
 
-        int membersCountForOnePage = 20;//число записей на одной странице
+        int membersCountForOnePage = 2;//число записей на одной странице
         int countMembers = Math.toIntExact(membersDao.getAllCountMembers());//общее число записей в БД
-
         int pageCount = countMembers / membersCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
+        int currentPage = 1;//выбранная страинца для расчёта пагинации
+        int skip = 0;//число пропущенных записей
+        String link = "linkListMembersServlet";
+
         //если остаток от деления больше нуля при делении общего числа записей на число записей на одной странице, добавляем одну страницу
         if ((countMembers % membersCountForOnePage) > 0) {
             pageCount++;
         }
-        int currentPage = 0;
-        String link = "linkListMembersServlet";
+
         if (request.getParameter("page") != null) {
             currentPage = Integer.parseInt(request.getParameter("page"));
         }
@@ -46,19 +48,16 @@ public class PaginatiolMembersServlet extends HttpServlet {
         if (currentPage > pageCount) {
             currentPage = pageCount;//отправляем пользователя на последнюю страницу
         }//если от пользователя получен номер страницы меньше нуля, отпавляем на персую страницу
-        if (currentPage < 0) {
-            currentPage = 0;
+        if (currentPage < 1) {
+            currentPage = 1;
         }
 
-        //иначе считает не правильно
-        if (currentPage == 1) {
-            currentPage = 0;
-        } else if (currentPage > 1) {
-            currentPage--;
-        }
-        int skip = membersCountForOnePage * currentPage;//число пропущенных записей
+        skip = membersCountForOnePage * (currentPage-1);//число пропущенных записей
+
         request.setAttribute("listMembers", membersDao.getAllListMembers(skip, membersCountForOnePage));//массив с записями для отображения на странице
         request.setAttribute("pageCount", pageCount);//число странице для отображения
+        request.setAttribute("currentPage", currentPage);//текущая страница
+
         if (membersDao.getAllListMembers(skip, membersCountForOnePage).isEmpty()) {
             logger.info("Получен пустой массив со списком участников МЭДО");
         }

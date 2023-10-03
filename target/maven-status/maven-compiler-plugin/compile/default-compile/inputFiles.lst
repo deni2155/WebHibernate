@@ -11,6 +11,7 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/links/member/file/LinkDownloadMembersServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/member/update/UpdateMemberServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/links/member/list/LinkListMembersServlet.java
+/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/models/SchemaXml.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/dao/ImplDao.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/signin/CreateSessionServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/beans/UsersBeans.java
@@ -28,6 +29,7 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/member/delete/DeleteMemberServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/config/TempFolder.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/config/ConfigFile.java
+/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/dao/SchemaXmlDao.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/models/TypePkg.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/member/add/AddMemberServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/home/pagination/PaginationArchiveServlet.java

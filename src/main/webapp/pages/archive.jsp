@@ -79,12 +79,13 @@
                                                     <!--Иконка сортировки-->
                                                     <img src=""/>
                                                 </button>
-                                                <select class="form-select form-control" id="format">
-                                                    <option selected>One</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
+                                                <c:if test="${not empty listSchemaXml}">
+                                                    <select class="form-select form-control">
+                                                        <c:forEach var="listSchemaXml" items="${listSchemaXml}">
+                                                            <option value="${listSchemaXml.idSchema}">${listSchemaXml.nameSchema}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </c:if>
                                             </div>
                                             <!--div>
                                                     <label for="format" class="form-label">Формат</label>
@@ -155,6 +156,14 @@
                                             </div>
                                         </th>
                                         <th scope="col">
+                                            <div class="form-check">
+                                                <label for="dsp" class="form-check-label">ДСП</label>
+                                                <!--div class="input-group"-->
+                                                <input type="checkBox" id="dsp" class="form-check-input" value=""/>
+                                                <!--/div-->
+                                            </div>
+                                        </th>
+                                        <th scope="col">
                                             <div>
                                                 <label class="form-label">Уведомление</label>
                                             </div>
@@ -182,6 +191,11 @@
                                         <td>Мордовия</td>
                                         <td>Сахалин</td>
                                         <td>10.12.1962 10:00:15</td>
+                                        <td class="d-flex justify-content-center">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
+                                            </div>
+                                        </td>
                                         <td>
                                             <a href="#" class="btn pt-0 pb-0">Показать</a>
                                         </td>
@@ -197,6 +211,11 @@
                                         <td>Администрация</td>
                                         <td>Камчатка</td>
                                         <td>27.06.2005 08:22:15</td>
+                                        <td class="d-flex justify-content-center">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
+                                            </div>
+                                        </td>
                                         <td>
                                             <a href="#" class="btn pt-0 pb-0">Показать</a>
                                         </td>
@@ -212,6 +231,11 @@
                                         <td>Царь</td>
                                         <td>Барнаул</td>
                                         <td>21.10.2004 04:00:15</td>
+                                        <td class="d-flex justify-content-center">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
+                                            </div>
+                                        </td>
                                         <td>
                                             <a href="#" class="btn pt-0 pb-0">Показать</a>
                                         </td>

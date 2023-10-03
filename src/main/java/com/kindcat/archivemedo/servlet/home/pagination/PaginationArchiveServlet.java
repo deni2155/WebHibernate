@@ -36,7 +36,11 @@ public class PaginationArchiveServlet extends HttpServlet {
         ImplDao dao = new SuperDao();
         request.setAttribute("listTypePkg", dao.getAllListTypePkg());//массив с записями для отображения на странице
         if (dao.getAllListTypePkg().isEmpty()) {
-            logger.info("Получен пустой массив со списком типов пакетов (входящий\\исходящий)");
+            logger.warn("Получен пустой массив со списком типов пакетов (входящий\\исходящий)");
+        }
+        request.setAttribute("listSchemaXml", dao.getAllListSchemaXml());//массив с записями для отображения на странице
+        if (dao.getAllListSchemaXml().isEmpty()) {
+            logger.warn("Получен пустой массив со списком схем xml");
         }
         request.getRequestDispatcher(link).forward(request, response);
     }

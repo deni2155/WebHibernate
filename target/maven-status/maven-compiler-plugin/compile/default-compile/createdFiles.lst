@@ -20,9 +20,11 @@ com/kindcat/archivemedo/servlet/home/pagination/PaginationArchiveServlet.class
 com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
 com/kindcat/archivemedo/servlet/member/delete/DeleteMemberServlet.class
 com/kindcat/archivemedo/filter/members/upload/UploadListMembersFilter.class
+com/kindcat/archivemedo/db/models/SchemaXml.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
 com/kindcat/archivemedo/servlet/member/update/UpdateMemberServlet.class
 com/kindcat/archivemedo/logger/LoggerForJspImpl.class
+com/kindcat/archivemedo/db/dao/SchemaXmlDao.class
 com/kindcat/archivemedo/db/models/Users.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/context/ReinitializingContext.class

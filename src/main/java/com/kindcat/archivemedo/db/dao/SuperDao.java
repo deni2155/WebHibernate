@@ -1,6 +1,7 @@
 package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Members;
+import com.kindcat.archivemedo.db.models.SchemaXml;
 import com.kindcat.archivemedo.db.models.TypePkg;
 import com.kindcat.archivemedo.db.models.Users;
 import java.util.List;
@@ -24,6 +25,10 @@ public class SuperDao implements ImplDao {
      * ссылка на класс для работы с типом пакетов (входящий или исходящий)
      */
     private TypePkgDao typePkgDao;
+    /**
+     * ссылка на класс для работы со списком xml-схем
+     */
+    private SchemaXmlDao schemaXmlDao;
 
     /**
      * Конструктор класса
@@ -33,6 +38,7 @@ public class SuperDao implements ImplDao {
         membersDao = new MembersDao();
         typePkgDao = new TypePkgDao();
         typePkgDao = new TypePkgDao();
+        schemaXmlDao = new SchemaXmlDao();
     }
 
     /*
@@ -202,5 +208,22 @@ public class SuperDao implements ImplDao {
     @Override
     public List<TypePkg> getAllListTypePkg() {
         return typePkgDao.getAllList();
+    }
+
+    /**
+     *
+     *
+     *
+     * Список схем xml-файлов
+     *
+     *
+     *
+     */
+    /**
+     * @return список xml-схем
+     */
+    @Override
+    public List<SchemaXml> getAllListSchemaXml() {
+        return schemaXmlDao.getAllList();
     }
 }

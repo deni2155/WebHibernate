@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!--
 Таблица со списком пакетов
 -->
@@ -23,24 +24,33 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active fw-bold" id="nav-docs-tab" data-bs-toggle="tab" data-bs-target="#nav-docs" type="button" role="tab" aria-controls="nav-docs" aria-selected="true">
                             <img src="icon/document.png"/> Документы
-                            <select class="form-select form-control" id="format">
-                                <option value="1">Входящие</option>
-                                <option value="2">Исходящие</option>
-                            </select>
+                            <c:if test="${not empty listTypePkg}">
+                                <select class="form-select form-control">
+                                    <c:forEach var="listTypePkg" items="${listTypePkg}">
+                                        <option value="${listTypePkg.idTypePkg}">${listTypePkg.nameTypePkg}</option>
+                                    </c:forEach>
+                                </select>
+                            </c:if>
                         </button>
                         <button class="nav-link fw-bold" id="nav-notifs-tab" data-bs-toggle="tab" data-bs-target="#nav-notifs" type="button" role="tab" aria-controls="nav-notifs" aria-selected="false">
                             <img src="icon/notification.png"/> Уведомления
-                            <select class="form-select form-control" id="format">
-                                <option value="1">Входящие</option>
-                                <option value="2">Исходящие</option>
-                            </select>
+                            <c:if test="${not empty listTypePkg}">
+                                <select class="form-select form-control">
+                                    <c:forEach var="listTypePkg" items="${listTypePkg}">
+                                        <option value="${listTypePkg.idTypePkg}">${listTypePkg.nameTypePkg}</option>
+                                    </c:forEach>
+                                </select>
+                            </c:if>
                         </button>
                         <button class="nav-link fw-bold" id="nav-receipts-tab" data-bs-toggle="tab" data-bs-target="#nav-receipts" type="button" role="tab" aria-controls="nav-receipts" aria-selected="false">
                             <img src="icon/receipt.png"/> Квитанции
-                            <select class="form-select form-control" id="format">
-                                <option value="1">Входящие</option>
-                                <option value="2">Исходящие</option>
-                            </select>
+                            <c:if test="${not empty listTypePkg}">
+                                <select class="form-select form-control">
+                                    <c:forEach var="listTypePkg" items="${listTypePkg}">
+                                        <option value="${listTypePkg.idTypePkg}">${listTypePkg.nameTypePkg}</option>
+                                    </c:forEach>
+                                </select>
+                            </c:if>
                         </button>
                     </div>
                 </nav>

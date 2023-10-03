@@ -46,8 +46,8 @@ class VerificationMembers {
         }
         return verif;
     }
-
-    String returnExistsId() {
-        return "";
-    }
+//
+//    String returnExistsId() {
+//        return "";
+//    }
 }

@@ -5,7 +5,6 @@ import com.kindcat.archivemedo.beans.SuperBeanImpl;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
 import com.kindcat.archivemedo.members.regex.SuperVerification;
-import com.kindcat.archivemedo.members.regex.SuperVerificationImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+import com.kindcat.archivemedo.members.regex.ImplVerification;
 
 /**
  *
@@ -24,6 +24,16 @@ import org.apache.log4j.Logger;
 @WebServlet(name = "UpdateMemberServlet", urlPatterns = {"/updateMemberServlet"})
 public class UpdateMemberServlet extends HttpServlet {
 
+    private final Logger logger;
+    private final StringBuilder logBuilder;
+    private StackTraceElement[] stackTrace;
+    private String stringlog;
+
+    public UpdateMemberServlet() {
+        logger = Logger.getLogger(UpdateMemberServlet.class);
+        logBuilder = new StringBuilder();
+    }
+
     /**
      * @param request servlet request
      * @param response servlet response
@@ -31,7 +41,7 @@ public class UpdateMemberServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Logger logger = Logger.getLogger(UpdateMemberServlet.class);
+
         //получаю сеществующую сессию
         HttpSession session = request.getSession(false);
         String login = session.getAttribute("login").toString();
@@ -48,13 +58,12 @@ public class UpdateMemberServlet extends HttpServlet {
                 beans.setBeanGuidOrg(request.getParameter("guidUpdateMember"));
 
                 //создаю ссылку на класс для проверки валидности отправленных пользователем данных
-                SuperVerificationImpl memberProcess = new SuperVerification(login, beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+                ImplVerification memberProcess = new SuperVerification(login, beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
                 //проверяю, чтобы отправленные данные пользователя соответствовали регулярным выражения
                 if (memberProcess.verifProcessRegex()) {
                     ImplDao memberDao = new SuperDao();
 
                     //проверяю наличие в БД участника МЭДО по email и GUID
-                    StringBuilder logBuilder = new StringBuilder();
                     logger.debug("Получен идентификатор записи в БД " + beans.getBeanIdOrg());
 //
 //
@@ -105,8 +114,8 @@ public class UpdateMemberServlet extends HttpServlet {
                         logBuilder.append("\". Изменения отклонены, т.к. от пользователя получены данные организации, с которыми в системе существует другая организация");
                         logString = logBuilder.toString();
                         logger.info(logString);
-                    out.println("red");
-                    out.print("Указанный адресат или уникальный идентификатор участника  \"" + beans.getBeanNameOrg() + "\" присутствует в системе");
+                        out.println("red");
+                        out.print("Указанный адресат или уникальный идентификатор участника  \"" + beans.getBeanNameOrg() + "\" присутствует в системе");
                     }
                     //отправленные данные пользователя для добавления участника МЭДО не соответствуют регулярным выражения
                 } else {
@@ -118,7 +127,18 @@ public class UpdateMemberServlet extends HttpServlet {
                 logger.info("Пользователь \"" + login + "\" умудрился отправить форму для изменения участников МЭДО с пустыми полями");
             }
         } catch (Exception ex) {
-            logger.error("При изменении участника МЭДО возникла программная ошибка " + ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При изменении участника МЭДО возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
 
     }

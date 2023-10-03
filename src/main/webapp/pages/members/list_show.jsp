@@ -89,6 +89,7 @@
                         </thead>
                         <tbody>
                             <!--если получен не пустой массив-->
+                            <!--массив получен из PaginationMembersServlet-->
                             <c:if test="${not empty listMembers}">
                                 <c:forEach var="listMembers" items="${listMembers}">
                                     <tr>

@@ -1,6 +1,7 @@
 package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Members;
+import com.kindcat.archivemedo.db.models.TypePkg;
 import com.kindcat.archivemedo.db.models.Users;
 import java.util.List;
 
@@ -53,4 +54,18 @@ public interface ImplDao {
 //    public long countEmailOrgMembers(String email);
 //
 //    public long countGuidMembers(String guid);
+
+    /**
+     *
+     *
+     *
+     * Работа с типом пакетов (входящий или исходящий)
+     *
+     *
+     *
+     */
+    /**
+     * @return список типов пакетов (входящий или исходящий)
+     */
+    public List<TypePkg> getAllListTypePkg();
 }

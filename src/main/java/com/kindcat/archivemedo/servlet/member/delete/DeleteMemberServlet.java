@@ -22,6 +22,16 @@ import org.apache.log4j.Logger;
 @WebServlet(name = "DeleteMemberServlet", urlPatterns = {"/deleteMemberServlet"})
 public class DeleteMemberServlet extends HttpServlet {
 
+    private final Logger logger;
+    private String stringlog;
+    private final StringBuilder logBuilder;
+    private StackTraceElement[] stackTrace;
+
+    public DeleteMemberServlet() {
+        logger = Logger.getLogger(DeleteMemberServlet.class);
+        logBuilder = new StringBuilder();
+    }
+
     /**
      * @param request servlet request
      * @param response servlet response
@@ -32,13 +42,11 @@ public class DeleteMemberServlet extends HttpServlet {
         //если в бд есть документы, связанные с участником МЭДО
         //возвращаем ответ, что удаление участника не возможно
         //иначе, удаляем
-        Logger logger = Logger.getLogger(DeleteMemberServlet.class);
+
         //получаю сеществующую сессию
         HttpSession session = request.getSession(false);
         String login = session.getAttribute("login").toString();
         //проверяю наличие в БД участника МЭДО по email и GUID
-        StringBuilder logBuilder = new StringBuilder();
-        String logString = null;//строка записи информации в лог
         try (PrintWriter out = response.getWriter()) {
             //получаю ссылку на класс для работы с данными формы            
             SuperBeanImpl beans = new SuperBean();
@@ -54,8 +62,8 @@ public class DeleteMemberServlet extends HttpServlet {
                     logBuilder.append("\" успешно удалил участника МЭДО \"");
                     logBuilder.append(beans.getBeanNameOrg());
                     logBuilder.append("\"");
-                    logString = logBuilder.toString();
-                    logger.info(logString);
+                    stringlog = logBuilder.toString();
+                    logger.info(stringlog);
                     out.println("green");
                     out.print("Участник успешно удалён");
                 } else {
@@ -68,8 +76,8 @@ public class DeleteMemberServlet extends HttpServlet {
                     logBuilder.append("\" пользователем \"");
                     logBuilder.append(login);
                     logBuilder.append("\" возникла программная ошибка.\r\n\tКласс - MembersDao, процедура - deleteMember");
-                    logString = logBuilder.toString();
-                    logger.info(logString);
+                    stringlog = logBuilder.toString();
+                    logger.info(stringlog);
                     out.println("red");
                     out.print("Изменения не сохранены");
                 }
@@ -77,7 +85,18 @@ public class DeleteMemberServlet extends HttpServlet {
                 logger.info("Пользователь \"" + login + "\" умудрился отправить форму с пустими полями для удаления участника");
             }
         } catch (Exception ex) {
-            logger.error("При удалении участника МЭДО возникла программная ошибка " + ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При удалении участника МЭДО возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
     }
 

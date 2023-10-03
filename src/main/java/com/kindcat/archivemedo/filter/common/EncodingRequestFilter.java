@@ -19,12 +19,16 @@ import org.apache.log4j.Logger;
 public class EncodingRequestFilter implements Filter {
 
     private final Logger logger;
+    private final StringBuilder logBuilder;
+    private String stringlog;
+    private StackTraceElement[] stackTrace;
 
     /**
      * В конструкторе инициализирую класс для логирования
      */
     public EncodingRequestFilter() {
         logger = Logger.getLogger(EncodingRequestFilter.class);
+        logBuilder = new StringBuilder();
     }
 
     /**
@@ -54,7 +58,18 @@ public class EncodingRequestFilter implements Filter {
             response.setCharacterEncoding("UTF-8");
             chain.doFilter(request, response);
         } catch (IOException ex) {
-            logger.error("Программная ошибка при работе фильтра для перекодировки запросов: " + ex);
+            logBuilder.setLength(0);
+            logBuilder.append("Программная ошибка при работе фильтра для перекодировки запросов");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
     }
 
@@ -62,5 +77,4 @@ public class EncodingRequestFilter implements Filter {
     public void destroy() {
         logger.debug("Фильтр завершил работу");
     }
-
 }

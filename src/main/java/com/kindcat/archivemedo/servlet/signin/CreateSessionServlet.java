@@ -24,9 +24,13 @@ import org.mindrot.jbcrypt.BCrypt;
 public class CreateSessionServlet extends HttpServlet {
 
     private final Logger logger;
+    private final StringBuilder logBuilder;
+    private String stringlog;
+    private StackTraceElement[] stackTrace;
 
     public CreateSessionServlet() {
         logger = Logger.getLogger(CreateSessionServlet.class);
+        logBuilder = new StringBuilder();
     }
 
     /**
@@ -77,7 +81,18 @@ public class CreateSessionServlet extends HttpServlet {
                 out.println("Укажите логин и пароль");
             }
         } catch (Exception ex) {
-            logger.error("При авторизации пользователя возникла программная ошибка " + ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При авторизации пользователя возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
     }
 

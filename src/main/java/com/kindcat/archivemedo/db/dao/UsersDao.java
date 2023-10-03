@@ -12,13 +12,19 @@ import org.hibernate.Transaction;
 
 /**
  * Получение данных с таблицы Users, класс для работы с моделью БД пользователя
+ *
+ * @version 1.0.36
  */
 class UsersDao {
 
     private final Logger logger;
+    private final StringBuilder logBuilder;
+    private String stringlog;
+    private StackTraceElement[] stackTrace;
 
     UsersDao() {
         logger = Logger.getLogger(UsersDao.class);
+        logBuilder = new StringBuilder();
     }
 
     /**
@@ -54,7 +60,18 @@ class UsersDao {
                 session.close();
                 logger.debug("Успешно выполнен запрос для получения информации об УЗ пользователя по логину");
             } catch (HibernateException ex) {
-                logger.fatal("При открытии сессии для подключения к БД и получении логина пользователя произошла программная ошибка", ex);
+                logBuilder.setLength(0);
+                logBuilder.append("При открытии сессии для подключения к БД и получении логина пользователя произошла программная ошибка");
+                logBuilder.append("\n");
+                logBuilder.append(ex.getMessage());
+                logBuilder.append("\n");
+                stackTrace = ex.getStackTrace();
+                for (StackTraceElement element : stackTrace) {
+                    logBuilder.append(element.toString());
+                    logBuilder.append("\n");
+                }
+                stringlog = logBuilder.toString();
+                logger.error(stringlog);
             }
         } else {
             logger.warn("Получен пустой логин для поиска информации о пользователе");

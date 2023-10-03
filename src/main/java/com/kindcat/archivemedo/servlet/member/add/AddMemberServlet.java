@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
-import com.kindcat.archivemedo.members.regex.SuperVerificationImpl;
 import java.io.PrintWriter;
+import com.kindcat.archivemedo.members.regex.ImplVerification;
 
 /**
  *
@@ -24,6 +24,16 @@ import java.io.PrintWriter;
 @WebServlet(name = "AddMemberServlet", urlPatterns = {"/addMemberServlet"})
 public class AddMemberServlet extends HttpServlet {
 
+    private final Logger logger;
+    private final StringBuilder logBuilder;
+    private StackTraceElement[] stackTrace;
+    private String stringlog;
+
+    public AddMemberServlet() {
+        logger = Logger.getLogger(AddMemberServlet.class);
+        logBuilder = new StringBuilder();
+    }
+
     /**
      * @param request servlet request
      * @param response servlet response
@@ -31,7 +41,6 @@ public class AddMemberServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Logger logger = Logger.getLogger(AddMemberServlet.class);
         //получаю сеществующую сессию
         HttpSession session = request.getSession(false);
         String login = session.getAttribute("login").toString();
@@ -50,13 +59,10 @@ public class AddMemberServlet extends HttpServlet {
                 beans.setBeanGuidOrg(deleteSpaceAndLineBreakReplacement(request.getParameter("guidAddMember")));
 
                 //создаю ссылку на класс для работы с БД
-                SuperVerificationImpl memberProcess = new SuperVerification(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
+                ImplVerification memberProcess = new SuperVerification(session.getAttribute("login").toString(), beans.getBeanNameOrg(), beans.getBeanEmailOrg(), beans.getBeanGuidOrg());
                 //проверяю, чтобы отправленные данные пользователя соответствовали регулярным выражения
                 if (memberProcess.verifProcessRegex()) {
                     ImplDao memberDao = new SuperDao();
-
-                    //проверяю наличие в БД участника МЭДО по email и GUID
-                    StringBuilder logBuilder = new StringBuilder();
                     //если записей по указанным критериям нет
                     if (memberDao.getCountMembersByEmailOrGuid(beans.getBeanEmailOrg(), beans.getBeanGuidOrg()) == 0) {
                         //добавляем запись
@@ -119,7 +125,18 @@ public class AddMemberServlet extends HttpServlet {
             }
             out.close();
         } catch (Exception ex) {
-            logger.error("При добавлении участника МЭДО возникла программная ошибка " + ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При добавлении участника МЭДО возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
     }
 

@@ -15,8 +15,16 @@ import org.apache.log4j.Logger;
  * @author dreamer
  * @version 1.0.1.35 Класс для пагинации в разделе со списком участников МЭДО
  */
-@WebServlet(name = "PaginatiolMembersServlet", urlPatterns = {"/paginatiolMembersServlet"})
-public class PaginatiolMembersServlet extends HttpServlet {
+@WebServlet(name = "PaginationMembersServlet", urlPatterns = {"/paginationMembersServlet"})
+public class PaginationMembersServlet extends HttpServlet {
+
+    private final Logger logger;
+    private final ImplDao membersDao;
+
+    public PaginationMembersServlet() {
+        logger = Logger.getLogger(PaginationMembersServlet.class);
+        membersDao = new SuperDao();
+    }
 
     /**
      * @param request servlet request
@@ -25,8 +33,6 @@ public class PaginatiolMembersServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Logger logger = Logger.getLogger(PaginatiolMembersServlet.class);
-        ImplDao membersDao = new SuperDao();
 
         int membersCountForOnePage = 20;//число записей на одной странице
         int countMembers = Math.toIntExact(membersDao.getAllCountMembers());//общее число записей в БД
@@ -52,7 +58,7 @@ public class PaginatiolMembersServlet extends HttpServlet {
             currentPage = 1;
         }
 
-        skip = membersCountForOnePage * (currentPage-1);//число пропущенных записей
+        skip = membersCountForOnePage * (currentPage - 1);//число пропущенных записей
 
         request.setAttribute("listMembers", membersDao.getAllListMembers(skip, membersCountForOnePage));//массив с записями для отображения на странице
         request.setAttribute("pageCount", pageCount);//число странице для отображения

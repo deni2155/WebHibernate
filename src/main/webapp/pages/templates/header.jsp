@@ -10,7 +10,7 @@
 <div class="row custom-row-header fw-bold">
     <div class="col-1 text-start">
         <div class="icon-home">
-            <a href="linkArchiveServlet" class="btn custom-link-hover" title="Главная страница">
+            <a href="paginationArchiveServlet" class="btn custom-link-hover" title="Главная страница">
                 <!--иконка домой-->
                 <img src=""/>
             </a>
@@ -44,7 +44,7 @@
             </a>
             <div class="dropdown-content-setting text-start">
                 <div class="list-show-submenu-setting">
-                    <a href="paginatiolMembersServlet">Справочник участников</a>
+                    <a href="paginationMembersServlet">Справочник участников</a>
                     <div class="dropdown-content-sublevel-setting">
                         <a href="#">Скачать</a>
                         <!--a href="#" data-bs-toggle="modal" data-bs-target="#modal-win-download-listguides">Загрузить</a-->

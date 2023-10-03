@@ -1,6 +1,7 @@
 package com.kindcat.archivemedo.db.utils;
 
 import com.kindcat.archivemedo.db.models.Members;
+import com.kindcat.archivemedo.db.models.TypePkg;
 import com.kindcat.archivemedo.db.models.Users;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -29,6 +30,7 @@ public class SessionFactoryUtil {
                 Configuration conf = new Configuration().configure();
                 conf.addAnnotatedClass(Users.class);
                 conf.addAnnotatedClass(Members.class);
+                conf.addAnnotatedClass(TypePkg.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(conf.getProperties());
                 sessionFactory = conf.buildSessionFactory(builder.build());
                 logger.debug("Выполнена иницализация объекта SessionFactory для подключения к БД");

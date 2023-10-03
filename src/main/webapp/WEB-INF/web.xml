@@ -65,6 +65,6 @@
         <param-value>/var/tmp/appmedo</param-value>
     </context-param-->
     <welcome-file-list>
-        <welcome-file>linkArchiveServlet</welcome-file>
+        <welcome-file>paginationArchiveServlet</welcome-file>
     </welcome-file-list>
 </web-app>

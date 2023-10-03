@@ -15,7 +15,7 @@
                     <label for="nameUpdateOrgMemberListGuides" class="form-label">Наименование организации</label>
                     <input type="text" class="form-control valid-input-type name-update-org-member-value" name="nameOrgUpdateMember" id="selector-for-member-name-update" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)«»,]+$" required/>
                     <label for="emailUpdateMemberListGuides" class="form-label">Адресат</label>
-                    <input type="text" class="form-control valid-input-type email-org-update-value" name="emailUpdateMember" id="selector-for-member-email-update" placeholder=" " pattern="[A-Z~-_]+" required/>
+                    <input type="text" class="form-control valid-input-type email-org-update-value" name="emailUpdateMember" id="selector-for-member-email-update" placeholder=" " pattern="^[A-Z~_\-]+$" required/>
                     <label for="guidUpdateMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
                     <input type="text" class="form-control valid-input-type" name="guidUpdateMember" id="selector-for-member-guid-update" placeholder=" " pattern="[a-z0-9\-]+" required/>
                 </div>

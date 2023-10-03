@@ -12,9 +12,9 @@
                 </div>
                 <div class="modal-body">
                     <label for="nameAddOrgMemberListGuides" class="form-label">Наименование организации</label>
-                    <input type="text" class="form-control valid-input-type" name="nameOrgAddMember" id="nameAddOrgMemberListGuides" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)«»,-]+$" required/>
+                    <input type="text" class="form-control valid-input-type" name="nameOrgAddMember" id="nameAddOrgMemberListGuides" placeholder=" " pattern="^[А-Яа-яЁё\s\(\)«»,]+$" required/>
                     <label for="emailAddMemberListGuides" class="form-label">Адресат</label>
-                    <input type="text" class="form-control valid-input-type" name="emailAddMember" id="emailAddMemberListGuides" placeholder=" " pattern="[A-Z~-_]+" required/>
+                    <input type="text" class="form-control valid-input-type" name="emailAddMember" id="emailAddMemberListGuides" placeholder=" " pattern="^[A-Z~_\-]+$" required/>
                     <label for="guidAddMemberListGuides" class="form-label">Уникальный идентификатор участника</label>
                     <input type="text" class="form-control valid-input-type" name="guidAddMember" id="guidAddMemberListGuides" placeholder=" " pattern="[a-z0-9\-]+" required/>
                 </div>

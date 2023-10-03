@@ -1,6 +1,7 @@
 package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Members;
+import com.kindcat.archivemedo.db.models.TypePkg;
 import com.kindcat.archivemedo.db.models.Users;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class SuperDao implements ImplDao {
      * Ссылка на класс для работы с моделью данных таблицы с участниками МЭДО
      */
     private final MembersDao membersDao;
+    /**
+     * ссылка на класс для работы с типом пакетов (входящий или исходящий)
+     */
+    private TypePkgDao typePkgDao;
 
     /**
      * Конструктор класса
@@ -26,6 +31,8 @@ public class SuperDao implements ImplDao {
     public SuperDao() {
         userDao = new UsersDao();
         membersDao = new MembersDao();
+        typePkgDao = new TypePkgDao();
+        typePkgDao = new TypePkgDao();
     }
 
     /*
@@ -81,7 +88,7 @@ public class SuperDao implements ImplDao {
      */
     @Override
     public List<Members> getAllListMembers(int skip, int countMembers) {
-        return membersDao.getAllListMembers(skip, countMembers);
+        return membersDao.getAllList(skip, countMembers);
     }
 
     /**
@@ -180,4 +187,20 @@ public class SuperDao implements ImplDao {
 //    public long countGuidMembers(String guid) {
 //        return membersDao.countGuidOrg(guid);
 //    }
+    /**
+     *
+     *
+     *
+     * Работа с типом пакетов (входящий или исходящий)
+     *
+     *
+     *
+     */
+    /**
+     * @return список типов пакетов (входящий или исходящий)
+     */
+    @Override
+    public List<TypePkg> getAllListTypePkg() {
+        return typePkgDao.getAllList();
+    }
 }

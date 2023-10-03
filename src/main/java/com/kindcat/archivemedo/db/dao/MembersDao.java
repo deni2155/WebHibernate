@@ -5,13 +5,10 @@ import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 
 /**
  *
@@ -21,10 +18,15 @@ import org.hibernate.criterion.Projections;
 class MembersDao {
 
     private final Logger logger;
+    private final StringBuilder logBuilder;
+    private String stringlog;
+    private StackTraceElement[] stackTrace;
+
     private List<Members> listMembers;
 
     MembersDao() {
         logger = Logger.getLogger(MembersDao.class);
+        logBuilder = new StringBuilder();
     }
 
     long getAllCountMembers() {
@@ -38,7 +40,18 @@ class MembersDao {
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
-            logger.fatal("При выполнения запроса к БД для проверки наличия записи по email в системе возникла программная ошибка", ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнения запроса к БД для проверки наличия записи по email в системе возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
         return count;
     }
@@ -46,7 +59,7 @@ class MembersDao {
     /**
      * Получение списка участников МЭДО без выборки
      */
-    List<Members> getAllListMembers(int skip, int countMembers) {
+    List<Members> getAllList(int skip, int countMembers) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
 //            String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
@@ -60,7 +73,18 @@ class MembersDao {
             session.close();
             logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
         } catch (HibernateException ex) {
-            logger.fatal("При открытии сессии для подключения к БД и получении списка участников МЭДО произошла программная ошибка", ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для подключения к БД и получении списка участников МЭДО произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
         return listMembers;
     }
@@ -96,7 +120,18 @@ class MembersDao {
             logger.debug("Успешно выполнен запрос для добавления нового участника МЭДО");
             return true;
         } catch (HibernateException ex) {
-            logger.fatal("При добавлении нового участника МЭДО произошла программная ошибка", ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При добавлении нового участника МЭДО произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
             return false;
         }
     }
@@ -137,7 +172,18 @@ class MembersDao {
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
-            logger.fatal("При открытии сессии для выполнения запроса для удаления участника МЭДО возникла программная ошибка", ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для выполнения запроса для удаления участника МЭДО возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
         return resultDelete;
     }
@@ -165,7 +211,18 @@ class MembersDao {
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
-            logger.fatal("При выполнения запроса к БД для проверки наличия добавляемого пользователем участника МЭДО в системе возникла программная ошибка", ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнения запроса к БД для проверки наличия добавляемого пользователем участника МЭДО в системе возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
         return count;
     }
@@ -187,7 +244,18 @@ class MembersDao {
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
-            logger.fatal("При проверки наличия участника МЭДО для внесения изменений под пользователем участника МЭДО в системе возникла программная ошибка", ex);
+            logBuilder.setLength(0);
+            logBuilder.append("При проверки наличия участника МЭДО для внесения изменений под пользователем участника МЭДО в системе возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
         }
         return count;
     }

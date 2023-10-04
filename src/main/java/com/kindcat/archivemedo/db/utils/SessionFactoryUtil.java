@@ -1,5 +1,6 @@
 package com.kindcat.archivemedo.db.utils;
 
+import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.models.SchemaXml;
 import com.kindcat.archivemedo.db.models.TypePkg;
@@ -29,10 +30,11 @@ public class SessionFactoryUtil {
         if (sessionFactory == null) {
             try {
                 Configuration conf = new Configuration().configure();
-                conf.addAnnotatedClass(Users.class);
+                conf.addAnnotatedClass(Documents.class);
                 conf.addAnnotatedClass(Members.class);
-                conf.addAnnotatedClass(TypePkg.class);
                 conf.addAnnotatedClass(SchemaXml.class);
+                conf.addAnnotatedClass(TypePkg.class);
+                conf.addAnnotatedClass(Users.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(conf.getProperties());
                 sessionFactory = conf.buildSessionFactory(builder.build());
                 logger.debug("Выполнена иницализация объекта SessionFactory для подключения к БД");

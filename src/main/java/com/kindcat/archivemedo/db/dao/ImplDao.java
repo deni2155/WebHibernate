@@ -1,5 +1,6 @@
 package com.kindcat.archivemedo.db.dao;
 
+import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.models.SchemaXml;
 import com.kindcat.archivemedo.db.models.TypePkg;
@@ -69,6 +70,7 @@ public interface ImplDao {
      * @return список типов пакетов (входящий или исходящий)
      */
     public List<TypePkg> getAllListTypePkg();
+
     /**
      *
      *
@@ -82,4 +84,18 @@ public interface ImplDao {
      * @return список xml-схем
      */
     public List<SchemaXml> getAllListSchemaXml();
+
+    /**
+     *
+     *
+     *
+     * Список документов
+     *
+     *
+     *
+     */
+    /**
+     * @return список документов
+     */
+    public List<Documents> getAllListDocs();
 }

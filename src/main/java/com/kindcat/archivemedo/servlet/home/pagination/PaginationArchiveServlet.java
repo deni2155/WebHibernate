@@ -2,6 +2,7 @@ package com.kindcat.archivemedo.servlet.home.pagination;
 
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
+import com.kindcat.archivemedo.db.models.Documents;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +43,11 @@ public class PaginationArchiveServlet extends HttpServlet {
         if (dao.getAllListSchemaXml().isEmpty()) {
             logger.warn("Получен пустой массив со списком схем xml");
         }
+        request.setAttribute("listDocs", dao.getAllListDocs());
+        if (dao.getAllListDocs().isEmpty()) {
+            logger.warn("Получен пустой массив со списком документов");
+        }
+        System.out.println(dao.getAllListDocs().get(0).getSchemaXml().getNameSchema());
         request.getRequestDispatcher(link).forward(request, response);
     }
 

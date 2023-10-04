@@ -87,15 +87,6 @@
                                                     </select>
                                                 </c:if>
                                             </div>
-                                            <!--div>
-                                                    <label for="format" class="form-label">Формат</label>
-                                                    <select class="form-select form-control" id="format">
-                                                            <option selected>One</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                    </select>
-                                            </div-->
                                         </th>
                                         <th scope="col">											
                                             <div>
@@ -182,68 +173,72 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>2.2</td>
-                                        <td>25</td>
-                                        <td>21.08.2022</td>
-                                        <td>Мордовия</td>
-                                        <td>Сахалин</td>
-                                        <td>10.12.1962 10:00:15</td>
-                                        <td class="d-flex justify-content-center">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>2.7</td>
-                                        <td>26</td>
-                                        <td>30.12.2001</td>
-                                        <td>Администрация</td>
-                                        <td>Камчатка</td>
-                                        <td>27.06.2005 08:22:15</td>
-                                        <td class="d-flex justify-content-center">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>2.7.1</td>
-                                        <td>37</td>
-                                        <td>17.03.2023</td>
-                                        <td>Царь</td>
-                                        <td>Барнаул</td>
-                                        <td>21.10.2004 04:00:15</td>
-                                        <td class="d-flex justify-content-center">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <c:if test="${not empty listDocs}">
+                                    <tbody>
+                                        <c:forEach var="listDocs" items="${listDocs}">
+                                            <tr>
+                                                <th scope="row">${listDocs.idDoc}</th>
+                                                <td>${listDocs.schemaXml.nameSchema}</td>
+                                                <td>25</td>
+                                                <td>21.08.2022</td>
+                                                <td>Мордовия</td>
+                                                <td>Сахалин</td>
+                                                <td>10.12.1962 10:00:15</td>
+                                                <td class="d-flex justify-content-center">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        <!--tr>
+                                            <th scope="row">2</th>
+                                            <td>2.7</td>
+                                            <td>26</td>
+                                            <td>30.12.2001</td>
+                                            <td>Администрация</td>
+                                            <td>Камчатка</td>
+                                            <td>27.06.2005 08:22:15</td>
+                                            <td class="d-flex justify-content-center">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>2.7.1</td>
+                                            <td>37</td>
+                                            <td>17.03.2023</td>
+                                            <td>Царь</td>
+                                            <td>Барнаул</td>
+                                            <td>21.10.2004 04:00:15</td>
+                                            <td class="d-flex justify-content-center">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                            </td>
+                                        </tr-->
+                                    </tbody>
+                                </c:if>
                             </table>
                         </form>
                     </div>

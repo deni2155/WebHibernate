@@ -16,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @version 1.0.0.18 Модель для работы с участниками МЭДО
  */
 @Entity
-@Table(name = "Members")
+@Table(name = "members")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Members")
 public class Members implements Serializable {
 

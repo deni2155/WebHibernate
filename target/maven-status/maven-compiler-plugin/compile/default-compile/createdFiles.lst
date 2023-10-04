@@ -26,8 +26,10 @@ com/kindcat/archivemedo/servlet/member/update/UpdateMemberServlet.class
 com/kindcat/archivemedo/logger/LoggerForJspImpl.class
 com/kindcat/archivemedo/db/dao/SchemaXmlDao.class
 com/kindcat/archivemedo/db/models/Users.class
+com/kindcat/archivemedo/db/dao/DocumentsDao.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
 com/kindcat/archivemedo/context/ReinitializingContext.class
+com/kindcat/archivemedo/db/models/Documents.class
 com/kindcat/archivemedo/beans/UsersBeans.class
 com/kindcat/archivemedo/logger/LoggerForJsp.class
 com/kindcat/archivemedo/db/dao/ImplDao.class

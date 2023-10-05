@@ -31,9 +31,9 @@ class DocumentsDao {
     /**
      * Получение списка xml-форматов
      */
-    List<Documents> getAllList() {
+    List<Documents> getAllListByTypePkg(Short idTypePkg) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            String hql = "from Documents";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
+            String hql = "from Documents where idInOut=" + idTypePkg;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
             Query query = session.createQuery(hql, Documents.class);//создаю массив объектов с клссом SchemaXml и созданным запросом
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются

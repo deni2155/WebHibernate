@@ -30,6 +30,16 @@ class TypePkgDao {
     }
 
     /**
+     * Получение данных о пользователе по id
+     *
+     * @param id - процедура получает идентификатор пользователя
+     * @return возвращает информацию о пользователе
+     */
+//    TypePkg findById(int id) {
+//        return SessionFactoryUtil.getSessionFactory().openSession().find(TypePkg.class, id);
+//    }
+
+    /**
      * Получение списка участников МЭДО без выборки
      */
     List<TypePkg> getAllList() {

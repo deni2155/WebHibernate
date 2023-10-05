@@ -3,6 +3,7 @@ package com.kindcat.archivemedo.db.models;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,10 +33,10 @@ public class Documents implements Serializable {
     @Column(name = "id_doc")
     private int idDoc;
 
-    @Column(name = "id_schema",insertable = false, updatable = false)
+    @Column(name = "id_schema", insertable = false, updatable = false)
     private Short idSchema;
 
-    @ManyToOne(optional=false, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_schema")
     private SchemaXml schemaXml;
 
@@ -56,13 +59,17 @@ public class Documents implements Serializable {
     private String inNum;
 
     @Column(name = "in_date")
-    private LocalDate inDate;
+    @Temporal(TemporalType.DATE)
+    private Date inDate;
+//    private LocalDate inDate;
 
     @Column(name = "ex_num")
     private String exNum;
 
     @Column(name = "ex_date")
-    private LocalDate exDate;
+    @Temporal(TemporalType.DATE)
+    private Date exDate;
+//    private LocalDate exDate;
 
     @Column(name = "dsp")
     private boolean dsp;
@@ -145,11 +152,13 @@ public class Documents implements Serializable {
         this.inNum = inNum;
     }
 
-    public LocalDate getInDate() {
+//    public LocalDate getInDate() {
+    public Date getInDate() {
         return inDate;
     }
 
-    public void setInDate(LocalDate inDate) {
+//    public void setInDate(LocalDate inDate) {
+    public void setInDate(Date inDate) {
         this.inDate = inDate;
     }
 
@@ -161,11 +170,13 @@ public class Documents implements Serializable {
         this.exNum = exNum;
     }
 
-    public LocalDate getExDate() {
+//    public LocalDate getExDate() {
+    public Date getExDate() {
         return exDate;
     }
 
-    public void setExDate(LocalDate exDate) {
+//    public void setExDate(LocalDate exDate) {
+    public void setExDate(Date exDate) {
         this.exDate = exDate;
     }
 

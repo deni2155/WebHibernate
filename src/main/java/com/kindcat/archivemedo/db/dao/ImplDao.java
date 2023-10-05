@@ -72,6 +72,12 @@ public interface ImplDao {
     public List<TypePkg> getAllListTypePkg();
 
     /**
+     * @param idTypePkg идентификатор типа пакета, выбранный пользователем
+     * @return наименование типа пакета
+     */
+//    public TypePkg findByIdTypePkg(Short idTypePkg);
+
+    /**
      *
      *
      *
@@ -95,7 +101,8 @@ public interface ImplDao {
      *
      */
     /**
+     * @param idTypePkg тип пакета (входящий или исходящий)
      * @return список документов
      */
-    public List<Documents> getAllListDocs();
+    public List<Documents> getAllListByTypePkg(Short idTypePkg);
 }

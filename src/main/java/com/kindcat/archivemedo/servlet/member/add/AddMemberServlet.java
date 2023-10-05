@@ -44,7 +44,7 @@ public class AddMemberServlet extends HttpServlet {
         //получаю сеществующую сессию
         HttpSession session = request.getSession(false);
         String login = session.getAttribute("login").toString();
-        String logString = null;
+        String logString;
         // Получаем объект PrintWriter
         try (PrintWriter out = response.getWriter()) {
             out.print("");

@@ -1,9 +1,10 @@
 package com.kindcat.archivemedo.servlet.home.pagination;
 
+//import com.google.gson.Gson;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
-import com.kindcat.archivemedo.db.models.Documents;
 import java.io.IOException;
+//import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,9 +22,15 @@ import org.apache.log4j.Logger;
 public class PaginationArchiveServlet extends HttpServlet {
 
     private final Logger logger;
+//    private final StringBuilder logBuilder;
+//    private StackTraceElement[] stackTrace;
+//    private String stringlog;
+//    private Gson gson;
 
     public PaginationArchiveServlet() {
         logger = Logger.getLogger(PaginationArchiveServlet.class);
+//        logBuilder = new StringBuilder();
+//        gson = new Gson();
     }
 
     /**
@@ -34,20 +41,67 @@ public class PaginationArchiveServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String link = "linkArchiveServlet";
+        Short idTypePkg = 1;//указываю идентификатор типа пакета по умолчанию - входящие
         ImplDao dao = new SuperDao();
-        request.setAttribute("listTypePkg", dao.getAllListTypePkg());//массив с записями для отображения на странице
+        //
+        ///массив с записями о типе пакета (входящий или исходящий) для отображения на странице
+        //
+        request.setAttribute("listTypePkg", dao.getAllListTypePkg());
         if (dao.getAllListTypePkg().isEmpty()) {
             logger.warn("Получен пустой массив со списком типов пакетов (входящий\\исходящий)");
         }
-        request.setAttribute("listSchemaXml", dao.getAllListSchemaXml());//массив с записями для отображения на странице
+        //
+        //массив с записями схем xml для отображения на странице
+        //
+        request.setAttribute("listSchemaXml", dao.getAllListSchemaXml());
         if (dao.getAllListSchemaXml().isEmpty()) {
             logger.warn("Получен пустой массив со списком схем xml");
         }
-        request.setAttribute("listDocs", dao.getAllListDocs());
-        if (dao.getAllListDocs().isEmpty()) {
+//
+//
+//
+//
+//
+        //если пользователь изменил тип пакета, присваиваем полученное значение переменной
+        if (request.getParameter("docInOut") != null) {
+            idTypePkg = Short.parseShort(request.getParameter("docInOut"));
+        }
+
+////        
+////        Если не получены параметры от пользователя
+////        
+//        if (request.getParameter("selectedTypePkgValue") != null) {
+//            idTypePkg = Short.parseShort(request.getParameter("selectedTypePkgValue"));
+//            String json = gson.toJson(dao.getAllListByTypePkg(idTypePkg));
+//            logger.debug(json);
+//            try (PrintWriter out = response.getWriter()) {
+//                response.setContentType("application/json");
+//                response.setCharacterEncoding("UTF-8");
+//                out.print(json);
+//                out.flush();
+//            } catch (Exception ex) {
+//                logBuilder.setLength(0);
+//                logBuilder.append("При выборе типа документа (входящий или исходящий) произошла программная ошибка");
+//                logBuilder.append("\n");
+//                logBuilder.append(ex.getMessage());
+//                logBuilder.append("\n");
+//                stackTrace = ex.getStackTrace();
+//                for (StackTraceElement element : stackTrace) {
+//                    logBuilder.append(element.toString());
+//                    logBuilder.append("\n");
+//                }
+//                stringlog = logBuilder.toString();
+//                logger.error(stringlog);
+//            }
+//        }
+
+        //
+        //выводим список документов
+        //
+        request.setAttribute("listDocs", dao.getAllListByTypePkg(idTypePkg));
+        if (dao.getAllListByTypePkg(idTypePkg).isEmpty()) {
             logger.warn("Получен пустой массив со списком документов");
         }
-        System.out.println(dao.getAllListDocs().get(0).getSchemaXml().getNameSchema());
         request.getRequestDispatcher(link).forward(request, response);
     }
 

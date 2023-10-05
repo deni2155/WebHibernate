@@ -218,6 +218,15 @@ public class SuperDao implements ImplDao {
     }
 
     /**
+     * @param idTypePkg идентификатор типа пакета, выбранный пользователем
+     * @return наименование типа пакета
+     */
+//    @Override
+//    public TypePkg findByIdTypePkg(Short idTypePkg) {
+//        return typePkgDao.findById(idTypePkg);
+//    }
+
+    /**
      *
      *
      *
@@ -244,10 +253,11 @@ public class SuperDao implements ImplDao {
      *
      */
     /**
+     * @param idTypePkg тип пакета (входящий или исходящий)
      * @return список документов
      */
     @Override
-    public List<Documents> getAllListDocs() {
-        return docDao.getAllList();
+    public List<Documents> getAllListByTypePkg(Short idTypePkg) {
+        return docDao.getAllListByTypePkg(idTypePkg);
     }
 }

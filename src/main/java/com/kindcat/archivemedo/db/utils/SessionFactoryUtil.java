@@ -3,6 +3,7 @@ package com.kindcat.archivemedo.db.utils;
 import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.models.SchemaXml;
+import com.kindcat.archivemedo.db.models.Senders;
 import com.kindcat.archivemedo.db.models.TypePkg;
 import com.kindcat.archivemedo.db.models.Users;
 import org.apache.log4j.Logger;
@@ -33,6 +34,7 @@ public class SessionFactoryUtil {
                 conf.addAnnotatedClass(Documents.class);
                 conf.addAnnotatedClass(Members.class);
                 conf.addAnnotatedClass(SchemaXml.class);
+                conf.addAnnotatedClass(Senders.class);
                 conf.addAnnotatedClass(TypePkg.class);
                 conf.addAnnotatedClass(Users.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(conf.getProperties());

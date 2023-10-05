@@ -1,7 +1,6 @@
 package com.kindcat.archivemedo.db.models;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -12,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,6 +51,10 @@ public class Documents implements Serializable {
 
     @Column(name = "id_sender")
     private Integer idSender;
+
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_sender", insertable = false, updatable = false)
+    private Senders senders;
 
     @Column(name = "id_recipient")
     private Integer idRecipient;
@@ -134,6 +138,14 @@ public class Documents implements Serializable {
 
     public void setIdSender(Integer idSender) {
         this.idSender = idSender;
+    }
+
+    public Senders getSenders() {
+        return senders;
+    }
+
+    public void setSenders(Senders senders) {
+        this.senders = senders;
     }
 
     public Integer getIdRecipient() {

@@ -9,6 +9,7 @@ com/kindcat/archivemedo/servlet/links/member/file/LinkDownloadMembersServlet.cla
 com/kindcat/archivemedo/servlet/links/home/LinkArchiveServlet.class
 com/kindcat/archivemedo/servlet/signin/CreateSessionServlet.class
 com/kindcat/archivemedo/config/PathConfig.class
+com/kindcat/archivemedo/db/models/Senders.class
 com/kindcat/archivemedo/servlet/member/pagination/PaginationMembersServlet.class
 com/kindcat/archivemedo/servlet/links/member/list/LinkListMembersServlet.class
 com/kindcat/archivemedo/db/dao/TypePkgDao.class

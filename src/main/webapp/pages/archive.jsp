@@ -194,7 +194,9 @@
                                                     <td>${listDocs.inNum}</td>
                                                     <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
                                                 </c:if>
-                                                <td>Мордовия</td>
+                                                <td>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.members.nameOrg}<div>
+                                                </td>
                                                 <td>Сахалин</td>
                                                 <td>10.12.1962 10:00:15</td>
                                                 <td class="d-flex justify-content-center">

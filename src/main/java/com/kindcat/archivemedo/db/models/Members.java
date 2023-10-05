@@ -1,11 +1,14 @@
 package com.kindcat.archivemedo.db.models;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -25,6 +28,9 @@ public class Members implements Serializable {
     @Column(name = "id_member")
     private Short idMembers;
 
+    @OneToOne(mappedBy = "members", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Senders senders;
+
     @Column(name = "name_org")
     private String nameOrg;
 
@@ -40,6 +46,14 @@ public class Members implements Serializable {
 
     public void setIdMembers(Short idMembers) {
         this.idMembers = idMembers;
+    }
+
+    public Senders getSenders() {
+        return senders;
+    }
+
+    public void setSenders(Senders senders) {
+        this.senders = senders;
     }
 
     public String getNameOrg() {

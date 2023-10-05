@@ -1,0 +1,73 @@
+package com.kindcat.archivemedo.db.models;
+
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+/**
+ *
+ * @author dreamer
+ * @version 1.0.4.44 Класс для работы
+ */
+@Entity
+@Table(name = "senders")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "Senders")
+public class Senders implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sender")
+    private int idSender;
+
+    @OneToOne(mappedBy = "senders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Documents documents;
+
+    @Column(name = "id_member")
+    private Short idMemeber;
+
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_member", insertable = false, updatable = false)
+    private Members members;
+
+    public int getIdSender() {
+        return idSender;
+    }
+
+    public void setIdSender(int idSender) {
+        this.idSender = idSender;
+    }
+
+    public Documents getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Documents documents) {
+        this.documents = documents;
+    }
+
+    public Short getIdMemeber() {
+        return idMemeber;
+    }
+
+    public void setIdMemeber(Short idMemeber) {
+        this.idMemeber = idMemeber;
+    }
+
+    public Members getMembers() {
+        return members;
+    }
+
+    public void setMembers(Members members) {
+        this.members = members;
+    }
+}

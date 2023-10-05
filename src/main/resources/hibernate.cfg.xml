@@ -32,6 +32,7 @@
         <mapping class="com.kindcat.archivemedo.db.models.Documents" />
         <mapping class="com.kindcat.archivemedo.db.models.Members" />
         <mapping class="com.kindcat.archivemedo.db.models.SchemaXml" />
+        <mapping class="com.kindcat.archivemedo.db.models.Senders" />
         <mapping class="com.kindcat.archivemedo.db.models.TypePkgs" />
         <mapping class="com.kindcat.archivemedo.db.models.Users" />
         <!-- property name="connection.driver_class">com.mysql.jdbc.Driver</property →

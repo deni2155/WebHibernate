@@ -59,6 +59,10 @@ public class Documents implements Serializable {
     @Column(name = "id_recipient")
     private Integer idRecipient;
 
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
+    private Recipients recipients;
+
     @Column(name = "in_num")
     private String inNum;
 
@@ -80,6 +84,7 @@ public class Documents implements Serializable {
 
     @Column(name = "when_create")
     private LocalDateTime whenCreate;
+//    private Date whenCreate;
 
     @Column(name = "link")
     private String link;
@@ -154,6 +159,14 @@ public class Documents implements Serializable {
 
     public void setIdRecipient(Integer idRecipient) {
         this.idRecipient = idRecipient;
+    }
+
+    public Recipients getRecipients() {
+        return recipients;
+    }
+
+    public void setRecipients(Recipients recipients) {
+        this.recipients = recipients;
     }
 
     public String getInNum() {

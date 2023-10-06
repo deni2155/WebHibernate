@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!--
 Таблица со списком пакетов
 -->
@@ -139,15 +140,7 @@
                                             </div>
                                         </th>
                                         <th scope="col">
-                                            <div>
-                                                <label for="time_and_date_insert_doc" class="form-label">Дата и время записи</label>
-                                                <div class="input-group">
-                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
-                                                        <img src=""/>
-                                                    </button>
-                                                    <input type="text" class="form-control" id="time_and_date_insert_doc">
-                                                </div>
-                                            </div>
+                                            Дата и время записи
                                         </th>
                                         <th scope="col">
                                             <div class="form-check">
@@ -195,73 +188,45 @@
                                                     <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
                                                 </c:if>
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.members.nameOrg}<div>
-                                                </td>
-                                                <td>Сахалин</td>
-                                                <td>10.12.1962 10:00:15</td>
-                                                <td class="d-flex justify-content-center">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                        <!--tr>
-                                            <th scope="row">2</th>
-                                            <td>2.7</td>
-                                            <td>26</td>
-                                            <td>30.12.2001</td>
-                                            <td>Администрация</td>
-                                            <td>Камчатка</td>
-                                            <td>27.06.2005 08:22:15</td>
-                                            <td class="d-flex justify-content-center">
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.membersSenders.nameOrg}<div>
+                                                            </td>
+                                                            <td>${listDocs.recipients.membersRecipients.nameOrg}</td>
+                                                            <td>
+                                                                <c:if test="${not empty listDocs.whenCreate}">
+                                                                    ${listDocs.whenCreate.format( DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
+                                                                </c:if>
+                                                            </td>
+                                                            <td class="d-flex justify-content-center">
+                                                                <!--{listDocs.dsp}-->
+                                                                <div class="form-check">
+                                                                    <c:if test="${not empty listDocs.dsp}">
+                                                                        <c:if test="${listDocs.dsp==true}">
+                                                                            <input type="checkbox" class="form-check-input" checked disabled value=""/>
+                                                                        </c:if>
+                                                                        <c:if test="${listDocs.dsp==false}">
+                                                                            <input type="checkbox" class="form-check-input" disabled value=""/>
+                                                                        </c:if>
+                                                                    </c:if>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                            </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </c:if>
+                                                    </table>
+                                                    <!--/form-->
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>2.7.1</td>
-                                            <td>37</td>
-                                            <td>17.03.2023</td>
-                                            <td>Царь</td>
-                                            <td>Барнаул</td>
-                                            <td>21.10.2004 04:00:15</td>
-                                            <td class="d-flex justify-content-center">
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" checked="false" disabled value=""/>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                            </td>
-                                        </tr-->
-                                    </tbody>
-                                </c:if>
-                            </table>
-                            <!--/form-->
-                        </div>
-                        <div class="tab-pane fade" id="nav-notifs" role="tabpanel" aria-labelledby="nav-notifs-tab" tabindex="1">Эй, здорова</div>
-                        <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">Здорова, заебал</div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </body>
-</html>
+                                                <div class="tab-pane fade" id="nav-notifs" role="tabpanel" aria-labelledby="nav-notifs-tab" tabindex="1">Эй, здорова</div>
+                                                <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">Здорова, заебал</div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </form>
+                                            </body>
+                                            </html>

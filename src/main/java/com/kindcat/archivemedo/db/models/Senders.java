@@ -30,14 +30,14 @@ public class Senders implements Serializable {
     private int idSender;
 
     @OneToOne(mappedBy = "senders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Documents documents;
+    private Documents documentsSenders;
 
     @Column(name = "id_member")
     private Short idMemeber;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_member", insertable = false, updatable = false)
-    private Members members;
+    private Members membersSenders;
 
     public int getIdSender() {
         return idSender;
@@ -47,12 +47,12 @@ public class Senders implements Serializable {
         this.idSender = idSender;
     }
 
-    public Documents getDocuments() {
-        return documents;
+    public Documents getDocumentsSenders() {
+        return documentsSenders;
     }
 
-    public void setDocuments(Documents documents) {
-        this.documents = documents;
+    public void setDocumentsSenders(Documents documentsSenders) {
+        this.documentsSenders = documentsSenders;
     }
 
     public Short getIdMemeber() {
@@ -63,11 +63,11 @@ public class Senders implements Serializable {
         this.idMemeber = idMemeber;
     }
 
-    public Members getMembers() {
-        return members;
+    public Members getMembersSenders() {
+        return membersSenders;
     }
 
-    public void setMembers(Members members) {
-        this.members = members;
+    public void setMembersSenders(Members membersSenders) {
+        this.membersSenders = membersSenders;
     }
 }

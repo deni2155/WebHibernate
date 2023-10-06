@@ -28,8 +28,11 @@ public class Members implements Serializable {
     @Column(name = "id_member")
     private Short idMembers;
 
-    @OneToOne(mappedBy = "members", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Senders senders;
+//    @OneToOne(mappedBy = "membersSenders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private Senders senders;
+
+//    @OneToOne(mappedBy = "membersRecipients", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private Recipients recipients;
 
     @Column(name = "name_org")
     private String nameOrg;
@@ -48,13 +51,21 @@ public class Members implements Serializable {
         this.idMembers = idMembers;
     }
 
-    public Senders getSenders() {
-        return senders;
-    }
+//    public Senders getSenders() {
+//        return senders;
+//    }
+//
+//    public void setSenders(Senders senders) {
+//        this.senders = senders;
+//    }
 
-    public void setSenders(Senders senders) {
-        this.senders = senders;
-    }
+//    public Recipients getRecipients() {
+//        return recipients;
+//    }
+//
+//    public void setRecipients(Recipients recipients) {
+//        this.recipients = recipients;
+//    }
 
     public String getNameOrg() {
         return nameOrg;

@@ -19,6 +19,7 @@ com/kindcat/archivemedo/config/TempFolder.class
 com/kindcat/archivemedo/members/regex/SuperVerification.class
 com/kindcat/archivemedo/servlet/home/pagination/PaginationArchiveServlet.class
 com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
+com/kindcat/archivemedo/db/models/Recipients.class
 com/kindcat/archivemedo/servlet/member/delete/DeleteMemberServlet.class
 com/kindcat/archivemedo/filter/members/upload/UploadListMembersFilter.class
 com/kindcat/archivemedo/db/models/SchemaXml.class

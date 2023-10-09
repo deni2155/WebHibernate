@@ -72,8 +72,8 @@ public class SuperDao implements ImplDao {
 
     //список участников МЭДО из БД
     @Override
-    public List<Members> getAllListMembers(int skip, int countMembers) {
-        return membersDao.getAllList(skip, countMembers);
+    public List<Members> getAllListMembers(int skip, int membersCountForOnePage) {
+        return membersDao.getAllList(skip, membersCountForOnePage);
     }
 
     //Поиск числа записей в БД по наименованию участника
@@ -84,8 +84,8 @@ public class SuperDao implements ImplDao {
 
     //Поиск записей по наименованию участника
     @Override
-    public List<Members> getListSearchByNameOrgMembers(String nameOrg, int skip, int countMembers) {
-        return membersDao.getListSearchByNameOrg(nameOrg, skip, countMembers);
+    public List<Members> getListSearchByNameOrgMembers(String nameOrg, int skip, int membersCountForOnePage) {
+        return membersDao.getListSearchByNameOrg(nameOrg, skip, membersCountForOnePage);
     }
 
     //поиск числа записей по email участника
@@ -96,8 +96,8 @@ public class SuperDao implements ImplDao {
 
     //список найденных записей по email организации
     @Override
-    public List<Members> getListSearchByEmailOrgMembers(String email, int skip, int countMembers) {
-        return membersDao.getListSearchByEmailOrg(email, skip, countMembers);
+    public List<Members> getListSearchByEmailOrgMembers(String email, int skip, int membersCountForOnePage) {
+        return membersDao.getListSearchByEmailOrg(email, skip, membersCountForOnePage);
     }
 
     //Получение числа записей в БД по GUID организации
@@ -108,8 +108,8 @@ public class SuperDao implements ImplDao {
 
     //Получение числа записей по GUID
     @Override
-    public List<Members> getListSearchByGuidOrgMembers(String guidOrg, int skip, int countMembers) {
-        return membersDao.getListSearchByGuidOrg(guidOrg, skip, countMembers);
+    public List<Members> getListSearchByGuidOrgMembers(String guidOrg, int skip, int membersCountForOnePage) {
+        return membersDao.getListSearchByGuidOrg(guidOrg, skip, membersCountForOnePage);
     }
 
     //Получение числа записей в БД по названию и email организации
@@ -120,8 +120,8 @@ public class SuperDao implements ImplDao {
 
     //Получение списка участников МЭДО при поиске по наименованию и email
     @Override
-    public List<Members> getListSearchByNameAndEmailOrgMembers(String nameOrg, String emailOrg, int skip, int countMembers) {
-        return membersDao.getListSearchByNameAndEmailOrg(nameOrg, emailOrg, skip, countMembers);
+    public List<Members> getListSearchByNameAndEmailOrgMembers(String nameOrg, String emailOrg, int skip, int membersCountForOnePage) {
+        return membersDao.getListSearchByNameAndEmailOrg(nameOrg, emailOrg, skip, membersCountForOnePage);
     }
 
     //Получение числа записей в БД по названию и email организации
@@ -132,8 +132,8 @@ public class SuperDao implements ImplDao {
 
     //Получение списка участников МЭДО при поиске по наименованию и GUID
     @Override
-    public List<Members> getListSearchByNameAndGuidOrgMembers(String nameOrg, String guidOrg, int skip, int countMembers) {
-        return membersDao.getListSearchByNameAndGuid(nameOrg, guidOrg, skip, countMembers);
+    public List<Members> getListSearchByNameAndGuidOrgMembers(String nameOrg, String guidOrg, int skip, int membersCountForOnePage) {
+        return membersDao.getListSearchByNameAndGuid(nameOrg, guidOrg, skip, membersCountForOnePage);
     }
 
     //Получение числа записей в БД по названию и email организации
@@ -144,8 +144,8 @@ public class SuperDao implements ImplDao {
 
     //Получение списка участников МЭДО при поиске по наименованию и GUID
     @Override
-    public List<Members> getListSearchByEmailAndGuidOrgMembers(String emailOrg, String guidOrg, int skip, int countMembers) {
-        return membersDao.getListSearchByEmailAndGuid(emailOrg, guidOrg, skip, countMembers);
+    public List<Members> getListSearchByEmailAndGuidOrgMembers(String emailOrg, String guidOrg, int skip, int membersCountForOnePage) {
+        return membersDao.getListSearchByEmailAndGuid(emailOrg, guidOrg, skip, membersCountForOnePage);
     }
 
     //Получение числа записей в БД по названию, email и guid организации
@@ -156,8 +156,8 @@ public class SuperDao implements ImplDao {
 
     //Получение списка участников МЭДО при поиске по наименованию и GUID
     @Override
-    public List<Members> getListSearchByNameAndEmailAndGuidOrgMembers(String nameOrg,String emailOrg, String guidOrg, int skip, int countMembers) {
-        return membersDao.getListSearchByNameAndEmailAndGuid(nameOrg,emailOrg, guidOrg, skip, countMembers);
+    public List<Members> getListSearchByNameAndEmailAndGuidOrgMembers(String nameOrg, String emailOrg, String guidOrg, int skip, int membersCountForOnePage) {
+        return membersDao.getListSearchByNameAndEmailAndGuid(nameOrg, emailOrg, guidOrg, skip, membersCountForOnePage);
     }
 
     //Поиск участника МЭДО по идентифкатору
@@ -264,9 +264,15 @@ public class SuperDao implements ImplDao {
      *
      *
      */
+    //
+    @Override
+    public long getAllCountDocs(Short idTypePkg) {
+        return docDao.getAllCount(idTypePkg);
+    }
+
     //возвращает список документов
     @Override
-    public List<Documents> getAllListByTypePkg(Short idTypePkg) {
-        return docDao.getAllListByTypePkg(idTypePkg);
+    public List<Documents> getAllListDocsByTypePkg(Short idTypePkg,int skip,int docsCountForOnePage) {
+        return docDao.getAllListByTypePkg(idTypePkg,skip,docsCountForOnePage);
     }
 }

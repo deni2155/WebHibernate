@@ -38,7 +38,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th scope="col">
-                                        <button class="btn btn-custom btn-custom-add-row" data-bs-toggle="modal" data-bs-target="#add-medo-participant">
+                                        <button class="btn btn-custom btn-custom-add-row" data-bs-toggle="modal" data-bs-target="#add-medo-participant" type="submit">
                                             <!--Иконка добавления участника МЭДО-->
                                             <img src="" title="Добавить запись"/>
                                         </button>
@@ -128,7 +128,6 @@
             пагинация
             -->
             <jsp:include page="../templates/pagination.jsp"/>
-
 
             <!--
             модальное окно для добавления нового участника МЭДО

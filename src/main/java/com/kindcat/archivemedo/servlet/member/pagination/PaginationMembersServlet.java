@@ -22,10 +22,12 @@ public class PaginationMembersServlet extends HttpServlet {
 
     private final Logger logger;
     private final ImplDao membersDao;
+    private final ImplBeans membersBeans;
 
     public PaginationMembersServlet() {
         logger = Logger.getLogger(PaginationMembersServlet.class);
         membersDao = new SuperDao();
+        membersBeans = new SuperBeans();
     }
 
     /**
@@ -35,8 +37,6 @@ public class PaginationMembersServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ImplBeans membersBeans = new SuperBeans();
-
         int membersCountForOnePage = 20;//число записей на одной странице
         int countMembers = 0;//общее число записей в БД
         int pageCount = 1;//число страниц через деление общего числа записей в БД на число записей на одной странице
@@ -56,40 +56,33 @@ public class PaginationMembersServlet extends HttpServlet {
         if (request.getParameter("member-guid-org") != null && !request.getParameter("member-guid-org").isEmpty()) {
             membersBeans.setBeanGuidOrg(request.getParameter("member-guid-org").toLowerCase());
         }
+
         //
         //если получена пустая форма поиска, выводим весь список участников
         //
         if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() == null) {
             countMembers = Math.toIntExact(membersDao.getAllCountMembers());//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getAllListMembers(skip, membersCountForOnePage));//массив с записями для отображения на странице
 //поиск по наименованию организации
         } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() == null) {
             countMembers = Math.toIntExact(membersDao.getCountListSearchByNameOrgMembers(membersBeans.getBeanNameOrg()));//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getListSearchByNameOrgMembers(membersBeans.getBeanNameOrg(), skip, countMembers));//массив с записями для отображения на странице
 //поиск по email организации        
         } else if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() == null) {
             countMembers = Math.toIntExact(membersDao.getCountListSearchByEmailOrgMembers(membersBeans.getBeanEmailOrg()));//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getListSearchByEmailOrgMembers(membersBeans.getBeanEmailOrg(), skip, countMembers));//массив с записями для отображения на странице
-        } else if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() != null) {
 //поиск по GUID организации
+        } else if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() != null) {
             countMembers = Math.toIntExact(membersDao.getCountListSearchByGuidOrgMembers(membersBeans.getBeanGuidOrg()));//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getListSearchByGuidOrgMembers(membersBeans.getBeanGuidOrg(), skip, countMembers));//массив с записями для отображения на странице
 //поиск по наименованию организации и email        
         } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() == null) {
             countMembers = Math.toIntExact(membersDao.getCountListSearchByNameAndEmailOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg()));//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getListSearchByNameAndEmailOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg(), skip, countMembers));//массив с записями для отображения на странице
 //поиск по наименованию организации и GUID        
         } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() != null) {
             countMembers = Math.toIntExact(membersDao.getCountListSearchByNameAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanGuidOrg()));//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getListSearchByNameAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanGuidOrg(), skip, countMembers));//массив с записями для отображения на странице
 //поиск по email и guid        
         } else if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() != null) {
             countMembers = Math.toIntExact(membersDao.getCountListSearchByEmailAndGuidOrgMembers(membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg()));//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getListSearchByEmailAndGuidOrgMembers(membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg(), skip, countMembers));//массив с записями для отображения на странице
 //поиск по названию, email и GUID        
         } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() != null) {
             countMembers = Math.toIntExact(membersDao.getCountListSearchByNameAndEmailAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg()));//общее число записей в БД
-            request.setAttribute("listMembers", membersDao.getListSearchByNameAndEmailAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg(), skip, countMembers));//массив с записями для отображения на странице
         }
 
         pageCount = countMembers / membersCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
@@ -111,6 +104,42 @@ public class PaginationMembersServlet extends HttpServlet {
         }
 
         skip = membersCountForOnePage * (currentPage - 1);//число пропущенных записей
+
+        //
+        //если получена пустая форма поиска, выводим весь список участников
+        //
+        if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() == null) {
+//            countMembers = Math.toIntExact(membersDao.getAllCountMembers());//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getAllListMembers(skip, membersCountForOnePage));//массив с записями для отображения на странице
+//поиск по наименованию организации
+        } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() == null) {
+//            countMembers = Math.toIntExact(membersDao.getCountListSearchByNameOrgMembers(membersBeans.getBeanNameOrg()));//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getListSearchByNameOrgMembers(membersBeans.getBeanNameOrg(), skip, membersCountForOnePage));//массив с записями для отображения на странице
+//поиск по email организации        
+        } else if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() == null) {
+//            countMembers = Math.toIntExact(membersDao.getCountListSearchByEmailOrgMembers(membersBeans.getBeanEmailOrg()));//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getListSearchByEmailOrgMembers(membersBeans.getBeanEmailOrg(), skip, membersCountForOnePage));//массив с записями для отображения на странице
+        } else if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() != null) {
+//поиск по GUID организации
+//            countMembers = Math.toIntExact(membersDao.getCountListSearchByGuidOrgMembers(membersBeans.getBeanGuidOrg()));//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getListSearchByGuidOrgMembers(membersBeans.getBeanGuidOrg(), skip, membersCountForOnePage));//массив с записями для отображения на странице
+//поиск по наименованию организации и email        
+        } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() == null) {
+//            countMembers = Math.toIntExact(membersDao.getCountListSearchByNameAndEmailOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg()));//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getListSearchByNameAndEmailOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg(), skip, membersCountForOnePage));//массив с записями для отображения на странице
+//поиск по наименованию организации и GUID        
+        } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() == null && membersBeans.getBeanGuidOrg() != null) {
+//            countMembers = Math.toIntExact(membersDao.getCountListSearchByNameAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanGuidOrg()));//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getListSearchByNameAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanGuidOrg(), skip, membersCountForOnePage));//массив с записями для отображения на странице
+//поиск по email и guid        
+        } else if (membersBeans.getBeanNameOrg() == null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() != null) {
+//            countMembers = Math.toIntExact(membersDao.getCountListSearchByEmailAndGuidOrgMembers(membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg()));//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getListSearchByEmailAndGuidOrgMembers(membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg(), skip, membersCountForOnePage));//массив с записями для отображения на странице
+//поиск по названию, email и GUID        
+        } else if (membersBeans.getBeanNameOrg() != null && membersBeans.getBeanEmailOrg() != null && membersBeans.getBeanGuidOrg() != null) {
+//            countMembers = Math.toIntExact(membersDao.getCountListSearchByNameAndEmailAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg()));//общее число записей в БД
+            request.setAttribute("listMembers", membersDao.getListSearchByNameAndEmailAndGuidOrgMembers(membersBeans.getBeanNameOrg(), membersBeans.getBeanEmailOrg(), membersBeans.getBeanGuidOrg(), skip, membersCountForOnePage));//массив с записями для отображения на странице
+        }
 
         request.setAttribute("pageCount", pageCount);//число странице для отображения
         request.setAttribute("currentPage", currentPage);//текущая страница

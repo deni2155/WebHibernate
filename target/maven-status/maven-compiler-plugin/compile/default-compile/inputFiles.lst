@@ -12,6 +12,7 @@
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/links/member/file/LinkDownloadMembersServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/member/update/UpdateMemberServlet.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/servlet/links/member/list/LinkListMembersServlet.java
+/home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/beans/DocumentsBean.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/models/Senders.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/models/SchemaXml.java
 /home/dreamer/NetBeansProjects/WebMedo/src/main/java/com/kindcat/archivemedo/db/dao/ImplDao.java

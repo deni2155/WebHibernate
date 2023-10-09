@@ -20,6 +20,14 @@
     </head>
     <body class="container-fluid">
         <jsp:include page="templates/header.jsp"/>
+
+        <!--
+пагинация
+        -->
+        <div class="pt-3">
+            <jsp:include page="templates/pagination.jsp"/>
+        </div>
+
         <form action="" method="get">
             <!--Вкладки-->
             <div class="row mt-2 ms-1 me-1 rounded">
@@ -230,5 +238,11 @@
                 </div>
             </div>
         </form>
+                <!--
+пагинация
+        -->
+        <div class="pt-3">
+            <jsp:include page="templates/pagination.jsp"/>
+        </div>
     </body>
 </html>

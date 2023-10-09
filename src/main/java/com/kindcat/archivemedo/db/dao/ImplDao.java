@@ -51,11 +51,11 @@ public interface ImplDao {
     public long getAllCountMembers();
 
     /**
-     * @param skip - число пропущенных записей для вывода постранично
-     * @param countMembers - число записей на одной странице
+     * @param skip число пропущенных записей для вывода постранично
+     * @param membersCountForOnePage число записей на одной странице
      * @return список участников МЭДО из БД
      */
-    public List<Members> getAllListMembers(int skip, int countMembers);
+    public List<Members> getAllListMembers(int skip, int membersCountForOnePage);
 
     /**
      * Поиск участника по организации
@@ -68,10 +68,10 @@ public interface ImplDao {
     /**
      * @param nameOrg название организации
      * @param skip число пропущенных записей
-     * @param countMembers - общее число записей в БД
+     * @param membersCountForOnePage - общее число записей в БД
      * @return список найденных организаций по наименованию оргнаизации
      */
-    public List<Members> getListSearchByNameOrgMembers(String nameOrg, int skip, int countMembers);
+    public List<Members> getListSearchByNameOrgMembers(String nameOrg, int skip, int membersCountForOnePage);
 
     /**
      * @param email email участника для поиска в БД
@@ -82,10 +82,10 @@ public interface ImplDao {
     /**
      * @param email email участника для поиска
      * @param skip число пропущенных записей
-     * @param countMembers - общее число записей в БД
+     * @param membersCountForOnePage - общее число записей в БД
      * @return список найденных записей по email организации
      */
-    public List<Members> getListSearchByEmailOrgMembers(String email, int skip, int countMembers);
+    public List<Members> getListSearchByEmailOrgMembers(String email, int skip, int membersCountForOnePage);
 
     /**
      * Получение числа записей в БД по GUID организации
@@ -100,10 +100,10 @@ public interface ImplDao {
      *
      * @param guidOrg GUID организации
      * @param skip число пропущенных записей
-     * @param countMembers общее число записей в БД
+     * @param membersCountForOnePage общее число записей в БД
      * @return список найденных записей, найденных по GUID
      */
-    public List<Members> getListSearchByGuidOrgMembers(String guidOrg, int skip, int countMembers);
+    public List<Members> getListSearchByGuidOrgMembers(String guidOrg, int skip, int membersCountForOnePage);
 
     /**
      * @param guidOrg GUID организации
@@ -119,10 +119,10 @@ public interface ImplDao {
      * @param nameOrg название организации
      * @param emailOrg email организации
      * @param skip число пропущенных записей
-     * @param countMembers общее число записей в БД
+     * @param membersCountForOnePage общее число записей в БД
      * @return список участников МЭДО найденных по названию и email
      */
-    public List<Members> getListSearchByNameAndEmailOrgMembers(String nameOrg, String emailOrg, int skip, int countMembers);
+    public List<Members> getListSearchByNameAndEmailOrgMembers(String nameOrg, String emailOrg, int skip, int membersCountForOnePage);
 
     /**
      * Получение числа строк при поиске участников МЭДО по названию организации
@@ -141,10 +141,10 @@ public interface ImplDao {
      * @param nameOrg название организации
      * @param guidOrg GUID организации
      * @param skip число пропущенных записей
-     * @param countMembers общее число записей в БД
+     * @param membersCountForOnePage общее число записей в БД
      * @return список участников МЭДО найденных по названию и GUID
      */
-    public List<Members> getListSearchByNameAndGuidOrgMembers(String nameOrg, String guidOrg, int skip, int countMembers);
+    public List<Members> getListSearchByNameAndGuidOrgMembers(String nameOrg, String guidOrg, int skip, int membersCountForOnePage);
 
     /**
      * Возвращает число записей в БД при поиске по email и GUID организации
@@ -161,10 +161,10 @@ public interface ImplDao {
      * @param emailOrg email участника
      * @param guidOrg guid участника
      * @param skip число пропущенных записей
-     * @param countMembers общее число записей в БД
+     * @param membersCountForOnePage общее число записей в БД
      * @return список участников МЭДО при поиске по email и guid организации
      */
-    public List<Members> getListSearchByEmailAndGuidOrgMembers(String emailOrg, String guidOrg, int skip, int countMembers);
+    public List<Members> getListSearchByEmailAndGuidOrgMembers(String emailOrg, String guidOrg, int skip, int membersCountForOnePage);
 
     /**
      * Возвращает список участников МЭДО при поиске по названию, email и GUID
@@ -183,16 +183,16 @@ public interface ImplDao {
      * @param emailOrg email организации
      * @param guidOrg GUID организации
      * @param skip число пропущенных записей
-     * @param countMembers общее число записей в БД
+     * @param membersCountForOnePage общее число записей в БД
      * @return список участников МЭДО при поиске по названию, email и GUID
      */
-    public List<Members> getListSearchByNameAndEmailAndGuidOrgMembers(String nameOrg, String emailOrg, String guidOrg, int skip, int countMembers);
+    public List<Members> getListSearchByNameAndEmailAndGuidOrgMembers(String nameOrg, String emailOrg, String guidOrg, int skip, int membersCountForOnePage);
 
     /**
      * Поиск участника МЭДО по идентифкатору
      *
      * @param id идентификатор участника
-     * @return - информация об участнике
+     * @return информация об участнике
      */
     public Members findMemberById(int id);
 
@@ -292,8 +292,21 @@ public interface ImplDao {
      *
      */
     /**
+     * Возвращает список документов
+     *
+     * @param skip число пропущенных записей
+     * @param docsCountForOnePage общее число записей в БД
      * @param idTypePkg тип пакета (входящий или исходящий)
      * @return список документов
      */
-    public List<Documents> getAllListByTypePkg(Short idTypePkg);
+    public List<Documents> getAllListDocsByTypePkg(Short idTypePkg,int skip,int docsCountForOnePage);
+
+    /**
+     * Возвращает общее число записей из таблицы с документами в зависимости от
+     * типа документов
+     *
+     * @param idTypePkg идентификатр типа пакета (входящий или исходящий)
+     * @return общее число документов в пакете
+     */
+    public long getAllCountDocs(Short idTypePkg);
 }

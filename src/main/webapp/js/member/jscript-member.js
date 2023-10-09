@@ -1,13 +1,23 @@
-/*
- * 
- * меняет текст input type text на странице с формой загрузки файла на странице pages/guides/downloadGuides.jsp
- * 
- */
 $(document).ready(function () {
+    //меняет текст input type text на странице с формой загрузки файла на странице pages/guides/downloadGuides.jsp
     $("#file-input-guides").change(function () {
         var filename = $(this).val().replace(/.*\\/, "");
         $("#file-name-guides").val(filename);
     });
+/*
+    // Обработчик события input для сохранения значения поля название организации
+    $('#name-org').change(function () {
+        localStorage.setItem('valueNameOrg', $('#name-org').val());//загружаю полученное значение в локальное хранилище
+    });
+
+    // Восстановление значений поля название организации после загрузки страницы
+    $('#name-org').each(function () {
+        var savedValue = localStorage.getItem('valueNameOrg');
+        if (savedValue) {
+            $('#name-org').val(savedValue);
+        }
+    });
+    */
 });
 
 /*
@@ -41,3 +51,4 @@ $(function () {
         $('#selector-for-name-member-delete').val($(this).data('delete-name-org'));
     });
 });
+

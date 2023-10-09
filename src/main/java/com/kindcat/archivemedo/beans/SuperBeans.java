@@ -1,6 +1,14 @@
 package com.kindcat.archivemedo.beans;
 
-public class SuperBean implements SuperBeanImpl {
+public class SuperBeans implements ImplBeans {
+
+    private final UsersBeans usersBeans;//пользователи системы
+    private final MembersBean memberBean;//участники МЭДО
+
+    public SuperBeans() {
+        usersBeans = new UsersBeans();
+        memberBean = new MembersBean();
+    }
 
     /*
 
@@ -10,8 +18,6 @@ public class SuperBean implements SuperBeanImpl {
 
 
      */
-    UsersBeans usersBeans = new UsersBeans();
-
     @Override
     public int getBeansIdUser() {
         return usersBeans.getBeanIdUser();
@@ -23,12 +29,12 @@ public class SuperBean implements SuperBeanImpl {
     }
 
     @Override
-    public String getBeansLogin() {
+    public String getBeansLoginUser() {
         return usersBeans.getBeanLogin();
     }
 
     @Override
-    public void setBeansLogin(String beansLogin) {
+    public void setBeansLoginUser(String beansLogin) {
         usersBeans.setBeanLogin(beansLogin);
     }
 
@@ -43,14 +49,15 @@ public class SuperBean implements SuperBeanImpl {
     }
 
     @Override
-    public String getBeansFName() {
+    public String getBeansFNameUser() {
         return usersBeans.getBeanFName();
     }
 
     @Override
-    public void setBeanFName(String beansFName) {
+    public void setBeanFNameUser(String beansFName) {
         usersBeans.setBeanFName(beansFName);
     }
+
     /*
 
 
@@ -58,7 +65,6 @@ public class SuperBean implements SuperBeanImpl {
 
 
      */
-    MembersBean memberBean = new MembersBean();
 
     @Override
     public int getBeanIdOrg() {

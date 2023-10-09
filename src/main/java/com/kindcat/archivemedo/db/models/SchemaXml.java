@@ -37,8 +37,8 @@ public class SchemaXml implements Serializable {
     @Column(name = "name_schema")
     private String nameSchema;
 
-    @OneToMany(mappedBy = "schemaXml", fetch=FetchType.EAGER,cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Documents> docSchema = new ArrayList<>();
+//    @OneToMany(mappedBy = "schemaXml", fetch=FetchType.EAGER,cascade={CascadeType.PERSIST, CascadeType.MERGE})
+//    private List<Documents> docSchema = new ArrayList<>();
 
     public Short getIdSchema() {
         return idSchema;
@@ -56,11 +56,11 @@ public class SchemaXml implements Serializable {
         this.nameSchema = nameSchema;
     }
 
-    public List<Documents> getDocSchema() {
-        return docSchema;
-    }
-
-    public void setDocSchema(List<Documents> docSchema) {
-        this.docSchema = docSchema;
-    }
+//    public List<Documents> getDocSchema() {
+//        return docSchema;
+//    }
+//
+//    public void setDocSchema(List<Documents> docSchema) {
+//        this.docSchema = docSchema;
+//    }
 }

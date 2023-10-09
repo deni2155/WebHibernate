@@ -22,7 +22,7 @@ public class LinkListMembersServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/pages/members/list_show.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/members/list_members.jsp").forward(request, response);
 //        Logger logger = Logger.getLogger(LinkListMembersServlet.class);
 //        ImplDao membersDao = new SuperDao();
 //

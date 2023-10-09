@@ -14,7 +14,6 @@ com/kindcat/archivemedo/servlet/member/pagination/PaginationMembersServlet.class
 com/kindcat/archivemedo/servlet/links/member/list/LinkListMembersServlet.class
 com/kindcat/archivemedo/db/dao/TypePkgDao.class
 com/kindcat/archivemedo/filter/signin/ExistsSessionFilter.class
-com/kindcat/archivemedo/beans/SuperBean.class
 com/kindcat/archivemedo/config/TempFolder.class
 com/kindcat/archivemedo/members/regex/SuperVerification.class
 com/kindcat/archivemedo/servlet/home/pagination/PaginationArchiveServlet.class
@@ -30,11 +29,12 @@ com/kindcat/archivemedo/db/dao/SchemaXmlDao.class
 com/kindcat/archivemedo/db/models/Users.class
 com/kindcat/archivemedo/db/dao/DocumentsDao.class
 com/kindcat/archivemedo/db/dao/UsersDao.class
+com/kindcat/archivemedo/beans/SuperBeans.class
 com/kindcat/archivemedo/context/ReinitializingContext.class
 com/kindcat/archivemedo/db/models/Documents.class
 com/kindcat/archivemedo/beans/UsersBeans.class
 com/kindcat/archivemedo/logger/LoggerForJsp.class
 com/kindcat/archivemedo/db/dao/ImplDao.class
 com/kindcat/archivemedo/db/models/Members.class
-com/kindcat/archivemedo/beans/SuperBeanImpl.class
+com/kindcat/archivemedo/beans/ImplBeans.class
 com/kindcat/archivemedo/db/dao/SuperDao.class

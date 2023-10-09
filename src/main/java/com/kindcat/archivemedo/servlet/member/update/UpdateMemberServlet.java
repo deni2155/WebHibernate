@@ -1,7 +1,6 @@
 package com.kindcat.archivemedo.servlet.member.update;
 
-import com.kindcat.archivemedo.beans.SuperBean;
-import com.kindcat.archivemedo.beans.SuperBeanImpl;
+import com.kindcat.archivemedo.beans.SuperBeans;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
 import com.kindcat.archivemedo.members.regex.SuperVerification;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import com.kindcat.archivemedo.members.regex.ImplVerification;
+import com.kindcat.archivemedo.beans.ImplBeans;
 
 /**
  *
@@ -50,7 +50,7 @@ public class UpdateMemberServlet extends HttpServlet {
             //если пользователь отправил форму не с пустыми полями
             if (request.getParameter("idUpdateMember") != null && request.getParameter("nameOrgUpdateMember") != null && request.getParameter("emailUpdateMember") != null && request.getParameter("guidUpdateMember") != null) {
                 //получаю ссылку на класс для работы с данными формы            
-                SuperBeanImpl beans = new SuperBean();
+                ImplBeans beans = new SuperBeans();
                 //добавляю в класс значения, полученные из запроса для более удобной работы
                 beans.setBeanIdOrg(Integer.parseInt(request.getParameter("idUpdateMember")));
                 beans.setBeanNameOrg(request.getParameter("nameOrgUpdateMember"));

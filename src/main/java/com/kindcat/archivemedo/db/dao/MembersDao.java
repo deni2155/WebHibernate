@@ -90,6 +90,464 @@ class MembersDao {
     }
 
     /**
+     * Возвращает число строк при поиске по названию организации
+     */
+    long getCountListSearchByNameOrg(String nameOrg) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            query.setParameter("org", "%" + nameOrg + "%");
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнении запроса к БД для вычисления числа записей при поиске орагнизации по её наименованию возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return count;
+    }
+
+    /**
+     * Выполняет поиск по названию организации
+     */
+    List<Members> getListSearchByNameOrg(String nameOrg, int skip, int countMembers) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members as m where lower(m.nameOrg) like :org order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("org", "%" + nameOrg + "%");
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для поиска участника МЭДО в БД по наимаенованию организации произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return listMembers;
+    }
+
+    /**
+     * Возвращает число строк при поиске по email участника
+     */
+    long getCountListSearchByEmailOrg(String emailOrg) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members as m where upper(m.addr) like :email";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            query.setParameter("email", "%" + emailOrg + "%");
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнении запроса к БД для вычисления числа записей при поиске орагнизации по email возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return count;
+    }
+
+    /**
+     * Выполняет поиск по email организации
+     */
+    List<Members> getListSearchByEmailOrg(String emailOrg, int skip, int countMembers) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members as m where upper(m.addr) like :email order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("email", "%" + emailOrg + "%");
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для поиска участника МЭДО в БД по email организации произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return listMembers;
+    }
+
+    /**
+     * Возвращает число строк при поиске по GUID участника
+     */
+    long getCountListSearchByGuidOrg(String guidOrg) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members as m where lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            query.setParameter("guid", "%" + guidOrg + "%");
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнении запроса к БД для вычисления числа записей при поиске орагнизации по GUID возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return count;
+    }
+
+    /**
+     * Выполняет поиск по GUID организации
+     */
+    List<Members> getListSearchByGuidOrg(String guidOrg, int skip, int countMembers) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members as m where lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("guid", "%" + guidOrg + "%");
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для поиска участника МЭДО в БД по GUID организации произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return listMembers;
+    }
+
+    /**
+     * Возвращает число строк при поиске по названию и email организации
+     */
+    long getCountListSearchByNameAndEmailOrg(String nameOrg, String emailOrg) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            query.setParameter("org", "%" + nameOrg + "%");
+            query.setParameter("email", "%" + emailOrg + "%");
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнении запроса к БД для вычисления числа записей при поиске орагнизации по её наименованию и email возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return count;
+    }
+
+    /**
+     * Выполняет поиск по названию организации и email орагнизации
+     */
+    List<Members> getListSearchByNameAndEmailOrg(String nameOrg, String emailOrg, int skip, int countMembers) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("org", "%" + nameOrg + "%");
+            query.setParameter("email", "%" + emailOrg + "%");
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для поиска участника МЭДО в БД по наимаенованию организации и email произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return listMembers;
+    }
+
+    /**
+     * Возвращает число строк при поиске по названию и GUID организации
+     */
+    long getCountListSearchByNameAndGuidOrg(String nameOrg, String guidOrg) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org and lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            query.setParameter("org", "%" + nameOrg + "%");
+            query.setParameter("guid", "%" + guidOrg + "%");
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнении запроса к БД для вычисления числа записей при поиске орагнизации по её наименованию возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return count;
+    }
+
+    /**
+     * Выполняет поиск по названию и GUID организации
+     */
+    List<Members> getListSearchByNameAndGuid(String nameOrg, String guidOrg, int skip, int countMembers) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members as m where lower(m.nameOrg) like :org and lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("org", "%" + nameOrg + "%");
+            query.setParameter("guid", "%" + guidOrg + "%");
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для поиска участника МЭДО в БД по наимаенованию организации произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return listMembers;
+    }
+
+    /**
+     * Возвращает число строк при поиске по GUID и email организации
+     */
+    long getCountListSearchByEmailAndGuidOrg(String emailOrg, String guidOrg) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members as m where upper(m.addr) like :email and lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            query.setParameter("email", "%" + emailOrg + "%");
+            query.setParameter("guid", "%" + guidOrg + "%");
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнении запроса к БД для вычисления числа записей при поиске орагнизации по её наименованию и GUID возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return count;
+    }
+
+    /**
+     * Выполняет поиск по названию и GUID организации
+     */
+    List<Members> getListSearchByEmailAndGuid(String emailOrg, String guidOrg, int skip, int countMembers) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members as m where upper(m.addr) like :email and lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("email", "%" + emailOrg + "%");
+            query.setParameter("guid", "%" + guidOrg + "%");
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для поиска участника МЭДО в БД по наимаенованию организации произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return listMembers;
+    }
+
+    /**
+     * Возвращает число строк при поиске по GUID и email организации
+     */
+    long getCountListSearchByNameAndEmailAndGuidOrg(String nameOrg, String emailOrg, String guidOrg) {
+        long count = 0;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email and lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
+            query.setParameter("org", "%" + nameOrg + "%");
+            query.setParameter("email", "%" + emailOrg + "%");
+            query.setParameter("guid", "%" + guidOrg + "%");
+            count = (long) query.uniqueResult();
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            transaction.commit();
+            session.close();
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При выполнении запроса к БД для вычисления числа записей при поиске орагнизации по её наименованию, email и GUID возникла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return count;
+    }
+
+    /**
+     * Выполняет поиск по названию и GUID организации
+     */
+    List<Members> getListSearchByNameAndEmailAndGuid(String nameOrg, String emailOrg, String guidOrg, int skip, int countMembers) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            String hql = "from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email and lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("org", "%" + nameOrg + "%");
+            query.setParameter("email", "%" + emailOrg + "%");
+            query.setParameter("guid", "%" + guidOrg + "%");
+            query.setFirstResult(skip);//число пропущенных элементов
+            query.setMaxResults(countMembers);//число отображаемых элементов
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            transaction.commit();
+            session.close();
+            logger.debug("Успешно выполнен запрос для получения списка участников МЭДО");
+        } catch (HibernateException ex) {
+            logBuilder.setLength(0);
+            logBuilder.append("При открытии сессии для поиска участника МЭДО в БД по наимаенованию, email и GUID организации произошла программная ошибка");
+            logBuilder.append("\n");
+            logBuilder.append(ex.getMessage());
+            logBuilder.append("\n");
+            stackTrace = ex.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                logBuilder.append(element.toString());
+                logBuilder.append("\n");
+            }
+            stringlog = logBuilder.toString();
+            logger.error(stringlog);
+        }
+        return listMembers;
+    }
+
+    /**
      * Получение данных об участнике по id
      *
      * @param id - процедура получает идентификатор участника МЭДО

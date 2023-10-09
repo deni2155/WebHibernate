@@ -188,45 +188,47 @@
                                                     <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
                                                 </c:if>
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.membersSenders.nameOrg}<div>
-                                                            </td>
-                                                            <td>${listDocs.recipients.membersRecipients.nameOrg}</td>
-                                                            <td>
-                                                                <c:if test="${not empty listDocs.whenCreate}">
-                                                                    ${listDocs.whenCreate.format( DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
-                                                                </c:if>
-                                                            </td>
-                                                            <td class="d-flex justify-content-center">
-                                                                <!--{listDocs.dsp}-->
-                                                                <div class="form-check">
-                                                                    <c:if test="${not empty listDocs.dsp}">
-                                                                        <c:if test="${listDocs.dsp==true}">
-                                                                            <input type="checkbox" class="form-check-input" checked disabled value=""/>
-                                                                        </c:if>
-                                                                        <c:if test="${listDocs.dsp==false}">
-                                                                            <input type="checkbox" class="form-check-input" disabled value=""/>
-                                                                        </c:if>
-                                                                    </c:if>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                                            </td>
-                                                            </tr>
-                                                        </c:forEach>
-                                                        </tbody>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.membersSenders.nameOrg}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.recipients.membersRecipients.nameOrg}</div>
+                                                </td>
+                                                <td>
+                                                    <c:if test="${not empty listDocs.whenCreate}">
+                                                        ${listDocs.whenCreate.format( DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
                                                     </c:if>
-                                                    </table>
-                                                    <!--/form-->
-                                                </div>
-                                                <div class="tab-pane fade" id="nav-notifs" role="tabpanel" aria-labelledby="nav-notifs-tab" tabindex="1">Эй, здорова</div>
-                                                <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">Здорова, заебал</div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </form>
-                                            </body>
-                                            </html>
+                                                </td>
+                                                <td class="d-flex justify-content-center">
+                                                    <!--{listDocs.dsp}-->
+                                                    <div class="form-check">
+                                                        <c:if test="${not empty listDocs.dsp}">
+                                                            <c:if test="${listDocs.dsp==true}">
+                                                                <input type="checkbox" class="form-check-input" checked disabled value=""/>
+                                                            </c:if>
+                                                            <c:if test="${listDocs.dsp==false}">
+                                                                <input type="checkbox" class="form-check-input" disabled value=""/>
+                                                            </c:if>
+                                                        </c:if>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </c:if>
+                            </table>
+                            <!--/form-->
+                        </div>
+                        <div class="tab-pane fade" id="nav-notifs" role="tabpanel" aria-labelledby="nav-notifs-tab" tabindex="1">Эй, здорова</div>
+                        <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">Здорова, заебал</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

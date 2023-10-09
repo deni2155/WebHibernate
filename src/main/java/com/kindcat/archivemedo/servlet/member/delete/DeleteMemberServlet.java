@@ -1,7 +1,6 @@
 package com.kindcat.archivemedo.servlet.member.delete;
 
-import com.kindcat.archivemedo.beans.SuperBean;
-import com.kindcat.archivemedo.beans.SuperBeanImpl;
+import com.kindcat.archivemedo.beans.SuperBeans;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
 import java.io.IOException;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+import com.kindcat.archivemedo.beans.ImplBeans;
 
 /**
  *
@@ -49,7 +49,7 @@ public class DeleteMemberServlet extends HttpServlet {
         //проверяю наличие в БД участника МЭДО по email и GUID
         try (PrintWriter out = response.getWriter()) {
             //получаю ссылку на класс для работы с данными формы            
-            SuperBeanImpl beans = new SuperBean();
+            ImplBeans beans = new SuperBeans();
             //добавляю в класс значения, полученные из запроса для более удобной работы
             if (request.getParameter("idDeleteMember") != null && request.getParameter("nameDeleteMember") != null) {
                 beans.setBeanIdOrg(Integer.parseInt(request.getParameter("idDeleteMember")));

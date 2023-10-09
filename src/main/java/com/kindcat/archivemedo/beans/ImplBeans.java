@@ -1,6 +1,6 @@
 package com.kindcat.archivemedo.beans;
 
-public interface SuperBeanImpl {
+public interface ImplBeans {
 
     /*
 
@@ -38,15 +38,15 @@ public interface SuperBeanImpl {
 
     public void setBeansIdUser(int beansIdUser);
 
-    public String getBeansLogin();
+    public String getBeansLoginUser();
 
-    public void setBeansLogin(String beansLogin);
+    public void setBeansLoginUser(String beansLogin);
 
     public String getBeansHash();
 
     public void setBeansHash(String beansHash);
 
-    public String getBeansFName();
+    public String getBeansFNameUser();
 
-    public void setBeanFName(String beansFName);
+    public void setBeanFNameUser(String beansFName);
 }

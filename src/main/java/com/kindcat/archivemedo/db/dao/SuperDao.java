@@ -14,27 +14,11 @@ import java.util.List;
  */
 public class SuperDao implements ImplDao {
 
-    /**
-     * Ссылка на класс для работы с моделю данных таблицы user
-     */
-    private final UsersDao userDao;
-    /**
-     * Ссылка на класс для работы с моделью данных таблицы с участниками МЭДО
-     */
-    private final MembersDao membersDao;
-    /**
-     * ссылка на класс для работы с типом пакетов (входящий или исходящий)
-     */
-    private TypePkgDao typePkgDao;
-    /**
-     * ссылка на класс для работы со списком xml-схем
-     */
-    private final SchemaXmlDao schemaXmlDao;
-
-    /**
-     * ссылка на класс для работы со списком документов
-     */
-    private final DocumentsDao docDao;
+    private final UsersDao userDao;//Ссылка на класс для работы с моделю данных таблицы user
+    private final MembersDao membersDao;//Ссылка на класс для работы с моделью данных таблицы с участниками МЭДО
+    private TypePkgDao typePkgDao;//ссылка на класс для работы с типом пакетов (входящий или исходящий)
+    private final SchemaXmlDao schemaXmlDao;//ссылка на класс для работы со списком xml-схем
+    private final DocumentsDao docDao;//ссылка на класс для работы со списком документов
 
     /**
      * Конструктор класса
@@ -48,132 +32,165 @@ public class SuperDao implements ImplDao {
         docDao = new DocumentsDao();
     }
 
-    /*
-*
-*
-*
-*
-*Пользователи
-*
-*
-*
-     */
     /**
-     * @param id - процедура получает идентификатор УЗ пользователя
-     * @return idUser возвращает информацию о пользователю
+     *
+     *
+     *
+     *
+     * Пользователи
+     *
+     *
+     *
      */
+    //информация о пользователе по ID
     @Override
     public Users findUserById(int id) {
         return userDao.findById(id);
     }
 
-    /**
-     * @param login - процедура получает логин пользователя
-     * @return login возвращает информацию о пользователю
-     */
+    //информация о пользователе по login
     @Override
     public int findUserInLoginByLogin(String login) {
         return userDao.findInLoginById(login);
     }
 
-    /*
-*
-*
-*
-*
-*Участники МЭДО
-*
-*
-*
-     */
     /**
-     * @return общее число записей из таблицы с участниками МЭДО
+     *
+     *
+     *
+     *
+     * Участники МЭДО
+     *
+     *
+     *
      */
+    //общее число записей с участниками МЭДО
     @Override
     public long getAllCountMembers() {
         return membersDao.getAllCountMembers();
     }
 
-    /**
-     * @param skip - число пропущенных записей для вывода постранично
-     * @param countMembers - число записей на одной странице
-     * @return список участников МЭДО из БД
-     */
+    //список участников МЭДО из БД
     @Override
     public List<Members> getAllListMembers(int skip, int countMembers) {
         return membersDao.getAllList(skip, countMembers);
     }
 
-    /**
-     * Поиск участника МЭДО по идентифкатору
-     *
-     * @param id идентификатор участника
-     * @return - информация об участнике
-     */
+    //Поиск числа записей в БД по наименованию участника
+    @Override
+    public long getCountListSearchByNameOrgMembers(String nameOrg) {
+        return membersDao.getCountListSearchByNameOrg(nameOrg);
+    }
+
+    //Поиск записей по наименованию участника
+    @Override
+    public List<Members> getListSearchByNameOrgMembers(String nameOrg, int skip, int countMembers) {
+        return membersDao.getListSearchByNameOrg(nameOrg, skip, countMembers);
+    }
+
+    //поиск числа записей по email участника
+    @Override
+    public long getCountListSearchByEmailOrgMembers(String email) {
+        return membersDao.getCountListSearchByEmailOrg(email);
+    }
+
+    //список найденных записей по email организации
+    @Override
+    public List<Members> getListSearchByEmailOrgMembers(String email, int skip, int countMembers) {
+        return membersDao.getListSearchByEmailOrg(email, skip, countMembers);
+    }
+
+    //Получение числа записей в БД по GUID организации
+    @Override
+    public long getCountListSearchByGuidOrgMembers(String guidOrg) {
+        return membersDao.getCountListSearchByGuidOrg(guidOrg);
+    }
+
+    //Получение числа записей по GUID
+    @Override
+    public List<Members> getListSearchByGuidOrgMembers(String guidOrg, int skip, int countMembers) {
+        return membersDao.getListSearchByGuidOrg(guidOrg, skip, countMembers);
+    }
+
+    //Получение числа записей в БД по названию и email организации
+    @Override
+    public long getCountListSearchByNameAndEmailOrgMembers(String nameOrg, String emailOrg) {
+        return membersDao.getCountListSearchByNameAndEmailOrg(nameOrg, emailOrg);
+    }
+
+    //Получение списка участников МЭДО при поиске по наименованию и email
+    @Override
+    public List<Members> getListSearchByNameAndEmailOrgMembers(String nameOrg, String emailOrg, int skip, int countMembers) {
+        return membersDao.getListSearchByNameAndEmailOrg(nameOrg, emailOrg, skip, countMembers);
+    }
+
+    //Получение числа записей в БД по названию и email организации
+    @Override
+    public long getCountListSearchByNameAndGuidOrgMembers(String nameOrg, String guidOrg) {
+        return membersDao.getCountListSearchByNameAndGuidOrg(nameOrg, guidOrg);
+    }
+
+    //Получение списка участников МЭДО при поиске по наименованию и GUID
+    @Override
+    public List<Members> getListSearchByNameAndGuidOrgMembers(String nameOrg, String guidOrg, int skip, int countMembers) {
+        return membersDao.getListSearchByNameAndGuid(nameOrg, guidOrg, skip, countMembers);
+    }
+
+    //Получение числа записей в БД по названию и email организации
+    @Override
+    public long getCountListSearchByEmailAndGuidOrgMembers(String emailOrg, String guidOrg) {
+        return membersDao.getCountListSearchByEmailAndGuidOrg(emailOrg, guidOrg);
+    }
+
+    //Получение списка участников МЭДО при поиске по наименованию и GUID
+    @Override
+    public List<Members> getListSearchByEmailAndGuidOrgMembers(String emailOrg, String guidOrg, int skip, int countMembers) {
+        return membersDao.getListSearchByEmailAndGuid(emailOrg, guidOrg, skip, countMembers);
+    }
+
+    //Получение числа записей в БД по названию, email и guid организации
+    @Override
+    public long getCountListSearchByNameAndEmailAndGuidOrgMembers(String nameOrg, String emailOrg, String guidOrg) {
+        return membersDao.getCountListSearchByNameAndEmailAndGuidOrg(nameOrg, emailOrg, guidOrg);
+    }
+
+    //Получение списка участников МЭДО при поиске по наименованию и GUID
+    @Override
+    public List<Members> getListSearchByNameAndEmailAndGuidOrgMembers(String nameOrg,String emailOrg, String guidOrg, int skip, int countMembers) {
+        return membersDao.getListSearchByNameAndEmailAndGuid(nameOrg,emailOrg, guidOrg, skip, countMembers);
+    }
+
+    //Поиск участника МЭДО по идентифкатору
     @Override
     public Members findMemberById(int id) {
         return membersDao.findById(id);
     }
 
-    /**
-     * Добавление участника МЭДО
-     *
-     * @param nameOrg - наименование организации
-     * @param email
-     * @param guid - идентификатор участника
-     * @return успешно добавлен участник или нет
-     */
+    //Добавление участника МЭДО
     @Override
     public boolean addNewMember(String nameOrg, String email, String guid) {
         return membersDao.addMember(nameOrg, email, guid);
     }
 
-    /**
-     * Изменение существующего участника МЭДО
-     *
-     * @param idMember - идентификатор записи в БД
-     * @param nameOrg - наименование организации
-     * @param email - email организации
-     * @param guid организации
-     * @return число изменённых записей
-     */
+    //Изменение существующего участника МЭДО
     @Override
     public int updateOldMember(int idMember, String nameOrg, String email, String guid) {
         return membersDao.updateMember(idMember, nameOrg, email, guid);
     }
 
-    /**
-     * Удаление участника МЭДО
-     *
-     * @param idMember - идентификатор участника МЭДО в БД
-     * @return количество удаленных записей
-     */
+    //Удаление участника МЭДО
     @Override
     public int deleteOldMember(int idMember) {
         return membersDao.deleteMember(idMember);
     }
 
-    /**
-     * Проверка существования записи в БД при добавлении нового участника МЭДО
-     *
-     * @param email-адреса участника
-     * @param guid-идентификатор участника
-     * @return количество записей в БД
-     */
+    //Проверка существования записи в БД при добавлении нового участника МЭДО
     @Override
     public long getCountMembersByEmailOrGuid(String email, String guid) {
         return membersDao.getCountByEmailOrGuid(email, guid);
     }
 
-    /**
-     * проверка сущестование других записей в БД с такими же данными при
-     * обновлении текущей записи
-     *
-     * @param idMember
-     * @param email
-     * @param guid
-     * @return количество записей в БД
-     */
+    //проверка сущестование других записей в БД с такими же данными при обновлении текущей записи
     @Override
     public long getCountMembersByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid) {
         return membersDao.getCountByEmailOrGuidAndNotEqualsId(idMember, email, guid);
@@ -209,9 +226,7 @@ public class SuperDao implements ImplDao {
      *
      *
      */
-    /**
-     * @return список типов пакетов (входящий или исходящий)
-     */
+    //возвращает список типов пакетов (входящий или исходящий)
     @Override
     public List<TypePkg> getAllListTypePkg() {
         return typePkgDao.getAllList();
@@ -225,7 +240,6 @@ public class SuperDao implements ImplDao {
 //    public TypePkg findByIdTypePkg(Short idTypePkg) {
 //        return typePkgDao.findById(idTypePkg);
 //    }
-
     /**
      *
      *
@@ -235,9 +249,7 @@ public class SuperDao implements ImplDao {
      *
      *
      */
-    /**
-     * @return список xml-схем
-     */
+    //возвращает список xml-схем
     @Override
     public List<SchemaXml> getAllListSchemaXml() {
         return schemaXmlDao.getAllList();
@@ -252,10 +264,7 @@ public class SuperDao implements ImplDao {
      *
      *
      */
-    /**
-     * @param idTypePkg тип пакета (входящий или исходящий)
-     * @return список документов
-     */
+    //возвращает список документов
     @Override
     public List<Documents> getAllListByTypePkg(Short idTypePkg) {
         return docDao.getAllListByTypePkg(idTypePkg);

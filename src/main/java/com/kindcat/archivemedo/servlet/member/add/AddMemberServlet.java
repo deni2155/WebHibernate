@@ -1,7 +1,6 @@
 package com.kindcat.archivemedo.servlet.member.add;
 
-import com.kindcat.archivemedo.beans.SuperBean;
-import com.kindcat.archivemedo.beans.SuperBeanImpl;
+import com.kindcat.archivemedo.beans.SuperBeans;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
 import com.kindcat.archivemedo.members.regex.SuperVerification;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import java.io.PrintWriter;
 import com.kindcat.archivemedo.members.regex.ImplVerification;
+import com.kindcat.archivemedo.beans.ImplBeans;
 
 /**
  *
@@ -51,7 +51,7 @@ public class AddMemberServlet extends HttpServlet {
             //если пользователь отправил форму не с пустыми полями
             if (request.getParameter("nameOrgAddMember") != null && request.getParameter("emailAddMember") != null && request.getParameter("guidAddMember") != null) {
                 //получаю ссылку на класс для работы с данными формы            
-                SuperBeanImpl beans = new SuperBean();
+                ImplBeans beans = new SuperBeans();
                 //добавляю в класс значения, полученные из запроса для более удобной работы
                 //перед передачей данных в класс удаляем пробелы в начале и конце, а так же переносы строк заменяем на пробелы
                 beans.setBeanNameOrg(deleteSpaceAndLineBreakReplacement(request.getParameter("nameOrgAddMember")));

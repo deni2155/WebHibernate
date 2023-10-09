@@ -1,7 +1,6 @@
 package com.kindcat.archivemedo.servlet.signin;
 
-import com.kindcat.archivemedo.beans.SuperBean;
-import com.kindcat.archivemedo.beans.SuperBeanImpl;
+import com.kindcat.archivemedo.beans.SuperBeans;
 import com.kindcat.archivemedo.db.dao.ImplDao;
 import com.kindcat.archivemedo.db.dao.SuperDao;
 import java.io.IOException;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
+import com.kindcat.archivemedo.beans.ImplBeans;
 
 /**
  *
@@ -47,20 +47,20 @@ public class CreateSessionServlet extends HttpServlet {
             //если получены данные авторизации
             if (!request.getParameter("login").isEmpty() && request.getParameter("password") != null) {
                 logger.debug("Получены данные формы для авторизации");
-                SuperBeanImpl userBeans = new SuperBean();
-                userBeans.setBeansLogin(request.getParameter("login").replace("\\", "").replace("'", "").replace("\"", "").replace("%", "").replace("+", "").replace("<", "").replace(">", ""));
+                ImplBeans userBeans = new SuperBeans();
+                userBeans.setBeansLoginUser(request.getParameter("login").replace("\\", "").replace("'", "").replace("\"", "").replace("%", "").replace("+", "").replace("<", "").replace(">", ""));
                 userBeans.setBeansHash(request.getParameter("password").replace("\\", "\\\\").replace("'", "\\'").replace("\"", "\\\"").replace("%", "\\%").replace("+", "\\+").replace("<", "\\<").replace(">", "\\>"));
                 ImplDao userDao = new SuperDao();
                 //получаю по логину идентификатор пользователя
-                userBeans.setBeansIdUser(userDao.findUserInLoginByLogin(userBeans.getBeansLogin()));
+                userBeans.setBeansIdUser(userDao.findUserInLoginByLogin(userBeans.getBeansLoginUser()));
                 //если по логину пользователя в БД найден идентификатор
                 if (userBeans.getBeansIdUser() > 0) {
-                    logger.debug("При авторизации в БД найден пользователь \"" + userBeans.getBeansLogin() + "\"");
+                    logger.debug("При авторизации в БД найден пользователь \"" + userBeans.getBeansLoginUser() + "\"");
                     //верификация пароля пользователя
                     if (BCrypt.checkpw(userBeans.getBeansHash(), userDao.findUserById(userBeans.getBeansIdUser()).getHash())) {
-                        logger.info("Проверка пароля пользователя \"" + userBeans.getBeansLogin() + "\" прошла успешно");
+                        logger.info("Проверка пароля пользователя \"" + userBeans.getBeansLoginUser() + "\" прошла успешно");
                         HttpSession session = request.getSession();
-                        session.setAttribute("login", userBeans.getBeansLogin());
+                        session.setAttribute("login", userBeans.getBeansLoginUser());
                         session.setAttribute("idUser", userBeans.getBeansIdUser());
                         session.setAttribute("fName", userDao.findUserById(userBeans.getBeansIdUser()).getFullName());
                         out.println("true");
@@ -68,10 +68,10 @@ public class CreateSessionServlet extends HttpServlet {
                     } else {
                         out.println("false");
                         out.println("Неверный пароль");
-                        logger.debug("Пользователь \"" + userBeans.getBeansLogin() + "\" ввёл не верный пароль");
+                        logger.debug("Пользователь \"" + userBeans.getBeansLoginUser() + "\" ввёл не верный пароль");
                     }
                 } else {
-                    logger.info("Не удачная попытка авторизации, логин \"" + userBeans.getBeansLogin() + "\" не найден в БД");
+                    logger.info("Не удачная попытка авторизации, логин \"" + userBeans.getBeansLoginUser() + "\" не найден в БД");
                     out.println("false");
                     out.println("Логин не найден");
                 }

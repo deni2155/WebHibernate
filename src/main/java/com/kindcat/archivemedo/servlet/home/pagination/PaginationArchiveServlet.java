@@ -31,8 +31,6 @@ public class PaginationArchiveServlet extends HttpServlet {
     public PaginationArchiveServlet() {
         logger = Logger.getLogger(PaginationArchiveServlet.class);
         dao = new SuperDao();
-//        logBuilder = new StringBuilder();
-//        gson = new Gson();
     }
 
     /**
@@ -43,13 +41,6 @@ public class PaginationArchiveServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String link = "linkArchiveServlet";
-        Short idTypePkg = 1;//указываю идентификатор типа пакета по умолчанию - входящие
-
-        int docsCountForOnePage = 20;//число записей на одной странице
-        int countDocs = 0;//общее число записей в БД
-        int pageCount = 1;//число страниц через деление общего числа записей в БД на число записей на одной странице
-        int currentPage = 1;//выбранная страинца для расчёта пагинации
-        int skip = 0;//число пропущенных записей
 
         //
         ///массив с записями о типе пакета (входящий или исходящий) для отображения на странице
@@ -65,72 +56,59 @@ public class PaginationArchiveServlet extends HttpServlet {
         if (dao.getAllListSchemaXml().isEmpty()) {
             logger.warn("Получен пустой массив со списком схем xml");
         }
+        //
+        //
+        //Документы
+        //
+        //
+        Short idDocTypePkg = 1;//указываю идентификатор типа пакета по умолчанию - входящие
 
+        int docsCountForOnePage = 20;//число записей на одной странице
+        int countDocs = 0;//общее число записей в БД
+        int pageDocsCount = 1;//число страниц через деление общего числа записей в БД на число записей на одной странице
+        int currentPageDocs = 1;//выбранная страинца для расчёта пагинации
+        int skipEnties = 0;//число пропущенных записей
         //если пользователь изменил тип пакета, присваиваем полученное значение переменной
         if (request.getParameter("docInOut") != null) {
-            idTypePkg = Short.parseShort(request.getParameter("docInOut"));
+            idDocTypePkg = Short.parseShort(request.getParameter("docInOut"));
         }
 
-        countDocs = Math.toIntExact(dao.getAllCountDocs(idTypePkg));//общее число записей в БД
-        pageCount = countDocs / docsCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
+        countDocs = Math.toIntExact(dao.getAllCountDocs(idDocTypePkg));//общее число записей в БД
+        pageDocsCount = countDocs / docsCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
         //если остаток от деления больше нуля при делении общего числа записей на число записей на одной странице, добавляем одну страницу
         if ((countDocs % docsCountForOnePage) > 0) {
-            pageCount++;
+            pageDocsCount++;
         }
 
         if (request.getParameter("page") != null) {
-            currentPage = Integer.parseInt(request.getParameter("page"));
+            currentPageDocs = Integer.parseInt(request.getParameter("page"));
         }
 
         //если от пользователя получен номер страницы, превышающий общее число страниц
-        if (currentPage > pageCount) {
-            currentPage = pageCount;//отправляем пользователя на последнюю страницу
+        if (currentPageDocs > pageDocsCount) {
+            currentPageDocs = pageDocsCount;//отправляем пользователя на последнюю страницу
         }//если от пользователя получен номер страницы меньше нуля, отпавляем на персую страницу
-        if (currentPage < 1) {
-            currentPage = 1;
+        if (currentPageDocs < 1) {
+            currentPageDocs = 1;
         }
 
-        skip = docsCountForOnePage * (currentPage - 1);//число пропущенных записей
+        skipEnties = docsCountForOnePage * (currentPageDocs - 1);//число пропущенных записей
 
-////        
-////        Если не получены параметры от пользователя
-////        
-//        if (request.getParameter("selectedTypePkgValue") != null) {
-//            idTypePkg = Short.parseShort(request.getParameter("selectedTypePkgValue"));
-//            String json = gson.toJson(dao.getAllListByTypePkg(idTypePkg));
-//            logger.debug(json);
-//            try (PrintWriter out = response.getWriter()) {
-//                response.setContentType("application/json");
-//                response.setCharacterEncoding("UTF-8");
-//                out.print(json);
-//                out.flush();
-//            } catch (Exception ex) {
-//                logBuilder.setLength(0);
-//                logBuilder.append("При выборе типа документа (входящий или исходящий) произошла программная ошибка");
-//                logBuilder.append("\n");
-//                logBuilder.append(ex.getMessage());
-//                logBuilder.append("\n");
-//                stackTrace = ex.getStackTrace();
-//                for (StackTraceElement element : stackTrace) {
-//                    logBuilder.append(element.toString());
-//                    logBuilder.append("\n");
-//                }
-//                stringlog = logBuilder.toString();
-//                logger.error(stringlog);
-//            }
-//        }
         //
         //выводим список документов
         //
-        request.setAttribute("listDocs", dao.getAllListDocsByTypePkg(idTypePkg, skip, docsCountForOnePage));
-        request.setAttribute("pageCount", pageCount);//число странице для отображения
-        request.setAttribute("currentPage", currentPage);//текущая страница
+        request.setAttribute("listDocs", dao.getAllListDocsByTypePkg(idDocTypePkg, skipEnties, docsCountForOnePage));
+        request.setAttribute("pageCount", pageDocsCount);//число странице для отображения
+        request.setAttribute("currentPage", currentPageDocs);//текущая страница
 
-        if (dao.getAllListDocsByTypePkg(idTypePkg, skip, docsCountForOnePage).isEmpty()) {
+        if (dao.getAllListDocsByTypePkg(idDocTypePkg, skipEnties, docsCountForOnePage).isEmpty()) {
             logger.warn("Получен пустой массив со списком документов");
         }
-
-        logger.debug("получено " + countDocs + " строк");
+//
+//
+//Уведомления
+//
+//
         request.getRequestDispatcher(link).forward(request, response);
     }
 

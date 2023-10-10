@@ -38,7 +38,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th scope="col">
-                                        <button class="btn btn-custom btn-custom-add-row" data-bs-toggle="modal" data-bs-target="#add-medo-participant" type="submit">
+                                        <button class="btn btn-custom btn-custom-add-row" data-bs-toggle="modal" data-bs-target="#add-medo-participant" type="button">
                                             <!--Иконка добавления участника МЭДО-->
                                             <img src="" title="Добавить запись"/>
                                         </button>

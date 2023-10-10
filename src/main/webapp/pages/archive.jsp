@@ -21,13 +21,6 @@
     <body class="container-fluid">
         <jsp:include page="templates/header.jsp"/>
 
-        <!--
-пагинация
-        -->
-        <div class="pt-3">
-            <jsp:include page="templates/pagination.jsp"/>
-        </div>
-
         <form action="" method="get">
             <!--Вкладки-->
             <div class="row mt-2 ms-1 me-1 rounded">
@@ -77,8 +70,209 @@
             <div class="row custom-tables ms-1 me-1 rounded">
                 <div class="col-12 table-responsive">
                     <div class="tab-content" id="nav-tabContent">
-                        <!--Документы-->
+                        <!--
+                        --
+                        --вкладка с документами
+                        --
+                        -->
                         <div class="tab-pane fade show active" id="nav-docs" role="tabpanel" aria-labelledby="nav-docs-tab" tabindex="0">
+                            <!--
+                                пагинация
+                            -->
+                            <div class="pt-3">
+                                <jsp:include page="templates/pagination.jsp"/>
+                            </div>
+                            <!--form-->
+                            <table class="table table-striped table-hover fs-6 table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">#</th>
+                                        <!--Заголовок Формат xml документа-->
+                                        <th scope="col">
+                                            <label for="format" class="form-label">Формат</label>
+                                            <div class="input-group">
+                                                <button class="btn btn-custom btn-custom-sort">
+                                                    <!--Иконка сортировки-->
+                                                    <img src=""/>
+                                                </button>
+                                                <c:if test="${not empty listSchemaXml}">
+                                                    <select class="form-select form-control">
+                                                        <c:forEach var="listSchemaXml" items="${listSchemaXml}">
+                                                            <option value="${listSchemaXml.idSchema}">${listSchemaXml.nameSchema}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </c:if>
+                                            </div>
+                                        </th>
+                                        <!--Заголовок Номер документа-->
+                                        <th scope="col">											
+                                            <div>
+                                                <label for="number_doc_doc" class="form-label">№ документа</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="number_doc_doc">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <!--Заголовок Дата регистрации документа-->
+                                        <th scope="col">
+                                            <div>
+                                                <label for="date_reg_doc_doc" class="form-label">Дата регистрации</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="date_reg_doc_doc">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <!--Заголовок Отправитель документа-->
+                                        <th scope="col">
+                                            <div>
+                                                <label for="sender_doc_doc" class="form-label">Отправитель</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="sender_doc_doc">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <!--Получатель документа-->
+                                        <th scope="col">
+                                            <div>
+                                                <label for="recipient_doc_doc" class="form-label">Получатель</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="recipient_doc_doc">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <!--Заголовок Заголовок типа документа (дсп или нет)-->
+                                        <th scope="col">
+                                            <div class="form-check">
+                                                <label for="dsp" class="form-check-label">ДСП</label>
+                                                <!--div class="input-group"-->
+                                                <input type="checkBox" id="dsp" class="form-check-input" value=""/>
+                                                <!--/div-->
+                                            </div>
+                                        </th>
+                                        <!--Заголовок дата и время записи документа-->
+                                        <th scope="col">
+                                            Дата и время получения
+                                        </th>
+                                        <!--Заголовок-->
+                                        <th scope="col">
+                                            <div>
+                                                <label class="form-label">Уведомление</label>
+                                            </div>
+                                        </th>
+                                        <!--Заголовок-->
+                                        <th scope="col">
+                                            <div>
+                                                <label class="form-label">Квитанция</label>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" colspan="10">
+                                            <div class="col-12 text-center">
+                                                <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" type="submit">Найти</button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!--
+                                таблица с информацией о документе
+                                -->
+                                <!--если получен не пустой массив-->
+                                <c:if test="${not empty listDocs}">
+                                    <tbody>
+                                        <!--вывожу массив циклом-->
+                                        <c:forEach var="listDocs" items="${listDocs}">
+                                            <tr>
+                                                <!--идентификатор документа-->
+                                                <th scope="row">${listDocs.idDoc}</th>
+                                                <!--формат xml-документа-->
+                                                <td>${listDocs.schemaXml.nameSchema}</td>
+                                                <!--регистрационный номер и регистрационная дата документа-->
+                                                <!--если документы входящие, вывожу внешние реквизиты документа-->
+                                                <c:if test="${listDocs.idInOut eq 1}">
+                                                    <td>${listDocs.exNum}</td>
+                                                    <td><fmt:formatDate value="${listDocs.exDate}" pattern="dd.MM.yyyy"/></td>
+                                                </c:if>
+                                                <!--если документы исходящие, вывожу внешние реквизиты документа-->
+                                                <c:if test="${listDocs.idInOut eq 2}">
+                                                    <td>${listDocs.inNum}</td>
+                                                    <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
+                                                </c:if>
+                                                <!--Отправитель документа-->
+                                                <td>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.membersSenders.nameOrg}</div>
+                                                </td>
+                                                <!--Получталеь документа-->
+                                                <td>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.recipients.membersRecipients.nameOrg}</div>
+                                                </td>
+                                                <!--тип документа (дсп или нет)-->
+                                                <td class="d-flex justify-content-center">
+                                                    <!--{listDocs.dsp}-->
+                                                    <div class="form-check">
+                                                        <c:if test="${not empty listDocs.dsp}">
+                                                            <c:if test="${listDocs.dsp==true}">
+                                                                <input type="checkbox" class="form-check-input" checked disabled value=""/>
+                                                            </c:if>
+                                                            <c:if test="${listDocs.dsp==false}">
+                                                                <input type="checkbox" class="form-check-input" disabled value=""/>
+                                                            </c:if>
+                                                        </c:if>
+                                                    </div>
+                                                </td>
+                                                <!--Дата и время записи документа-->
+                                                <td>
+                                                    <c:if test="${not empty listDocs.whenCreate}">
+                                                        ${listDocs.whenCreate.format( DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
+                                                    </c:if>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </c:if>
+                            </table>
+                            <!--
+                                пагинация
+                            -->
+                            <div class="pt-3">
+                                <jsp:include page="templates/pagination.jsp"/>
+                            </div>
+                        </div>
+                        <!--
+                        --
+                        --
+                        --Вкладка с уведомлениями
+                        --
+                        --
+                        -->
+                        <div class="tab-pane fade" id="nav-notifs" role="tabpanel" aria-labelledby="nav-notifs-tab" tabindex="1">
+                            <!--
+                                пагинация
+                            -->
+                            <div class="pt-3">
+                                <jsp:include page="templates/pagination.jsp"/>
+                            </div>
                             <!--form-->
                             <table class="table table-striped table-hover fs-6 table-bordered">
                                 <thead>
@@ -102,7 +296,7 @@
                                         </th>
                                         <th scope="col">											
                                             <div>
-                                                <label for="number_doc_doc" class="form-label">№ документа</label>
+                                                <label for="number_doc_doc" class="form-label">Внутренний № документа</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button">
                                                         <!--Иконка сортировки-->
@@ -114,7 +308,31 @@
                                         </th>
                                         <th scope="col">
                                             <div>
-                                                <label for="date_reg_doc_doc" class="form-label">Дата регистрации</label>
+                                                <label for="date_reg_doc_doc" class="form-label">Внутренняя дата регистрации</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="date_reg_doc_doc">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th scope="col">											
+                                            <div>
+                                                <label for="number_doc_doc" class="form-label">Внешний № документа</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="number_doc_doc">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th scope="col">
+                                            <div>
+                                                <label for="date_reg_doc_doc" class="form-label">Внешняя дата регистрации</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <!--Иконка сортировки-->
@@ -170,7 +388,7 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th scope="col" colspan="9">
+                                        <th scope="col" colspan="10">
                                             <div class="col-12 text-center">
                                                 <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" type="submit">Найти</button>
                                             </div>
@@ -189,9 +407,13 @@
                                                 <c:if test="${listDocs.idInOut eq 1}">
                                                     <td>${listDocs.exNum}</td>
                                                     <td><fmt:formatDate value="${listDocs.exDate}" pattern="dd.MM.yyyy"/></td>
+                                                    <td>${listDocs.exNum}</td>
+                                                    <td><fmt:formatDate value="${listDocs.exDate}" pattern="dd.MM.yyyy"/></td>
                                                 </c:if>
                                                 <!--если документы исходящие, вывожу внешние реквизиты документа-->
                                                 <c:if test="${listDocs.idInOut eq 2}">
+                                                    <td>${listDocs.inNum}</td>
+                                                    <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
                                                     <td>${listDocs.inNum}</td>
                                                     <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
                                                 </c:if>
@@ -203,7 +425,7 @@
                                                 </td>
                                                 <td>
                                                     <c:if test="${not empty listDocs.whenCreate}">
-                                                        ${listDocs.whenCreate.format( DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
+                                                        ${listDocs.whenCreate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
                                                     </c:if>
                                                 </td>
                                                 <td class="d-flex justify-content-center">
@@ -230,19 +452,17 @@
                                     </tbody>
                                 </c:if>
                             </table>
-                            <!--/form-->
+                            <!--
+                                пагинация
+                            -->
+                            <div class="pt-3">
+                                <jsp:include page="templates/pagination.jsp"/>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-notifs" role="tabpanel" aria-labelledby="nav-notifs-tab" tabindex="1">Эй, здорова</div>
                         <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">Здорова, заебал</div>
                     </div>
                 </div>
             </div>
         </form>
-                <!--
-пагинация
-        -->
-        <div class="pt-3">
-            <jsp:include page="templates/pagination.jsp"/>
-        </div>
     </body>
 </html>

@@ -35,10 +35,11 @@ class NotifDao {
     long getAllCount(Short idTypePkg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            String hql = "select count(idNotif) from Notifs where idInOut=:idInOut";
+//            String hql = "select count(idNotif) from Notifs where idInOut=:idInOut";
+            String hql = "select count(idNotif) from Notifs where idInOut=" + idTypePkg;
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
-            query.setParameter("idInOut", idTypePkg);
+            //query.setParameter("idInOut", idTypePkg);
             count = (long) query.uniqueResult();
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
@@ -63,7 +64,7 @@ class NotifDao {
     /**
      * Получение списка xml-форматов
      */
-    List<Notifs> getAllListByTypePkg(Short idTypePkg,int skip,int notifCountForOnePage) {
+    List<Notifs> getAllListByTypePkg(Short idTypePkg, int skip, int notifCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "from Notifs where idInOut=:idInOut";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
             Query query = session.createQuery(hql, Notifs.class);//создаю массив объектов с клссом SchemaXml и созданным запросом

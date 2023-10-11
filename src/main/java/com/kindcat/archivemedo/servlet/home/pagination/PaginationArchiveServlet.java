@@ -28,9 +28,15 @@ public class PaginationArchiveServlet extends HttpServlet {
 //    private String stringlog;
 //    private Gson gson;
 
+    private int currentPageDocs;//выбранная страинца для расчёта пагинации на вкладке с документами
+    private int currentPageNotifs = 1;//выбранная страинца для расчёта пагинации на вкладке с уведомлениями
+
     public PaginationArchiveServlet() {
         logger = Logger.getLogger(PaginationArchiveServlet.class);
         dao = new SuperDao();
+        //объявляю тут, что бы переменная в процессе работы сервлета не меняла значение
+        currentPageDocs = 1;
+        currentPageNotifs = 1;
     }
 
     /**
@@ -73,7 +79,6 @@ public class PaginationArchiveServlet extends HttpServlet {
         int docsCountForOnePage = 20;//число записей на одной странице
         int countDocs = 0;//общее число записей в БД
         int pageDocsCount = 1;//число страниц через деление общего числа записей в БД на число записей на одной странице
-        int currentPageDocs = 1;//выбранная страинца для расчёта пагинации
         int skipDocsEnties = 0;//число пропущенных записей
         //если пользователь изменил тип пакета, присваиваем полученное значение переменной
         if (request.getParameter("docInOut") != null) {
@@ -122,7 +127,6 @@ public class PaginationArchiveServlet extends HttpServlet {
         int notifsCountForOnePage = 20;//число записей на одной странице
         int countNotifs = 0;//общее число записей в БД
         int pageNotifsCount = 1;//число страниц через деление общего числа записей в БД на число записей на одной странице
-        int currentPageNotifs = 1;//выбранная страинца для расчёта пагинации
         int skipNotifsEnties = 0;//число пропущенных записей
         //если пользователь изменил тип пакета, присваиваем полученное значение переменной
         if (request.getParameter("notifInOut") != null) {
@@ -137,7 +141,7 @@ public class PaginationArchiveServlet extends HttpServlet {
         }
 
         if (request.getParameter("notifPage") != null) {
-            countNotifs = Integer.parseInt(request.getParameter("notifPage"));
+            currentPageNotifs = Integer.parseInt(request.getParameter("notifPage"));
         }
 
         //если от пользователя получен номер страницы, превышающий общее число страниц
@@ -152,14 +156,30 @@ public class PaginationArchiveServlet extends HttpServlet {
         //
         //выводим список уведомлений
         //
-        request.setAttribute("listNotifs", dao.getAllListNotifsByTypePkg(idNotifTypePkg,skipNotifsEnties,notifsCountForOnePage));
+        request.setAttribute("listNotifs", dao.getAllListNotifsByTypePkg(idNotifTypePkg, skipNotifsEnties, notifsCountForOnePage));
         request.setAttribute("pageCountNotif", pageNotifsCount);//число страниц для отображения
         request.setAttribute("currentPageNotif", currentPageNotifs);//текущая страница
 
-        if (dao.getAllListNotifsByTypePkg(idNotifTypePkg,skipNotifsEnties,notifsCountForOnePage).isEmpty()) {
+        if (dao.getAllListNotifsByTypePkg(idNotifTypePkg, skipNotifsEnties, notifsCountForOnePage).isEmpty()) {
             logger.warn("Получен пустой массив со списком Уведомлений");
         }
-        logger.debug(countNotifs);
+
+        logger.debug("Документы");
+        logger.debug("\t\tТип документа " + idDocTypePkg);
+        logger.debug("\t\tЧисло записей на одной странице " + docsCountForOnePage);
+        logger.debug("\t\tСуммарное число записей в БД " + countDocs);
+        logger.debug("\t\tЧисло страниц " + pageDocsCount);
+        logger.debug("\t\tВыбранная страница " + currentPageDocs);
+        logger.debug("\t\tПропущено строк " + skipDocsEnties);
+
+        logger.debug("Уведомления");
+        logger.debug("\t\tТип уведомления " + idNotifTypePkg);
+        logger.debug("\t\tЧисло записей на одной странице " + notifsCountForOnePage);
+        logger.debug("\t\tСуммарное число записей в БД " + countNotifs);
+        logger.debug("\t\tЧисло страниц " + pageNotifsCount);
+        logger.debug("\t\tВыбранная страница " + currentPageNotifs);
+        logger.debug("\t\tПропущено строк " + skipNotifsEnties);
+
         request.getRequestDispatcher(link).forward(request, response);
     }
 

@@ -201,8 +201,8 @@ public class PaginationArchiveServlet extends HttpServlet {
             pageReceiptsCount++;
         }
 
-        if (request.getParameter("receiptInOut") != null) {
-            currentPageReceipts = Integer.parseInt(request.getParameter("receiptInOut"));
+        if (request.getParameter("receiptPage") != null) {
+            currentPageReceipts = Integer.parseInt(request.getParameter("receiptPage"));
         }
 
         //если от пользователя получен номер страницы, превышающий общее число страниц
@@ -241,8 +241,15 @@ public class PaginationArchiveServlet extends HttpServlet {
 //        logger.debug("\t\tВыбранная страница " + currentPageNotifs);
 //        logger.debug("\t\tПропущено строк " + skipNotifsEnties);
 
+
         logger.debug("Квитанции");
+        logger.debug("\t\tТип квитанции " + idReceiptTypePkg);
+        logger.debug("\t\tЧисло записей на одной странице " + receiptsCountForOnePage);
         logger.debug("\t\tСуммарное число записей в БД " + countReceipts);
+        logger.debug("\t\tЧисло страниц " + pageReceiptsCount);
+        logger.debug("\t\tВыбранная страница " + currentPageReceipts);
+        logger.debug("\t\tПропущено строк " + skipReceiptsEnties);
+
         request.getRequestDispatcher(link).forward(request, response);
     }
 

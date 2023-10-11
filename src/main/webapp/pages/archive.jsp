@@ -50,7 +50,7 @@
                             <button class="nav-link fw-bold" id="nav-receipts-tab" data-bs-toggle="tab" data-bs-target="#nav-receipts" type="button" role="tab" aria-controls="nav-receipts" aria-selected="false">
                                 <img src="icon/receipt.png"/> Квитанции
                                 <c:if test="${not empty listTypePkg}">
-                                    <select class="form-select form-control">
+                                    <select class="form-select form-control" name="receiptInOut">
                                         <c:forEach var="listTypePkg" items="${listTypePkg}">
                                             <option value="${listTypePkg.idTypePkg}">${listTypePkg.nameTypePkg}</option>
                                         </c:forEach>
@@ -460,7 +460,167 @@
                                 <jsp:include page="templates/archive/notif_pagination.jsp"/>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">Здорова, заебал</div>
+                        <!--
+                        --
+                        --
+                        --
+                        --Вкладка с квитанциями
+                        --
+                        --
+                        --
+                        -->
+                        <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">
+                            <!--
+                                    пагинация
+                            -->
+                            <div class="pt-3">
+                                <jsp:include page="templates/archive/receipt_pagination.jsp"/>
+                            </div>
+                            <!--form-->
+                            <table class="table table-striped table-hover fs-6 table-bordered">
+                                <thead>
+                                    <!--Схема xml в квитанции-->
+                                    <tr class="text-center">
+                                        <th scope="col">#</th>
+                                        <th scope="col">
+                                            <label for="receipt-xml-format" class="form-label">Формат</label>
+                                            <div class="input-group">
+                                                <button class="btn btn-custom btn-custom-sort">
+                                                    <!--Иконка сортировки-->
+                                                    <img src=""/>
+                                                </button>
+                                                <c:if test="${not empty listSchemaXml}">
+                                                    <select class="form-select form-control" id="receipt-xml-format">
+                                                        <c:forEach var="listSchemaXml" items="${listSchemaXml}">
+                                                            <option value="${listSchemaXml.idSchema}">${listSchemaXml.nameSchema}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </c:if>
+                                            </div>
+                                        </th>
+                                        <!--UID пакета, для которого получна квитанция-->
+                                        <th scope="col">											
+                                            <div>
+                                                <label for="receipt-for-uid" class="form-label">Квитанция получена для пакета</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="receipt-for-uid">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <!--Информация о доставке пакета-->
+                                        <th scope="col">
+                                            <div class="form-check">
+                                                <label for="receipt-delivery" class="form-check-label">Доставлен</label>
+                                                <!--div class="input-group"-->
+                                                <input type="checkBox" class="form-check-input" value="" id="receipt-delivery"/>
+                                                <!--/div-->
+                                            </div>
+                                        </th>
+                                        <!--отправитель квитанции-->
+                                        <th scope="col">
+                                            <div>
+                                                <label for="receipt-sender" class="form-label">Отправитель</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <!--Иконка сортировки-->
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="receipt-sender">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <!---получатель квитанции-->
+                                        <th scope="col">
+                                            <div>
+                                                <label for="receipt-recipient" class="form-label">Получатель</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
+                                                        <img src=""/>
+                                                    </button>
+                                                    <input type="text" class="form-control" id="receipt-recipient">
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th scope="col">
+                                            Дата и время записи
+                                        </th>
+                                        <th scope="col">
+                                            <div>
+                                                <label class="form-label">Документ</label>
+                                            </div>
+                                        </th>
+                                        <th scope="col">
+                                            <div>
+                                                <label class="form-label">Уведомление</label>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" colspan="12">
+                                            <div class="col-12 text-center">
+                                                <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" type="submit">Найти</button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!--
+                                таблица с информацией о квитанциях
+                                -->
+                                <!--если получен не пустой массив-->
+                                <c:if test="${not empty listReceipts}">
+                                    <tbody>
+                                        <!--вывожу массив циклом-->
+                                        <c:forEach var="listReceipts" items="${listReceipts}">
+                                            <tr>
+                                                <!--идентификатор уведомления-->
+                                                <th scope="row">${listReceipts.idReceipt}</th>
+                                                <!--формат xml-уведомления-->
+                                                <td>${listReceipts.schemaXml.nameSchema}</td>
+                                                <!--uid пакета, для которого получена квитанция-->
+                                                <td>${listReceipts.forUid}</th>
+                                                    <!--доставлен али нет-->
+                                                <td class="d-flex justify-content-center">
+                                                    <div class="form-check">
+                                                        <c:if test="${not empty listReceipts.deliv}">
+                                                            <c:if test="${listReceipts.deliv==true}">
+                                                                <input type="checkbox" class="form-check-input" checked disabled value=""/>
+                                                            </c:if>
+                                                            <c:if test="${listReceipts.deliv==false}">
+                                                                <input type="checkbox" class="form-check-input" disabled value=""/>
+                                                            </c:if>
+                                                        </c:if>
+                                                    </div>
+                                                </td>
+                                                <!--Отправитель Квитанции-->
+                                                <td>
+                                                    <div class="text-wrap" style="width: 22rem;">${listReceipts.senders.membersSenders.nameOrg}</div>
+                                                </td>
+                                                <!--Получатель Квитанции-->
+                                                <td>
+                                                    <div class="text-wrap" style="width: 22rem;">${listReceipts.recipients.membersRecipients.nameOrg}</div>
+                                                </td>
+                                                <!--Дата и время записи квитанции-->
+                                                <td>
+                                                    <c:if test="${not empty listReceipts.whenCreate}">
+                                                        ${listReceipts.whenCreate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
+                                                    </c:if>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </c:if>
+                            </table>
+                            <!--
+                                пагинация
+                            -->
+                            <div class="pt-3">
+                                <jsp:include page="templates/archive/receipt_pagination.jsp"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

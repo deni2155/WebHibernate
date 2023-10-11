@@ -3,6 +3,7 @@ package com.kindcat.archivemedo.db.dao;
 import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.models.Notifs;
+import com.kindcat.archivemedo.db.models.Receipts;
 import com.kindcat.archivemedo.db.models.SchemaXml;
 import com.kindcat.archivemedo.db.models.TypeNotif;
 import com.kindcat.archivemedo.db.models.TypePkg;
@@ -23,6 +24,7 @@ public class SuperDao implements ImplDao {
     private final DocumentsDao docDao;//ссылка на класс для работы со списком документов
     private final TypeNotifDao typeNotif;//тип уведомлений
     private final NotifDao notifDao;//информация об уведомлениях
+    private final ReceiptDao receiptDao;//ссылка на класс для работы с квитанциями
 
     /**
      * Конструктор класса
@@ -36,6 +38,7 @@ public class SuperDao implements ImplDao {
         docDao = new DocumentsDao();
         typeNotif = new TypeNotifDao();
         notifDao = new NotifDao();
+        receiptDao = new ReceiptDao();
     }
 
     /**
@@ -262,16 +265,38 @@ public class SuperDao implements ImplDao {
      *
      *
      */
-    //возвращает список уведомлений в зависимости от типа пакета (входящий или исходящий)
+    //возвращает число записей из таблицы уведомлений в зависимости от типа пакета (входящий или исходящий)
     @Override
     public long getAllCountNotif(Short idTypePkg) {
         return notifDao.getAllCount(idTypePkg);
     }
 
-   //возвращает список дуведомлений
+    //возвращает список дуведомлений
     @Override
-    public List<Notifs> getAllListNotifsByTypePkg(Short idTypePkg,int skip,int notifCountForOnePage) {
-        return notifDao.getAllListByTypePkg(idTypePkg,skip,notifCountForOnePage);
+    public List<Notifs> getAllListNotifsByTypePkg(Short idTypePkg, int skip, int notifCountForOnePage) {
+        return notifDao.getAllListByTypePkg(idTypePkg, skip, notifCountForOnePage);
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     * Список квитанций
+     *
+     *
+     *
+     */
+    //возвращает число записей из таблицы квитанций в зависимости от типа пакета (входящий или исходящий)
+    @Override
+    public long getAllCountReceipt(Short idTypePkg) {
+        return receiptDao.getAllCount(idTypePkg);
+    }
+
+//возвращает список квитанций
+    @Override
+    public List<Receipts> getAllListReceiptsByTypePkg(Short idTypePkg, int skip, int receiptCountForOnePage) {
+        return receiptDao.getAllListByTypePkg(idTypePkg, skip, receiptCountForOnePage);
     }
 
     /**

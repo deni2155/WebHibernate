@@ -29,14 +29,17 @@
         <property name="hbm2ddl.auto">create</property>
         <property name="hbm2ddl.auto">update</property-->
         <!--Подключенные классы-->
-        <mapping class="com.kindcat.archivemedo.db.models.Documents" />
-        <mapping class="com.kindcat.archivemedo.db.models.Members" />
+        <!--Подключение выполнено в классе SessionFactoryUtil-->
+        <!--mapping class="com.kindcat.archivemedo.db.models.Documents" />
         <mapping class="com.kindcat.archivemedo.db.models.Notifs" />
+        <mapping class="com.kindcat.archivemedo.db.models.Members" />
+        <mapping class="com.kindcat.archivemedo.db.models.Receipts" />
+        <mapping class="com.kindcat.archivemedo.db.models.Recipients" />
         <mapping class="com.kindcat.archivemedo.db.models.SchemaXml" />
         <mapping class="com.kindcat.archivemedo.db.models.Senders" />
         <mapping class="com.kindcat.archivemedo.db.models.TypeNotif" />
         <mapping class="com.kindcat.archivemedo.db.models.TypePkg" />
-        <mapping class="com.kindcat.archivemedo.db.models.Users" />
+        <mapping class="com.kindcat.archivemedo.db.models.Users" /-->
         <!-- property name="connection.driver_class">com.mysql.jdbc.Driver</property →
     //Указываем, где искать драйвер;
         <property name="connection.url">jdbc:mysql://localhost:3306/mydb</property>

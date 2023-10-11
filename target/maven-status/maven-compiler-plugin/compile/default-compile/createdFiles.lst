@@ -17,6 +17,7 @@ com/kindcat/archivemedo/filter/signin/ExistsSessionFilter.class
 com/kindcat/archivemedo/members/regex/SuperVerification.class
 com/kindcat/archivemedo/servlet/home/pagination/PaginationArchiveServlet.class
 com/kindcat/archivemedo/filter/common/EncodingRequestFilter.class
+com/kindcat/archivemedo/db/models/Receipts.class
 com/kindcat/archivemedo/filter/members/upload/UploadListMembersFilter.class
 com/kindcat/archivemedo/db/utils/SessionFactoryUtil.class
 com/kindcat/archivemedo/logger/LoggerForJspImpl.class
@@ -29,6 +30,7 @@ com/kindcat/archivemedo/beans/UsersBeans.class
 com/kindcat/archivemedo/logger/LoggerForJsp.class
 com/kindcat/archivemedo/db/dao/ImplDao.class
 com/kindcat/archivemedo/members/regex/VerificationMembers.class
+com/kindcat/archivemedo/db/dao/ReceiptDao.class
 com/kindcat/archivemedo/beans/MembersBean.class
 com/kindcat/archivemedo/db/models/Notifs.class
 com/kindcat/archivemedo/config/TempFolder.class

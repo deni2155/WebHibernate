@@ -35,6 +35,9 @@ public class Senders implements Serializable {
     @OneToOne(mappedBy = "senders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Notifs notifSenders;
 
+    @OneToOne(mappedBy = "senders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Notifs receiptSenders;
+
     @Column(name = "id_member")
     private Short idMemeber;
 
@@ -64,6 +67,14 @@ public class Senders implements Serializable {
 
     public void setNotifSenders(Notifs notifSenders) {
         this.notifSenders = notifSenders;
+    }
+
+    public Notifs getReceiptSenders() {
+        return receiptSenders;
+    }
+
+    public void setReceiptSenders(Notifs receiptSenders) {
+        this.receiptSenders = receiptSenders;
     }
 
     public Short getIdMemeber() {

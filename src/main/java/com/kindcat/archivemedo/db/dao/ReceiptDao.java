@@ -1,6 +1,6 @@
 package com.kindcat.archivemedo.db.dao;
 
-import com.kindcat.archivemedo.db.models.Notifs;
+import com.kindcat.archivemedo.db.models.Receipts;
 import com.kindcat.archivemedo.db.utils.SessionFactoryUtil;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -13,29 +13,29 @@ import org.hibernate.Transaction;
 /**
  *
  * @author dreamer
- * @vesrion 1.0.4.49 Класс для работы с таблицей уведомлений
+ * @version 1.0.4.51 Класс для работы с моделью класса
  */
-class NotifDao {
+class ReceiptDao {
 
-    private List<Notifs> listNotif;
+    private List<Receipts> listReceipts;
 
     private final Logger logger;
     private final StringBuilder logBuilder;
     private String stringlog;
     private StackTraceElement[] stackTrace;
 
-    NotifDao() {
-        logger = Logger.getLogger(NotifDao.class);
+    ReceiptDao() {
+        logger = Logger.getLogger(ReceiptDao.class);
         logBuilder = new StringBuilder();
     }
 
     /**
-     * возвращает общее число записей в таблице с документами
+     * возвращает общее число записей в таблице с уведомлениями
      */
     long getAllCount(Short idTypePkg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            String hql = "select count(idNotif) from Notifs where idInOut=:idInOut";
+            String hql = "select count(idReceipt) from Receipts where idInOut=:idInOut";
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("idInOut", idTypePkg);
@@ -45,7 +45,7 @@ class NotifDao {
             session.close();
         } catch (HibernateException ex) {
             logBuilder.setLength(0);
-            logBuilder.append("При выполнения запроса к БД для получения числа записей с уведомлениями возникла программная ошибка");
+            logBuilder.append("При выполнения запроса к БД для получения числа записей с квитанциями возникла программная ошибка");
             logBuilder.append("\n");
             logBuilder.append(ex.getMessage());
             logBuilder.append("\n");
@@ -63,22 +63,21 @@ class NotifDao {
     /**
      * Получение списка xml-форматов
      */
-    List<Notifs> getAllListByTypePkg(Short idTypePkg, int skip, int notifCountForOnePage) {
+    List<Receipts> getAllListByTypePkg(Short idTypePkg, int skip, int receiptsCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            String hql = "from Notifs where idInOut=:idInOut";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
-            Query query = session.createQuery(hql, Notifs.class);//создаю массив объектов с клссом SchemaXml и созданным запросом
+            String hql = "from Receipts where idInOut=" + idTypePkg;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
+            Query query = session.createQuery(hql, Receipts.class);//создаю массив объектов с клссом SchemaXml и созданным запросом
             query.setFirstResult(skip);//число пропущенных элементов
-            query.setMaxResults(notifCountForOnePage);//число отображаемых элементов
+            query.setMaxResults(receiptsCountForOnePage);//число отображаемых элементов
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
-            query.setParameter("idInOut", idTypePkg);
-            listNotif = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
+            listReceipts = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
             session.close();
-            logger.debug("Успешно выполнен запрос для получения списка уведомлений");
+            logger.debug("Успешно выполнен запрос для получения списка квитанций");
         } catch (HibernateException ex) {
             logBuilder.setLength(0);
-            logBuilder.append("При открытии сессии для подключения к БД и получении списка уведомлений произошла программная ошибка");
+            logBuilder.append("При открытии сессии для подключения к БД и получении списка квитанций произошла программная ошибка");
             logBuilder.append("\n");
             logBuilder.append(ex.getMessage());
             logBuilder.append("\n");
@@ -90,6 +89,6 @@ class NotifDao {
             stringlog = logBuilder.toString();
             logger.error(stringlog);
         }
-        return listNotif;
+        return listReceipts;
     }
 }

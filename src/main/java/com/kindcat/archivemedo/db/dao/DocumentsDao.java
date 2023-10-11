@@ -45,7 +45,7 @@ class DocumentsDao {
             session.close();
         } catch (HibernateException ex) {
             logBuilder.setLength(0);
-            logBuilder.append("При выполнения запроса к БД для числа записей с докаументами возникла программная ошибка");
+            logBuilder.append("При выполнения запроса к БД для числа записей с документами возникла программная ошибка");
             logBuilder.append("\n");
             logBuilder.append(ex.getMessage());
             logBuilder.append("\n");

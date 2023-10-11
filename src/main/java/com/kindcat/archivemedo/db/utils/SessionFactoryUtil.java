@@ -3,6 +3,7 @@ package com.kindcat.archivemedo.db.utils;
 import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.models.Notifs;
+import com.kindcat.archivemedo.db.models.Receipts;
 import com.kindcat.archivemedo.db.models.Recipients;
 import com.kindcat.archivemedo.db.models.SchemaXml;
 import com.kindcat.archivemedo.db.models.Senders;
@@ -37,6 +38,7 @@ public class SessionFactoryUtil {
                 conf.addAnnotatedClass(Documents.class);
                 conf.addAnnotatedClass(Notifs.class);
                 conf.addAnnotatedClass(Members.class);
+                conf.addAnnotatedClass(Receipts.class);
                 conf.addAnnotatedClass(Recipients.class);
                 conf.addAnnotatedClass(SchemaXml.class);
                 conf.addAnnotatedClass(Senders.class);

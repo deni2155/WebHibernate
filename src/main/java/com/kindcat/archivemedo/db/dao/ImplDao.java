@@ -3,6 +3,7 @@ package com.kindcat.archivemedo.db.dao;
 import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
 import com.kindcat.archivemedo.db.models.Notifs;
+import com.kindcat.archivemedo.db.models.Receipts;
 import com.kindcat.archivemedo.db.models.SchemaXml;
 import com.kindcat.archivemedo.db.models.TypeNotif;
 import com.kindcat.archivemedo.db.models.TypePkg;
@@ -306,12 +307,44 @@ public interface ImplDao {
     /**
      * Возвращает список уведомлений в зависимости от типа пакета (входящий или
      * исходящий)
+     *
      * @param idTypePkg идентификатор типа пакета (входящий или исходящий)
      * @param skip число пропущенных записей
      * @param notifCountForOnePage число записей на одной странице
-     * @return 
+     * @return
      */
-    public List<Notifs> getAllListNotifsByTypePkg(Short idTypePkg,int skip,int notifCountForOnePage);
+    public List<Notifs> getAllListNotifsByTypePkg(Short idTypePkg, int skip, int notifCountForOnePage);
+
+    /**
+     *
+     *
+     *
+     *
+     * Список квитанций
+     *
+     *
+     *
+     *
+     */
+    /**
+     * Возвращает общее число записей таблицы с квитанциями по типу (входящие
+     * или исходящие)
+     *
+     * @param idTypePkg тип пакетов (входящие, исходящие)
+     * @return число строк в таблице с квитанциями
+     */
+    public long getAllCountReceipt(Short idTypePkg);
+
+    /**
+     * Информация о квитанциях
+     *
+     * @param idTypePkg тип пакета (входящий или исходящий)
+     * @param skip число пропущенных записей
+     * @param receiptCountForOnePage число записей на одной странице
+     * @return массив с информацией о квитанциях в зависимости от типа пакета
+     * (вхоядщйи или исходящий)
+     */
+    public List<Receipts> getAllListReceiptsByTypePkg(Short idTypePkg, int skip, int receiptCountForOnePage);
 
     /**
      *

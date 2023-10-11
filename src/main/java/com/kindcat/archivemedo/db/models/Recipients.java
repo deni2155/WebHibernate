@@ -20,9 +20,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @version 1.0.4.45 Класс для работы с получателями пакетов
  */
 @Entity
-@Table(name="recipients")
+@Table(name = "recipients")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Recipients")
 public class Recipients implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_recipient")
@@ -31,9 +32,11 @@ public class Recipients implements Serializable {
     @OneToOne(mappedBy = "recipients", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Documents documentsRecipient;
 
+    @OneToOne(mappedBy = "recipients", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Documents notifRecipient;
+
     @Column(name = "id_member")
     private Short idMember;
-
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_member", insertable = false, updatable = false)
@@ -53,6 +56,14 @@ public class Recipients implements Serializable {
 
     public void setDocumentsRecipient(Documents documentsRecipient) {
         this.documentsRecipient = documentsRecipient;
+    }
+
+    public Documents getNotifRecipient() {
+        return notifRecipient;
+    }
+
+    public void setNotifRecipient(Documents notifRecipient) {
+        this.notifRecipient = notifRecipient;
     }
 
     public Short getIdMember() {

@@ -57,6 +57,13 @@ public class PaginationArchiveServlet extends HttpServlet {
             logger.warn("Получен пустой массив со списком схем xml");
         }
         //
+        //массив с записями типов уведомлений
+        //
+        request.setAttribute("listTypeNotif", dao.getAllListTypeNotif());
+        if (dao.getAllListTypeNotif().isEmpty()) {
+            logger.warn("Получен пустой массив со списком типов уведомлений");
+        }
+        //
         //
         //Документы
         //
@@ -67,7 +74,7 @@ public class PaginationArchiveServlet extends HttpServlet {
         int countDocs = 0;//общее число записей в БД
         int pageDocsCount = 1;//число страниц через деление общего числа записей в БД на число записей на одной странице
         int currentPageDocs = 1;//выбранная страинца для расчёта пагинации
-        int skipEnties = 0;//число пропущенных записей
+        int skipDocsEnties = 0;//число пропущенных записей
         //если пользователь изменил тип пакета, присваиваем полученное значение переменной
         if (request.getParameter("docInOut") != null) {
             idDocTypePkg = Short.parseShort(request.getParameter("docInOut"));
@@ -80,8 +87,8 @@ public class PaginationArchiveServlet extends HttpServlet {
             pageDocsCount++;
         }
 
-        if (request.getParameter("page") != null) {
-            currentPageDocs = Integer.parseInt(request.getParameter("page"));
+        if (request.getParameter("docPage") != null) {
+            currentPageDocs = Integer.parseInt(request.getParameter("docPage"));
         }
 
         //если от пользователя получен номер страницы, превышающий общее число страниц
@@ -92,23 +99,67 @@ public class PaginationArchiveServlet extends HttpServlet {
             currentPageDocs = 1;
         }
 
-        skipEnties = docsCountForOnePage * (currentPageDocs - 1);//число пропущенных записей
+        skipDocsEnties = docsCountForOnePage * (currentPageDocs - 1);//число пропущенных записей
 
         //
         //выводим список документов
         //
-        request.setAttribute("listDocs", dao.getAllListDocsByTypePkg(idDocTypePkg, skipEnties, docsCountForOnePage));
-        request.setAttribute("pageCount", pageDocsCount);//число странице для отображения
-        request.setAttribute("currentPage", currentPageDocs);//текущая страница
+        request.setAttribute("listDocs", dao.getAllListDocsByTypePkg(idDocTypePkg, skipDocsEnties, docsCountForOnePage));
+        request.setAttribute("pageCountDoc", pageDocsCount);//число странице для отображения
+        request.setAttribute("currentPageDoc", currentPageDocs);//текущая страница
 
-        if (dao.getAllListDocsByTypePkg(idDocTypePkg, skipEnties, docsCountForOnePage).isEmpty()) {
+        if (dao.getAllListDocsByTypePkg(idDocTypePkg, skipDocsEnties, docsCountForOnePage).isEmpty()) {
             logger.warn("Получен пустой массив со списком документов");
         }
-//
-//
-//Уведомления
-//
-//
+        //
+        //
+        //Уведомления
+        //
+        //
+
+        Short idNotifTypePkg = 1;//указываю идентификатор типа пакета по умолчанию - входящие
+
+        int notifsCountForOnePage = 20;//число записей на одной странице
+        int countNotifs = 0;//общее число записей в БД
+        int pageNotifsCount = 1;//число страниц через деление общего числа записей в БД на число записей на одной странице
+        int currentPageNotifs = 1;//выбранная страинца для расчёта пагинации
+        int skipNotifsEnties = 0;//число пропущенных записей
+        //если пользователь изменил тип пакета, присваиваем полученное значение переменной
+        if (request.getParameter("notifInOut") != null) {
+            idNotifTypePkg = Short.parseShort(request.getParameter("notifInOut"));
+        }
+//        
+        countNotifs = Math.toIntExact(dao.getAllCountNotif(idNotifTypePkg));//общее число записей в БД
+        pageNotifsCount = countNotifs / notifsCountForOnePage;//получаю число страниц через деление общего числа записей в БД на число записей на одной странице
+        //если остаток от деления больше нуля при делении общего числа записей на число записей на одной странице, добавляем одну страницу
+        if ((countNotifs % notifsCountForOnePage) > 0) {
+            pageNotifsCount++;
+        }
+
+        if (request.getParameter("notifPage") != null) {
+            countNotifs = Integer.parseInt(request.getParameter("notifPage"));
+        }
+
+        //если от пользователя получен номер страницы, превышающий общее число страниц
+        if (currentPageNotifs > currentPageNotifs) {
+            currentPageNotifs = pageNotifsCount;//отправляем пользователя на последнюю страницу
+        }//если от пользователя получен номер страницы меньше нуля, отпавляем на персую страницу
+        if (currentPageNotifs < 1) {
+            currentPageNotifs = 1;
+        }
+
+        skipNotifsEnties = notifsCountForOnePage * (currentPageNotifs - 1);//число пропущенных записей
+        //
+        //выводим список уведомлений
+        //
+        request.setAttribute("listNotifs", dao.getAllListNotifsByTypePkg(idNotifTypePkg,skipNotifsEnties,notifsCountForOnePage));
+        request.setAttribute("pageCountNotif", pageNotifsCount);//число страниц для отображения
+        request.setAttribute("currentPageNotif", currentPageNotifs);//текущая страница
+
+        if (dao.getAllListNotifsByTypePkg(idNotifTypePkg,skipNotifsEnties,notifsCountForOnePage).isEmpty()) {
+            logger.warn("Получен пустой массив со списком Уведомлений");
+        }
+        logger.debug(countNotifs);
         request.getRequestDispatcher(link).forward(request, response);
     }
 

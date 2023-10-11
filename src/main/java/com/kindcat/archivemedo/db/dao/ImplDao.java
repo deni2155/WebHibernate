@@ -2,7 +2,9 @@ package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
+import com.kindcat.archivemedo.db.models.Notifs;
 import com.kindcat.archivemedo.db.models.SchemaXml;
+import com.kindcat.archivemedo.db.models.TypeNotif;
 import com.kindcat.archivemedo.db.models.TypePkg;
 import com.kindcat.archivemedo.db.models.Users;
 import java.util.List;
@@ -68,7 +70,7 @@ public interface ImplDao {
     /**
      * @param nameOrg название организации
      * @param skip число пропущенных записей
-     * @param membersCountForOnePage - общее число записей в БД
+     * @param membersCountForOnePage число записей на одной странице
      * @return список найденных организаций по наименованию оргнаизации
      */
     public List<Members> getListSearchByNameOrgMembers(String nameOrg, int skip, int membersCountForOnePage);
@@ -82,7 +84,7 @@ public interface ImplDao {
     /**
      * @param email email участника для поиска
      * @param skip число пропущенных записей
-     * @param membersCountForOnePage - общее число записей в БД
+     * @param membersCountForOnePage число записей на одной странице
      * @return список найденных записей по email организации
      */
     public List<Members> getListSearchByEmailOrgMembers(String email, int skip, int membersCountForOnePage);
@@ -100,7 +102,7 @@ public interface ImplDao {
      *
      * @param guidOrg GUID организации
      * @param skip число пропущенных записей
-     * @param membersCountForOnePage общее число записей в БД
+     * @param membersCountForOnePage число записей на одной странице
      * @return список найденных записей, найденных по GUID
      */
     public List<Members> getListSearchByGuidOrgMembers(String guidOrg, int skip, int membersCountForOnePage);
@@ -119,7 +121,7 @@ public interface ImplDao {
      * @param nameOrg название организации
      * @param emailOrg email организации
      * @param skip число пропущенных записей
-     * @param membersCountForOnePage общее число записей в БД
+     * @param membersCountForOnePage число записей на одной странице
      * @return список участников МЭДО найденных по названию и email
      */
     public List<Members> getListSearchByNameAndEmailOrgMembers(String nameOrg, String emailOrg, int skip, int membersCountForOnePage);
@@ -250,38 +252,10 @@ public interface ImplDao {
 //    public long countGuidMembers(String guid);
 
     /**
-     *
-     *
-     *
-     * Работа с типом пакетов (входящий или исходящий)
-     *
-     *
-     *
-     */
-    /**
-     * @return список типов пакетов (входящий или исходящий)
-     */
-    public List<TypePkg> getAllListTypePkg();
-
-    /**
      * @param idTypePkg идентификатор типа пакета, выбранный пользователем
      * @return наименование типа пакета
      */
 //    public TypePkg findByIdTypePkg(Short idTypePkg);
-    /**
-     *
-     *
-     *
-     * Список схем xml-файлов
-     *
-     *
-     *
-     */
-    /**
-     * @return список xml-схем
-     */
-    public List<SchemaXml> getAllListSchemaXml();
-
     /**
      *
      *
@@ -295,11 +269,11 @@ public interface ImplDao {
      * Возвращает список документов
      *
      * @param skip число пропущенных записей
-     * @param docsCountForOnePage общее число записей в БД
+     * @param docsCountForOnePage общее число записей на одной странице
      * @param idTypePkg тип пакета (входящий или исходящий)
      * @return список документов
      */
-    public List<Documents> getAllListDocsByTypePkg(Short idTypePkg,int skip,int docsCountForOnePage);
+    public List<Documents> getAllListDocsByTypePkg(Short idTypePkg, int skip, int docsCountForOnePage);
 
     /**
      * Возвращает общее число записей из таблицы с документами в зависимости от
@@ -309,4 +283,57 @@ public interface ImplDao {
      * @return общее число документов в пакете
      */
     public long getAllCountDocs(Short idTypePkg);
+
+    /**
+     *
+     *
+     *
+     *
+     * Список уведомлений
+     *
+     *
+     *
+     *
+     */
+    /**
+     * Возвращает общее число записей в таблице с уведомлениями
+     *
+     * @param idTypePkg тип пакета (входящий или исходящий)
+     * @return общее число записей
+     */
+    public long getAllCountNotif(Short idTypePkg);
+
+    /**
+     * Возвращает список уведомлений в зависимости от типа пакета (входящий или
+     * исходящий)
+     * @param idTypePkg идентификатор типа пакета (входящий или исходящий)
+     * @param skip число пропущенных записей
+     * @param notifCountForOnePage число записей на одной странице
+     * @return 
+     */
+    public List<Notifs> getAllListNotifsByTypePkg(Short idTypePkg,int skip,int notifCountForOnePage);
+
+    /**
+     *
+     *
+     *
+     * Справочники
+     *
+     *
+     *
+     */
+    /**
+     * @return список типов пакетов (входящий или исходящий)
+     */
+    public List<TypePkg> getAllListTypePkg();
+
+    /**
+     * @return список xml-схем
+     */
+    public List<SchemaXml> getAllListSchemaXml();
+
+    /**
+     * @return список типов уведомлений
+     */
+    public List<TypeNotif> getAllListTypeNotif();
 }

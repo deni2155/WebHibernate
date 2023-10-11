@@ -40,7 +40,7 @@
                             <button class="nav-link fw-bold" id="nav-notifs-tab" data-bs-toggle="tab" data-bs-target="#nav-notifs" type="button" role="tab" aria-controls="nav-notifs" aria-selected="false">
                                 <img src="icon/notification.png"/> Уведомления
                                 <c:if test="${not empty listTypePkg}">
-                                    <select class="form-select form-control">
+                                    <select class="form-select form-control" id="notif-in-out" name="notifInOut">
                                         <c:forEach var="listTypePkg" items="${listTypePkg}">
                                             <option value="${listTypePkg.idTypePkg}">${listTypePkg.nameTypePkg}</option>
                                         </c:forEach>
@@ -80,7 +80,7 @@
                                 пагинация
                             -->
                             <div class="pt-3">
-                                <jsp:include page="templates/pagination.jsp"/>
+                                <jsp:include page="templates/archive/doc_pagination.jsp"/>
                             </div>
                             <!--form-->
                             <table class="table table-striped table-hover fs-6 table-bordered">
@@ -89,14 +89,14 @@
                                         <th scope="col">#</th>
                                         <!--Заголовок Формат xml документа-->
                                         <th scope="col">
-                                            <label for="format" class="form-label">Формат</label>
+                                            <label for="doc-format-xml" class="form-label">Формат</label>
                                             <div class="input-group">
                                                 <button class="btn btn-custom btn-custom-sort">
                                                     <!--Иконка сортировки-->
                                                     <img src=""/>
                                                 </button>
                                                 <c:if test="${not empty listSchemaXml}">
-                                                    <select class="form-select form-control">
+                                                    <select class="form-select form-control" id="doc-format-xml">
                                                         <c:forEach var="listSchemaXml" items="${listSchemaXml}">
                                                             <option value="${listSchemaXml.idSchema}">${listSchemaXml.nameSchema}</option>
                                                         </c:forEach>
@@ -107,51 +107,51 @@
                                         <!--Заголовок Номер документа-->
                                         <th scope="col">											
                                             <div>
-                                                <label for="number_doc_doc" class="form-label">№ документа</label>
+                                                <label for="doc-number-doc" class="form-label">№ документа</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="number_doc_doc">
+                                                    <input type="text" class="form-control" id="doc-number-doc">
                                                 </div>
                                             </div>
                                         </th>
                                         <!--Заголовок Дата регистрации документа-->
                                         <th scope="col">
                                             <div>
-                                                <label for="date_reg_doc_doc" class="form-label">Дата регистрации</label>
+                                                <label for="doc-date-reg" class="form-label">Дата регистрации</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="date_reg_doc_doc">
+                                                    <input type="text" class="form-control" id="doc-date-reg">
                                                 </div>
                                             </div>
                                         </th>
                                         <!--Заголовок Отправитель документа-->
                                         <th scope="col">
                                             <div>
-                                                <label for="sender_doc_doc" class="form-label">Отправитель</label>
+                                                <label for="doc-sender" class="form-label">Отправитель</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="sender_doc_doc">
+                                                    <input type="text" class="form-control" id="doc-sender">
                                                 </div>
                                             </div>
                                         </th>
                                         <!--Получатель документа-->
                                         <th scope="col">
                                             <div>
-                                                <label for="recipient_doc_doc" class="form-label">Получатель</label>
+                                                <label for="doc-recipient" class="form-label">Получатель</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="recipient_doc_doc">
+                                                    <input type="text" class="form-control" id="doc-recipient">
                                                 </div>
                                             </div>
                                         </th>
@@ -256,7 +256,7 @@
                                 пагинация
                             -->
                             <div class="pt-3">
-                                <jsp:include page="templates/pagination.jsp"/>
+                                <jsp:include page="templates/archive/doc_pagination.jsp"/>
                             </div>
                         </div>
                         <!--
@@ -271,22 +271,23 @@
                                 пагинация
                             -->
                             <div class="pt-3">
-                                <jsp:include page="templates/pagination.jsp"/>
+                                <jsp:include page="templates/archive/notif_pagination.jsp"/>
                             </div>
                             <!--form-->
                             <table class="table table-striped table-hover fs-6 table-bordered">
                                 <thead>
+                                    <!--Схема xml в уведомлении-->
                                     <tr class="text-center">
                                         <th scope="col">#</th>
                                         <th scope="col">
-                                            <label for="format" class="form-label">Формат</label>
+                                            <label for="notif-xml-format" class="form-label">Формат</label>
                                             <div class="input-group">
                                                 <button class="btn btn-custom btn-custom-sort">
                                                     <!--Иконка сортировки-->
                                                     <img src=""/>
                                                 </button>
                                                 <c:if test="${not empty listSchemaXml}">
-                                                    <select class="form-select form-control">
+                                                    <select class="form-select form-control" id="notif-xml-format">
                                                         <c:forEach var="listSchemaXml" items="${listSchemaXml}">
                                                             <option value="${listSchemaXml.idSchema}">${listSchemaXml.nameSchema}</option>
                                                         </c:forEach>
@@ -294,74 +295,97 @@
                                                 </c:if>
                                             </div>
                                         </th>
+                                        <!--Тип уведомлений-->
+                                        <th scope="col">
+                                            <label for="notif-type" class="form-label">Тип уведомления</label>
+                                            <div class="input-group">
+                                                <button class="btn btn-custom btn-custom-sort">
+                                                    <!--Иконка сортировки-->
+                                                    <img src=""/>
+                                                </button>
+                                                <c:if test="${not empty listTypeNotif}">
+                                                    <select class="form-select form-control" id="notif-type">
+                                                        <c:forEach var="listTypeNotif" items="${listTypeNotif}">
+                                                            <option value="${listTypeNotif.idTypeNotif}">${listTypeNotif.nameType}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </c:if>
+                                            </div>
+                                        </th>
+                                        <!--Внутренний номер документа в уведомлении-->
                                         <th scope="col">											
                                             <div>
-                                                <label for="number_doc_doc" class="form-label">Внутренний № документа</label>
+                                                <label for="notif-in-num" class="form-label">Внутренний № документа</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="number_doc_doc">
+                                                    <input type="text" class="form-control" id="notif-in-num">
                                                 </div>
                                             </div>
                                         </th>
+                                        <!--внутренняя дата регистрации документа в уведомлении-->
                                         <th scope="col">
                                             <div>
-                                                <label for="date_reg_doc_doc" class="form-label">Внутренняя дата регистрации</label>
+                                                <label for="notif-in-date-reg" class="form-label">Внутренняя дата регистрации</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="date_reg_doc_doc">
+                                                    <input type="text" class="form-control" id="notif-in-date-reg">
                                                 </div>
                                             </div>
                                         </th>
+                                        <!--внешний номер документа в уведомлении-->
                                         <th scope="col">											
                                             <div>
-                                                <label for="number_doc_doc" class="form-label">Внешний № документа</label>
+                                                <label for="notif-ex-num" class="form-label">Внешний № документа</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="number_doc_doc">
+                                                    <input type="text" class="form-control" id="notif-ex-num">
                                                 </div>
                                             </div>
                                         </th>
+                                        <!--внешняя дата регистрации в уведомлении-->
                                         <th scope="col">
                                             <div>
-                                                <label for="date_reg_doc_doc" class="form-label">Внешняя дата регистрации</label>
+                                                <label for="notif-ex-date-reg" class="form-label">Внешняя дата регистрации</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="date_reg_doc_doc">
+                                                    <input type="text" class="form-control" id="notif-ex-date-reg">
                                                 </div>
                                             </div>
                                         </th>
+                                        <!--отправитель уведомлений-->
                                         <th scope="col">
                                             <div>
-                                                <label for="sender_doc_doc" class="form-label">Отправитель</label>
+                                                <label for="notif-sender" class="form-label">Отправитель</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <!--Иконка сортировки-->
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="sender_doc_doc">
+                                                    <input type="text" class="form-control" id="notif-sender">
                                                 </div>
                                             </div>
                                         </th>
+                                        <!---получатель уведомления-->
                                         <th scope="col">
                                             <div>
-                                                <label for="recipient_doc_doc" class="form-label">Получатель</label>
+                                                <label for="notif-recipient" class="form-label">Получатель</label>
                                                 <div class="input-group">
                                                     <button class="btn btn-custom btn-custom-sort" type="button" id="button-addon1">
                                                         <img src=""/>
                                                     </button>
-                                                    <input type="text" class="form-control" id="recipient_doc_doc">
+                                                    <input type="text" class="form-control" id="notif-recipient">
                                                 </div>
                                             </div>
                                         </th>
@@ -369,16 +393,8 @@
                                             Дата и время записи
                                         </th>
                                         <th scope="col">
-                                            <div class="form-check">
-                                                <label for="dsp" class="form-check-label">ДСП</label>
-                                                <!--div class="input-group"-->
-                                                <input type="checkBox" id="dsp" class="form-check-input" value=""/>
-                                                <!--/div-->
-                                            </div>
-                                        </th>
-                                        <th scope="col">
                                             <div>
-                                                <label class="form-label">Уведомление</label>
+                                                <label class="form-label">Документ</label>
                                             </div>
                                         </th>
                                         <th scope="col">
@@ -388,64 +404,49 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th scope="col" colspan="10">
+                                        <th scope="col" colspan="12">
                                             <div class="col-12 text-center">
                                                 <button class="btn btn-custom ps-5 pe-5 fs-6 fw-lighter" type="submit">Найти</button>
                                             </div>
                                         </th>
                                     </tr>
                                 </thead>
+                                <!--
+                                таблица с информацией о документе
+                                -->
                                 <!--если получен не пустой массив-->
-                                <c:if test="${not empty listDocs}">
+                                <c:if test="${not empty listNotifs}">
                                     <tbody>
                                         <!--вывожу массив циклом-->
-                                        <c:forEach var="listDocs" items="${listDocs}">
+                                        <c:forEach var="listNotifs" items="${listNotifs}">
                                             <tr>
-                                                <th scope="row">${listDocs.idDoc}</th>
-                                                <td>${listDocs.schemaXml.nameSchema}</td>
-                                                <!--если документы входящие, вывожу внешние реквизиты документа-->
-                                                <c:if test="${listDocs.idInOut eq 1}">
-                                                    <td>${listDocs.exNum}</td>
-                                                    <td><fmt:formatDate value="${listDocs.exDate}" pattern="dd.MM.yyyy"/></td>
-                                                    <td>${listDocs.exNum}</td>
-                                                    <td><fmt:formatDate value="${listDocs.exDate}" pattern="dd.MM.yyyy"/></td>
-                                                </c:if>
-                                                <!--если документы исходящие, вывожу внешние реквизиты документа-->
-                                                <c:if test="${listDocs.idInOut eq 2}">
-                                                    <td>${listDocs.inNum}</td>
-                                                    <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
-                                                    <td>${listDocs.inNum}</td>
-                                                    <td><fmt:formatDate value="${listDocs.inDate}" pattern="dd.MM.yyyy"/></td>
-                                                </c:if>
+                                                <!--идентификатор уведомления-->
+                                                <th scope="row">${listNotifs.idNotif}</th>
+                                                <!--формат xml-уведомления-->
+                                                <td>${listNotifs.schemaXml.nameSchema}</td>
+                                                <!--тип уведомления-->
+                                                <td>${listNotifs.notifType.nameType}</td>
+                                                <!--внешний номер документа в уведомлении-->
+                                                <td>${listNotifs.inNum}</td>
+                                                <!--внешняя дата регистрации в уведомлении-->
+                                                <td><fmt:formatDate value="${listNotifs.inDate}" pattern="dd.MM.yyyy"/></td>
+                                                <!--внутренний номер документа в уведомлении-->
+                                                <td>${listNotifs.exNum}</td>
+                                                <!--внутреняя дата регистрации в уведомлении-->
+                                                <td><fmt:formatDate value="${listNotifs.exDate}" pattern="dd.MM.yyyy"/></td>
+                                                <!--Отправитель уведомления-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.membersSenders.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 18rem;">${listNotifs.senders.membersSenders.nameOrg}</div>
                                                 </td>
+                                                <!--Получталеь уведомления-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.recipients.membersRecipients.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 18rem;">${listNotifs.recipients.membersRecipients.nameOrg}</div>
                                                 </td>
+                                                <!--Дата и время записи уведомления-->
                                                 <td>
-                                                    <c:if test="${not empty listDocs.whenCreate}">
-                                                        ${listDocs.whenCreate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
+                                                    <c:if test="${not empty listNotifs.whenCreate}">
+                                                        ${listNotifs.whenCreate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
                                                     </c:if>
-                                                </td>
-                                                <td class="d-flex justify-content-center">
-                                                    <!--{listDocs.dsp}-->
-                                                    <div class="form-check">
-                                                        <c:if test="${not empty listDocs.dsp}">
-                                                            <c:if test="${listDocs.dsp==true}">
-                                                                <input type="checkbox" class="form-check-input" checked disabled value=""/>
-                                                            </c:if>
-                                                            <c:if test="${listDocs.dsp==false}">
-                                                                <input type="checkbox" class="form-check-input" disabled value=""/>
-                                                            </c:if>
-                                                        </c:if>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn pt-0 pb-0">Показать</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -456,7 +457,7 @@
                                 пагинация
                             -->
                             <div class="pt-3">
-                                <jsp:include page="templates/pagination.jsp"/>
+                                <jsp:include page="templates/archive/notif_pagination.jsp"/>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-receipts" role="tabpanel" aria-labelledby="nav-receipts-tab" tabindex="2">Здорова, заебал</div>

@@ -2,7 +2,9 @@ package com.kindcat.archivemedo.db.dao;
 
 import com.kindcat.archivemedo.db.models.Documents;
 import com.kindcat.archivemedo.db.models.Members;
+import com.kindcat.archivemedo.db.models.Notifs;
 import com.kindcat.archivemedo.db.models.SchemaXml;
+import com.kindcat.archivemedo.db.models.TypeNotif;
 import com.kindcat.archivemedo.db.models.TypePkg;
 import com.kindcat.archivemedo.db.models.Users;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * Главный класс пакета dao
  *
- * @version 1.0.1.33s
+ * @version 1.0.1.33
  */
 public class SuperDao implements ImplDao {
 
@@ -19,6 +21,8 @@ public class SuperDao implements ImplDao {
     private TypePkgDao typePkgDao;//ссылка на класс для работы с типом пакетов (входящий или исходящий)
     private final SchemaXmlDao schemaXmlDao;//ссылка на класс для работы со списком xml-схем
     private final DocumentsDao docDao;//ссылка на класс для работы со списком документов
+    private final TypeNotifDao typeNotif;//тип уведомлений
+    private final NotifDao notifDao;//информация об уведомлениях
 
     /**
      * Конструктор класса
@@ -30,6 +34,8 @@ public class SuperDao implements ImplDao {
         typePkgDao = new TypePkgDao();
         schemaXmlDao = new SchemaXmlDao();
         docDao = new DocumentsDao();
+        typeNotif = new TypeNotifDao();
+        notifDao = new NotifDao();
     }
 
     /**
@@ -218,21 +224,6 @@ public class SuperDao implements ImplDao {
 //        return membersDao.countGuidOrg(guid);
 //    }
     /**
-     *
-     *
-     *
-     * Работа с типом пакетов (входящий или исходящий)
-     *
-     *
-     *
-     */
-    //возвращает список типов пакетов (входящий или исходящий)
-    @Override
-    public List<TypePkg> getAllListTypePkg() {
-        return typePkgDao.getAllList();
-    }
-
-    /**
      * @param idTypePkg идентификатор типа пакета, выбранный пользователем
      * @return наименование типа пакета
      */
@@ -240,21 +231,6 @@ public class SuperDao implements ImplDao {
 //    public TypePkg findByIdTypePkg(Short idTypePkg) {
 //        return typePkgDao.findById(idTypePkg);
 //    }
-    /**
-     *
-     *
-     *
-     * Список схем xml-файлов
-     *
-     *
-     *
-     */
-    //возвращает список xml-схем
-    @Override
-    public List<SchemaXml> getAllListSchemaXml() {
-        return schemaXmlDao.getAllList();
-    }
-
     /**
      *
      *
@@ -272,7 +248,56 @@ public class SuperDao implements ImplDao {
 
     //возвращает список документов
     @Override
-    public List<Documents> getAllListDocsByTypePkg(Short idTypePkg,int skip,int docsCountForOnePage) {
-        return docDao.getAllListByTypePkg(idTypePkg,skip,docsCountForOnePage);
+    public List<Documents> getAllListDocsByTypePkg(Short idTypePkg, int skip, int docsCountForOnePage) {
+        return docDao.getAllListByTypePkg(idTypePkg, skip, docsCountForOnePage);
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     * Список уведомлений
+     *
+     *
+     *
+     */
+    //возвращает список уведомлений в зависимости от типа пакета (входящий или исходящий)
+    @Override
+    public long getAllCountNotif(Short idTypePkg) {
+        return notifDao.getAllCount(idTypePkg);
+    }
+
+   //возвращает список дуведомлений
+    @Override
+    public List<Notifs> getAllListNotifsByTypePkg(Short idTypePkg,int skip,int notifCountForOnePage) {
+        return notifDao.getAllListByTypePkg(idTypePkg,skip,notifCountForOnePage);
+    }
+
+    /**
+     *
+     *
+     *
+     * Справочники
+     *
+     *
+     *
+     */
+    //возвращает список типов пакетов (входящий или исходящий)
+    @Override
+    public List<TypePkg> getAllListTypePkg() {
+        return typePkgDao.getAllList();
+    }
+
+    //возвращает список xml-схем
+    @Override
+    public List<SchemaXml> getAllListSchemaXml() {
+        return schemaXmlDao.getAllList();
+    }
+
+    //возвращает список типов уведомлений
+    @Override
+    public List<TypeNotif> getAllListTypeNotif() {
+        return typeNotif.getAllList();
     }
 }

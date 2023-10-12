@@ -183,13 +183,13 @@ public class SuperDao implements ImplDao {
 
     //Изменение существующего участника МЭДО
     @Override
-    public int updateOldMember(int idMember, String nameOrg, String email, String guid) {
+    public int updateOldMember(Short idMember, String nameOrg, String email, String guid) {
         return membersDao.updateMember(idMember, nameOrg, email, guid);
     }
 
     //Удаление участника МЭДО
     @Override
-    public int deleteOldMember(int idMember) {
+    public int deleteOldMember(Short idMember) {
         return membersDao.deleteMember(idMember);
     }
 
@@ -201,7 +201,7 @@ public class SuperDao implements ImplDao {
 
     //проверка сущестование других записей в БД с такими же данными при обновлении текущей записи
     @Override
-    public long getCountMembersByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid) {
+    public long getCountMembersByEmailOrGuidAndNotEqualsId(Short idMember, String email, String guid) {
         return membersDao.getCountByEmailOrGuidAndNotEqualsId(idMember, email, guid);
     }
 

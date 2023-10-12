@@ -9,9 +9,9 @@ public interface ImplBeans {
 
 
      */
-    public int getBeanIdOrg();
+    public Short getBeanIdOrg();
 
-    public void setBeanIdOrg(int idOrg);
+    public void setBeanIdOrg(Short idOrg);
 
     public String getBeanNameOrg();
 

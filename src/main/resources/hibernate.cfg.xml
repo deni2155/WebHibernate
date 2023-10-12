@@ -25,6 +25,9 @@
         <property name="hibernate.cache.use_query_cache">true</property>
         <!--Подключаю конфигурационный файл с настройками кеширования для билиотеки EhCache-->
         <property name="net.sf.ehcache.configurationResourceName">/ehcache.xml</property>
+        <!--диавлект для БД, к которой будет идти подключение-->
+        <!--текущая сессия будет привязана к текущему потоку, что позволит обращаться к сессии с помощью метода SessionFactory.getCurrentSession(), который возвращает сессию, связанную с текущим потоком-->
+        <property name="current_session_context_class">thread</property>
         <!--property name="hbm2ddl.auto">save</property>
         <property name="hbm2ddl.auto">create</property>
         <property name="hbm2ddl.auto">update</property-->

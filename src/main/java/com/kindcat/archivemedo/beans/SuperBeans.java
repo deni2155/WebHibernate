@@ -67,12 +67,12 @@ public class SuperBeans implements ImplBeans {
      */
 
     @Override
-    public int getBeanIdOrg() {
+    public Short getBeanIdOrg() {
         return memberBean.getBeansIdOrg();
     }
 
     @Override
-    public void setBeanIdOrg(int idOrg) {
+    public void setBeanIdOrg(Short idOrg) {
         memberBean.setBeansIdOrg(idOrg);
     }
 

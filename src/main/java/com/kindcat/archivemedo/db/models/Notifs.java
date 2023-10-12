@@ -61,14 +61,14 @@ public class Notifs implements Serializable {
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_sender", insertable = false, updatable = false)
-    private Senders senders;
+    private Senders sendersNotif;
 
     @Column(name = "id_recipient")
     private Integer idRecipient;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
-    private Recipients recipients;
+    private Recipients recipientsNotif;
 
     @Column(name = "ex_num")
     private String exNum;
@@ -168,12 +168,12 @@ public class Notifs implements Serializable {
         this.idSender = idSender;
     }
 
-    public Senders getSenders() {
-        return senders;
+    public Senders getSendersNotif() {
+        return sendersNotif;
     }
 
-    public void setSenders(Senders senders) {
-        this.senders = senders;
+    public void setSendersNotif(Senders sendersNotif) {
+        this.sendersNotif = sendersNotif;
     }
 
     public Integer getIdRecipient() {
@@ -184,12 +184,12 @@ public class Notifs implements Serializable {
         this.idRecipient = idRecipient;
     }
 
-    public Recipients getRecipients() {
-        return recipients;
+    public Recipients getRecipientsNotif() {
+        return recipientsNotif;
     }
 
-    public void setRecipients(Recipients recipients) {
-        this.recipients = recipients;
+    public void setRecipientsNotif(Recipients recipientsNotif) {
+        this.recipientsNotif = recipientsNotif;
     }
 
     public String getExNum() {

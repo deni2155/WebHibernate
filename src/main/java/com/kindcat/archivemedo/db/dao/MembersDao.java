@@ -32,11 +32,11 @@ class MembersDao {
     long getAllCountMembers() {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -61,13 +61,13 @@ class MembersDao {
      */
     List<Members> getAllList(int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
 //            String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             String hql = "from Members";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
 //            String hql = "from Members order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -96,12 +96,12 @@ class MembersDao {
     long getCountListSearchByNameOrg(String nameOrg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("org", "%" + nameOrg + "%");
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -126,12 +126,12 @@ class MembersDao {
      */
     List<Members> getListSearchByNameOrg(String nameOrg, int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Members as m where lower(m.nameOrg) like :org order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("org", "%" + nameOrg + "%");
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -160,12 +160,12 @@ class MembersDao {
     long getCountListSearchByEmailOrg(String emailOrg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members as m where upper(m.addr) like :email";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("email", "%" + emailOrg + "%");
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -190,12 +190,12 @@ class MembersDao {
      */
     List<Members> getListSearchByEmailOrg(String emailOrg, int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Members as m where upper(m.addr) like :email order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("email", "%" + emailOrg + "%");
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -224,12 +224,12 @@ class MembersDao {
     long getCountListSearchByGuidOrg(String guidOrg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members as m where lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("guid", "%" + guidOrg + "%");
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -254,12 +254,12 @@ class MembersDao {
      */
     List<Members> getListSearchByGuidOrg(String guidOrg, int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Members as m where lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("guid", "%" + guidOrg + "%");
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -288,13 +288,13 @@ class MembersDao {
     long getCountListSearchByNameAndEmailOrg(String nameOrg, String emailOrg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("org", "%" + nameOrg + "%");
             query.setParameter("email", "%" + emailOrg + "%");
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -319,13 +319,13 @@ class MembersDao {
      */
     List<Members> getListSearchByNameAndEmailOrg(String nameOrg, String emailOrg, int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("org", "%" + nameOrg + "%");
             query.setParameter("email", "%" + emailOrg + "%");
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -354,13 +354,13 @@ class MembersDao {
     long getCountListSearchByNameAndGuidOrg(String nameOrg, String guidOrg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org and lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("org", "%" + nameOrg + "%");
             query.setParameter("guid", "%" + guidOrg + "%");
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -385,13 +385,13 @@ class MembersDao {
      */
     List<Members> getListSearchByNameAndGuid(String nameOrg, String guidOrg, int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Members as m where lower(m.nameOrg) like :org and lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("org", "%" + nameOrg + "%");
             query.setParameter("guid", "%" + guidOrg + "%");
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -420,13 +420,13 @@ class MembersDao {
     long getCountListSearchByEmailAndGuidOrg(String emailOrg, String guidOrg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members as m where upper(m.addr) like :email and lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("email", "%" + emailOrg + "%");
             query.setParameter("guid", "%" + guidOrg + "%");
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -451,13 +451,13 @@ class MembersDao {
      */
     List<Members> getListSearchByEmailAndGuid(String emailOrg, String guidOrg, int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Members as m where upper(m.addr) like :email and lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("email", "%" + emailOrg + "%");
             query.setParameter("guid", "%" + guidOrg + "%");
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -486,6 +486,7 @@ class MembersDao {
     long getCountListSearchByNameAndEmailAndGuidOrg(String nameOrg, String emailOrg, String guidOrg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idMembers) from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email and lower(m.guid) like :guid";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
@@ -493,7 +494,6 @@ class MembersDao {
             query.setParameter("email", "%" + emailOrg + "%");
             query.setParameter("guid", "%" + guidOrg + "%");
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -518,6 +518,7 @@ class MembersDao {
      */
     List<Members> getListSearchByNameAndEmailAndGuid(String nameOrg, String emailOrg, String guidOrg, int skip, int membersCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Members as m where lower(m.nameOrg) like :org and upper(m.addr) like :email and lower(m.guid) like :guid order by idMembers asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql, Members.class);//создаю массив объектов с клссом Users и созданным запросом
             query.setParameter("org", "%" + nameOrg + "%");
@@ -525,7 +526,6 @@ class MembersDao {
             query.setParameter("guid", "%" + guidOrg + "%");
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(membersCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listMembers = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
@@ -568,11 +568,11 @@ class MembersDao {
      */
     boolean addMember(String nameOrg, String email, String guid) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             Members members = new Members();
             members.setNameOrg(nameOrg);
             members.setAddr(email);
             members.setGuid(guid);
-            Transaction transaction = session.beginTransaction();
             session.persist(members);
             transaction.commit();
             session.close();
@@ -598,15 +598,17 @@ class MembersDao {
     /**
      * Обновление участника МЭДО
      */
-    int updateMember(int idMember, String nameOrg, String email, String guid) {
+    int updateMember(Short idMember, String nameOrg, String email, String guid) {
         int resultUpdate = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
-            String hql = "update Members set nameOrg=:n, addr=:a, guid=:g where idMembers=" + idMember;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+//            String hql = "update Members set nameOrg=:n, addr=:a, guid=:g where idMembers=" + idMember;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            String hql = "update Members set nameOrg=:name, addr=:addr, guid=:guid where idMembers=:idMember";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
-            query.setParameter("n", nameOrg);
-            query.setParameter("a", email);
-            query.setParameter("g", guid);
+            query.setParameter("idMember", idMember);
+            query.setParameter("name", nameOrg);
+            query.setParameter("addr", email);
+            query.setParameter("guid", guid);
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             resultUpdate = query.executeUpdate();
             transaction.commit();
@@ -620,12 +622,13 @@ class MembersDao {
     /**
      * Удаление участника МЭДО
      */
-    int deleteMember(int idMember) {
+    int deleteMember(Short idMember) {
         int resultDelete = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
-            String hql = "delete Members where idMembers=" + idMember;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            String hql = "delete Members where idMembers=:idMember";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
+            query.setParameter("idMember", idMember);
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             resultDelete = query.executeUpdate();
             transaction.commit();
@@ -690,14 +693,15 @@ class MembersDao {
      * проверка сущестование других записей в БД с такими же данными при
      * обновлении текущей записи
      */
-    long getCountByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid) {
+    long getCountByEmailOrGuidAndNotEqualsId(Short idMember, String email, String guid) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();//запускаю транзакцию
-            String hql = "select count(idMembers) from Members where (not(idMembers=" + idMember + ")) and (addr=:a or guid=:g)";
+            String hql = "select count(idMembers) from Members where (not(idMembers=:idMember)) and (addr=:addr or guid=:guid)";
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
-            query.setParameter("a", email);
-            query.setParameter("g", guid);
+            query.setParameter("addr", email);
+            query.setParameter("guid", guid);
+            query.setParameter("idMember", idMember);
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             count = (long) query.uniqueResult();
             transaction.commit();

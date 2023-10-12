@@ -29,14 +29,14 @@ public class Recipients implements Serializable {
     @Column(name = "id_recipient")
     private int idRecipient;
 
-    @OneToOne(mappedBy = "recipients", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "recipientsDoc", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Documents documentsRecipient;
 
-    @OneToOne(mappedBy = "recipients", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Documents notifRecipient;
+    @OneToOne(mappedBy = "recipientsNotif", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Notifs notifRecipient;
 
-    @OneToOne(mappedBy = "recipients", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Documents receiptRecipient;
+    @OneToOne(mappedBy = "recipientsReceipt", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Receipts receiptRecipient;
 
     @Column(name = "id_member")
     private Short idMember;
@@ -61,19 +61,19 @@ public class Recipients implements Serializable {
         this.documentsRecipient = documentsRecipient;
     }
 
-    public Documents getNotifRecipient() {
+    public Notifs getNotifRecipient() {
         return notifRecipient;
     }
 
-    public void setNotifRecipient(Documents notifRecipient) {
+    public void setNotifRecipient(Notifs notifRecipient) {
         this.notifRecipient = notifRecipient;
     }
 
-    public Documents getReceiptRecipient() {
+    public Receipts getReceiptRecipient() {
         return receiptRecipient;
     }
 
-    public void setReceiptRecipient(Documents receiptRecipient) {
+    public void setReceiptRecipient(Receipts receiptRecipient) {
         this.receiptRecipient = receiptRecipient;
     }
 

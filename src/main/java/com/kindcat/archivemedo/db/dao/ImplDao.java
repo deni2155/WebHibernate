@@ -218,7 +218,7 @@ public interface ImplDao {
      * @param guid организации
      * @return число изменённых записей
      */
-    public int updateOldMember(int idMember, String nameOrg, String email, String guid);
+    public int updateOldMember(Short idMember, String nameOrg, String email, String guid);
 
     /**
      * Проверка существования записи в БД при добавлении нового участника МЭДО
@@ -238,7 +238,7 @@ public interface ImplDao {
      * @param guid
      * @return количество записей в БД
      */
-    public long getCountMembersByEmailOrGuidAndNotEqualsId(int idMember, String email, String guid);
+    public long getCountMembersByEmailOrGuidAndNotEqualsId(Short idMember, String email, String guid);
 
     /**
      * Удаление участника МЭДО
@@ -246,7 +246,7 @@ public interface ImplDao {
      * @param idMember - идентификатор участника МЭДО в БД
      * @return количество удаленных записей
      */
-    public int deleteOldMember(int idMember);
+    public int deleteOldMember(Short idMember);
 //
 //    public long countEmailOrgMembers(String email);
 //

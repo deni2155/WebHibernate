@@ -215,11 +215,11 @@
                                                 </c:if>
                                                 <!--Отправитель документа-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.senders.membersSenders.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.sendersDoc.membersSenders.nameOrg}</div>
                                                 </td>
                                                 <!--Получталеь документа-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.recipients.membersRecipients.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 18rem;">${listDocs.recipientsDoc.membersRecipients.nameOrg}</div>
                                                 </td>
                                                 <!--тип документа (дсп или нет)-->
                                                 <td class="d-flex justify-content-center">
@@ -238,7 +238,7 @@
                                                 <!--Дата и время записи документа-->
                                                 <td>
                                                     <c:if test="${not empty listDocs.whenCreate}">
-                                                        ${listDocs.whenCreate.format( DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
+                                                        ${listDocs.whenCreate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}
                                                     </c:if>
                                                 </td>
                                                 <td>
@@ -436,11 +436,11 @@
                                                 <td><fmt:formatDate value="${listNotifs.exDate}" pattern="dd.MM.yyyy"/></td>
                                                 <!--Отправитель уведомления-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listNotifs.senders.membersSenders.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 18rem;">${listNotifs.sendersNotif.membersSenders.nameOrg}</div>
                                                 </td>
                                                 <!--Получталеь уведомления-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 18rem;">${listNotifs.recipients.membersRecipients.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 18rem;">${listNotifs.recipientsNotif.membersRecipients.nameOrg}</div>
                                                 </td>
                                                 <!--Дата и время записи уведомления-->
                                                 <td>
@@ -597,11 +597,11 @@
                                                 </td>
                                                 <!--Отправитель Квитанции-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 22rem;">${listReceipts.senders.membersSenders.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 22rem;">${listReceipts.sendersReceipt.membersSenders.nameOrg}</div>
                                                 </td>
                                                 <!--Получатель Квитанции-->
                                                 <td>
-                                                    <div class="text-wrap" style="width: 22rem;">${listReceipts.recipients.membersRecipients.nameOrg}</div>
+                                                    <div class="text-wrap" style="width: 22rem;">${listReceipts.recipientsReceipt.membersRecipients.nameOrg}</div>
                                                 </td>
                                                 <!--Дата и время записи квитанции-->
                                                 <td>

@@ -7,16 +7,16 @@ package com.kindcat.archivemedo.beans;
  */
 class MembersBean {
 
-    private int idOrg;//идентификатор участника МЭДО
+    private Short idOrg;//идентификатор участника МЭДО
     private String nameOrg;//наименование организации
     private String emailOrg;//наименование организации
     private String guidOrg;//наименование организации
 
-    int getBeansIdOrg() {
+    Short getBeansIdOrg() {
         return idOrg;
     }
 
-    void setBeansIdOrg(int idOrg) {
+    void setBeansIdOrg(Short idOrg) {
         this.idOrg = idOrg;
     }
 

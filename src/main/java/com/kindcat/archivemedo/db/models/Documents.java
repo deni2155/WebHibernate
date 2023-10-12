@@ -54,14 +54,14 @@ public class Documents implements Serializable {
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_sender", insertable = false, updatable = false)
-    private Senders senders;
+    private Senders sendersDoc;
 
     @Column(name = "id_recipient")
     private Integer idRecipient;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
-    private Recipients recipients;
+    private Recipients recipientsDoc;
 
     @Column(name = "in_num")
     private String inNum;
@@ -145,12 +145,12 @@ public class Documents implements Serializable {
         this.idSender = idSender;
     }
 
-    public Senders getSenders() {
-        return senders;
+    public Senders getSendersDoc() {
+        return sendersDoc;
     }
 
-    public void setSenders(Senders senders) {
-        this.senders = senders;
+    public void setSendersDoc(Senders sendersDoc) {
+        this.sendersDoc = sendersDoc;
     }
 
     public Integer getIdRecipient() {
@@ -161,12 +161,12 @@ public class Documents implements Serializable {
         this.idRecipient = idRecipient;
     }
 
-    public Recipients getRecipients() {
-        return recipients;
+    public Recipients getRecipientsDoc() {
+        return recipientsDoc;
     }
 
-    public void setRecipients(Recipients recipients) {
-        this.recipients = recipients;
+    public void setRecipientsDoc(Recipients recipientsDoc) {
+        this.recipientsDoc = recipientsDoc;
     }
 
     public String getInNum() {

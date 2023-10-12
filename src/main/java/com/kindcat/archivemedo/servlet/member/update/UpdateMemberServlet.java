@@ -52,7 +52,7 @@ public class UpdateMemberServlet extends HttpServlet {
                 //получаю ссылку на класс для работы с данными формы            
                 ImplBeans beans = new SuperBeans();
                 //добавляю в класс значения, полученные из запроса для более удобной работы
-                beans.setBeanIdOrg(Integer.parseInt(request.getParameter("idUpdateMember")));
+                beans.setBeanIdOrg(Short.parseShort(request.getParameter("idUpdateMember")));
                 beans.setBeanNameOrg(request.getParameter("nameOrgUpdateMember"));
                 beans.setBeanEmailOrg(request.getParameter("emailUpdateMember"));
                 beans.setBeanGuidOrg(request.getParameter("guidUpdateMember"));

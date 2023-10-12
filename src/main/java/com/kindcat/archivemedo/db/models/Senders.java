@@ -29,14 +29,14 @@ public class Senders implements Serializable {
     @Column(name = "id_sender")
     private int idSender;
 
-    @OneToOne(mappedBy = "senders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "sendersDoc", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Documents documentsSenders;
 
-    @OneToOne(mappedBy = "senders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Notifs notifSenders;
+    @OneToOne(mappedBy = "sendersNotif", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Notifs notifsSenders;
 
-    @OneToOne(mappedBy = "senders", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Notifs receiptSenders;
+    @OneToOne(mappedBy = "sendersReceipt", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Receipts receiptSenders;
 
     @Column(name = "id_member")
     private Short idMemeber;
@@ -61,19 +61,19 @@ public class Senders implements Serializable {
         this.documentsSenders = documentsSenders;
     }
 
-    public Notifs getNotifSenders() {
-        return notifSenders;
+    public Notifs getNotifsSenders() {
+        return notifsSenders;
     }
 
-    public void setNotifSenders(Notifs notifSenders) {
-        this.notifSenders = notifSenders;
+    public void setNotifsSenders(Notifs notifsSenders) {
+        this.notifsSenders = notifsSenders;
     }
 
-    public Notifs getReceiptSenders() {
+    public Receipts getReceiptSenders() {
         return receiptSenders;
     }
 
-    public void setReceiptSenders(Notifs receiptSenders) {
+    public void setReceiptSenders(Receipts receiptSenders) {
         this.receiptSenders = receiptSenders;
     }
 

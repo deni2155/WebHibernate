@@ -51,14 +51,14 @@ public class Receipts implements Serializable {
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_sender", insertable = false, updatable = false)
-    private Senders senders;
+    private Senders sendersReceipt;
 
     @Column(name = "id_recipient")
     private Integer idRecipient;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
-    private Recipients recipients;
+    private Recipients recipientsReceipt;
 
     @Column(name = "when_create")
     private LocalDateTime whenCreate;
@@ -128,12 +128,12 @@ public class Receipts implements Serializable {
         this.idSender = idSender;
     }
 
-    public Senders getSenders() {
-        return senders;
+    public Senders getSendersReceipt() {
+        return sendersReceipt;
     }
 
-    public void setSenders(Senders senders) {
-        this.senders = senders;
+    public void setSendersReceipt(Senders sendersReceipt) {
+        this.sendersReceipt = sendersReceipt;
     }
 
     public Integer getIdRecipient() {
@@ -144,12 +144,12 @@ public class Receipts implements Serializable {
         this.idRecipient = idRecipient;
     }
 
-    public Recipients getRecipients() {
-        return recipients;
+    public Recipients getRecipientsReceipt() {
+        return recipientsReceipt;
     }
 
-    public void setRecipients(Recipients recipients) {
-        this.recipients = recipients;
+    public void setRecipientsReceipt(Recipients recipientsReceipt) {
+        this.recipientsReceipt = recipientsReceipt;
     }
 
     public LocalDateTime getWhenCreate() {

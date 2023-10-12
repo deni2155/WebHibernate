@@ -52,7 +52,7 @@ public class DeleteMemberServlet extends HttpServlet {
             ImplBeans beans = new SuperBeans();
             //добавляю в класс значения, полученные из запроса для более удобной работы
             if (request.getParameter("idDeleteMember") != null && request.getParameter("nameDeleteMember") != null) {
-                beans.setBeanIdOrg(Integer.parseInt(request.getParameter("idDeleteMember")));
+                beans.setBeanIdOrg(Short.parseShort(request.getParameter("idDeleteMember")));
                 beans.setBeanNameOrg(request.getParameter("nameDeleteMember"));
                 ImplDao memberDao = new SuperDao();
                 if (memberDao.deleteOldMember(beans.getBeanIdOrg()) > 0) {

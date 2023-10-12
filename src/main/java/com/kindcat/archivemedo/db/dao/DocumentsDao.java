@@ -34,13 +34,12 @@ class DocumentsDao {
     long getAllCount(Short idTypePkg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-//            String hql = "select count(idDoc) from Documents where idInOut=" + idTypePkg;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе Users
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idDoc) from Documents where idInOut=:idInOut";
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("idInOut", idTypePkg);
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             transaction.commit();
             session.close();
         } catch (HibernateException ex) {
@@ -63,14 +62,15 @@ class DocumentsDao {
     /**
      * Получение списка xml-форматов
      */
-    List<Documents> getAllListByTypePkg(Short idTypePkg,int skip,int docsCountForOnePage) {
+    List<Documents> getAllListByTypePkg(Short idTypePkg, int skip, int docsCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            String hql = "from Documents where idInOut=" + idTypePkg;//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
+            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+            String hql = "from Documents where idInOut=:idInOut";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
             Query query = session.createQuery(hql, Documents.class);//создаю массив объектов с клссом SchemaXml и созданным запросом
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(docsCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
+            query.setParameter("idInOut", idTypePkg);
             listDocs = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
             transaction.commit();
             session.close();

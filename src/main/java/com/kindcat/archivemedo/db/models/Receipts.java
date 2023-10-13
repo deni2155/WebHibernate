@@ -51,16 +51,14 @@ public class Receipts implements Serializable {
     private Integer idSender;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-//    @BatchSize(size = 20)
-    @JoinColumn(name = "id_sender", insertable = false, updatable = false)
+    @JoinColumn(name = "id_sender", insertable = false, updatable = false,nullable=true)
     private Senders sendersReceipt;
 
     @Column(name = "id_recipient",length = 20)
     private Integer idRecipient;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-//    @BatchSize(size = 20)
-    @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
+    @JoinColumn(name = "id_recipient", insertable = false, updatable = false,nullable=true)
     private Recipients recipientsReceipt;
 
     @Column(name = "when_create",length = 20)

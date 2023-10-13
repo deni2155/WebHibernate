@@ -6,9 +6,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+//import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+//import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -40,8 +41,8 @@ class ReceiptDao {
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("idInOut", idTypePkg);
             count = (long) query.uniqueResult();
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
-            transaction.commit();
+//            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+//            transaction.commit();
             session.close();
         } catch (HibernateException ex) {
             logBuilder.setLength(0);
@@ -69,11 +70,11 @@ class ReceiptDao {
             Query query = session.createQuery(hql, Receipts.class);//создаю массив объектов с клссом SchemaXml и созданным запросом
             query.setFirstResult(skip);//число пропущенных элементов
             query.setMaxResults(receiptsCountForOnePage);//число отображаемых элементов
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+//            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listReceipts = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
-            transaction.commit();
-            session.close();
+//            transaction.commit();
+//            session.close();
             logger.debug("Успешно выполнен запрос для получения списка квитанций");
         } catch (HibernateException ex) {
             logBuilder.setLength(0);

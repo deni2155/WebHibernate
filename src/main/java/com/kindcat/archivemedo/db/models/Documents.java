@@ -54,14 +54,14 @@ public class Documents implements Serializable {
     private Integer idSender;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_sender", insertable = false, updatable = false)
+    @JoinColumn(name = "id_sender", insertable = false, updatable = false, nullable = true)
     private Senders sendersDoc;
 
     @Column(name = "id_recipient")
     private Integer idRecipient;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
+    @JoinColumn(name = "id_recipient", insertable = false, updatable = false, nullable = true)
     private Recipients recipientsDoc;
 
     @Column(name = "in_num")

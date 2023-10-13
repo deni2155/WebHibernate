@@ -12,12 +12,13 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hibernate.version>5.3.18.Final</hibernate.version>
-        <c3p0.version>0.9.1.2</c3p0.version>
+        <!--hibernate.version>5.3.18.Final</hibernate.version>
+        <c3p0.version>0.9.1.2</c3p0.version-->
     </properties>
     
     <dependencies>
-        <dependency>
+        <!--Библиотеки для тестирования-->
+        <!--dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
@@ -46,7 +47,7 @@
                     <artifactId>selenium-remote-driver</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -74,7 +75,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.3.18.Final</version>
+            <version>5.6.15.Final</version>
         </dependency>
         <!--Пул соединений для работы с БД-->
         <!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->

@@ -6,9 +6,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+//import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+//import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -34,13 +35,13 @@ class DocumentsDao {
     long getAllCount(Short idTypePkg) {
         long count = 0;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+//            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "select count(idDoc) from Documents where idInOut=:idInOut";
             Query query = session.createQuery(hql);//создаю массив объектов с клссом Users и созданным запросом
             query.setCacheMode(CacheMode.IGNORE); // не добавляются и не читаются с кэша
             query.setParameter("idInOut", idTypePkg);
             count = (long) query.uniqueResult();
-            transaction.commit();
+//            transaction.commit();
             session.close();
         } catch (HibernateException ex) {
             logBuilder.setLength(0);
@@ -64,7 +65,7 @@ class DocumentsDao {
      */
     List<Documents> getAllListByTypePkg(Short idTypePkg, int skip, int docsCountForOnePage) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+//            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             String hql = "from Documents where idInOut=:idInOut";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
             Query query = session.createQuery(hql, Documents.class);//создаю массив объектов с клссом SchemaXml и созданным запросом
             query.setFirstResult(skip);//число пропущенных элементов
@@ -72,7 +73,7 @@ class DocumentsDao {
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             query.setParameter("idInOut", idTypePkg);
             listDocs = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
-            transaction.commit();
+//            transaction.commit();
             session.close();
             logger.debug("Успешно выполнен запрос для получения списка документов");
         } catch (HibernateException ex) {

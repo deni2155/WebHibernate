@@ -36,15 +36,13 @@ public class Recipients implements Serializable {
     private Notifs notifRecipient;
 
     @OneToOne(mappedBy = "recipientsReceipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-//    @BatchSize(size = 20)
     private Receipts receiptRecipient;
 
     @Column(name = "id_member")
     private Short idMember;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-//    @BatchSize(size = 20)
-    @JoinColumn(name = "id_member", insertable = false, updatable = false)
+    @JoinColumn(name = "id_member", insertable = false, updatable = false,nullable=true)
     private Members membersRecipients;
 
     public int getIdRecipient() {

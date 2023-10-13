@@ -6,9 +6,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+//import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+//import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -36,10 +37,10 @@ class SchemaXmlDao {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             String hql = "from SchemaXml order by nameSchema asc";//sql запрос, наименование таблиц и полей соответствует наименованию объектов в классе SchemaXml
             Query query = session.createQuery(hql, SchemaXml.class);//создаю массив объектов с клссом SchemaXml и созданным запросом
-            Transaction transaction = session.beginTransaction();//запускаю транзакцию
+//            Transaction transaction = session.beginTransaction();//запускаю транзакцию
             query.setCacheMode(CacheMode.IGNORE); // данные yне кешируются
             listTypePkg = query.list();//т.к. объект query уничтожается после выполнения транзакции, присваиваем его массив
-            transaction.commit();
+//            transaction.commit();
             session.close();
             logger.debug("Успешно выполнен запрос для получения списка схем xml");
         } catch (HibernateException ex) {

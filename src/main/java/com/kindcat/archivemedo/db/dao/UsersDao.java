@@ -6,9 +6,10 @@ import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+//import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+//import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  * Получение данных с таблицы Users, класс для работы с моделью БД пользователя
@@ -52,11 +53,11 @@ class UsersDao {
                 Query<Users> query = session.createQuery(hql, Users.class);//создаю массив объектов с клссом Users и созданным запросом
                 query.setParameter("login", login);//добавляю параметр в запрос
                 query.setCacheMode(CacheMode.NORMAL); // данные читаются из кеша и добавляются в него
-                Transaction transaction = session.beginTransaction();//запускаю транзакцию
+//                Transaction transaction = session.beginTransaction();//запускаю транзакцию
                 for (Iterator<Users> it = query.list().iterator(); it.hasNext();) {
                     idUser = it.next().getIdUser();
                 }
-                transaction.commit();
+//                transaction.commit();
                 session.close();
                 logger.debug("Успешно выполнен запрос для получения информации об УЗ пользователя по логину");
             } catch (HibernateException ex) {

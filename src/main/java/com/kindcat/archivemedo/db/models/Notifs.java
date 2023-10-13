@@ -61,14 +61,14 @@ public class Notifs implements Serializable {
     private Integer idSender;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_sender", insertable = false, updatable = false)
+    @JoinColumn(name = "id_sender", insertable = false, updatable = false,nullable=true)
     private Senders sendersNotif;
 
     @Column(name = "id_recipient",length = 20)
     private Integer idRecipient;
 
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
+    @JoinColumn(name = "id_recipient", insertable = false, updatable = false,nullable=true)
     private Recipients recipientsNotif;
 
     @Column(name = "ex_num",length = 20)

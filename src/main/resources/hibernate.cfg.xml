@@ -12,6 +12,7 @@
         <!--настройки для стандартного пула соединений-->
         <property name="connection.pool_size">3</property>
         <!--настройки пула соединений для с использованием c3p0-->
+        <!--property name="hibernate.c3p0.max_size">15</property-->
         <!--property name="hibernate.c3p0.min_size">5</property-->
         <property name="current_session_context_class">thread</property>
         <!--Включаю логирование в выводом в консоль-->
@@ -34,6 +35,11 @@
         <!--диавлект для БД, к которой будет идти подключение-->
         <!--текущая сессия будет привязана к текущему потоку, что позволит обращаться к сессии с помощью метода SessionFactory.getCurrentSession(), который возвращает сессию, связанную с текущим потоком-->
         <property name="current_session_context_class">thread</property>
+        <!--По-умолчанию запросы отправляются в БД по одному. При включении batching-а hibernate сможет в одном запросе к БД отправлять несколько statement-ов. (т.е. batching сокращает количество round-trip-ов к БД)-->
+        <property name="hibernate.jdbc.batch_size">30</property>
+        <!--включаем сортировку insert и update-->
+        <property name="hibernate.order_inserts">true</property>
+        <property name="hibernate.order_updates">true</property>
         <!--property name="hbm2ddl.auto">save</property>
         <property name="hbm2ddl.auto">create</property>
         <property name="hbm2ddl.auto">update</property-->

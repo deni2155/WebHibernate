@@ -9,20 +9,26 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="connection.username">postgres</property>
         <property name="connection.password">123qwe$$</property>
+        <!--настройки для стандартного пула соединений-->
         <property name="connection.pool_size">3</property>
+        <!--настройки пула соединений для с использованием c3p0-->
+        <!--property name="hibernate.c3p0.min_size">5</property-->
         <property name="current_session_context_class">thread</property>
         <!--Включаю логирование в выводом в консоль-->
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hibernate.jdbc.time_zone">UTC</property>
-        <property name="hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
         <!--включаю кеширование второго уровня-->
         <!--может кэшироваться в памяти или на диске, а также в кластерном кэшировании и поддерживает дополнительный кэш результатов запроса Hibernate-->
         <!--property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property-->
         <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.internal.EhcacheRegionFactory</property>
+        <!--включаю кеш второго уровня-->
         <property name="hibernate.cache.use_second_level_cache">true</property>
         <!--Включаю кеш запросов-->
         <property name="hibernate.cache.use_query_cache">true</property>
+        <!--включаю ленивую загрузку-->
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <!--Подключаю конфигурационный файл с настройками кеширования для билиотеки EhCache-->
         <property name="net.sf.ehcache.configurationResourceName">/ehcache.xml</property>
         <!--диавлект для БД, к которой будет идти подключение-->

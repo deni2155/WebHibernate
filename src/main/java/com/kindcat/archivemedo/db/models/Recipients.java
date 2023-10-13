@@ -29,19 +29,21 @@ public class Recipients implements Serializable {
     @Column(name = "id_recipient")
     private int idRecipient;
 
-    @OneToOne(mappedBy = "recipientsDoc", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "recipientsDoc", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Documents documentsRecipient;
 
-    @OneToOne(mappedBy = "recipientsNotif", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "recipientsNotif", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Notifs notifRecipient;
 
-    @OneToOne(mappedBy = "recipientsReceipt", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "recipientsReceipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+//    @BatchSize(size = 20)
     private Receipts receiptRecipient;
 
     @Column(name = "id_member")
     private Short idMember;
 
-    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+//    @BatchSize(size = 20)
     @JoinColumn(name = "id_member", insertable = false, updatable = false)
     private Members membersRecipients;
 

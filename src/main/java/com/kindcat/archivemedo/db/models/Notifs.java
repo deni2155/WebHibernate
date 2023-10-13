@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,70 +31,70 @@ public class Notifs implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_notif")
+    @Column(name = "id_notif",length = 20)
     private int idNotif;
 
-    @Column(name = "id_schema", insertable = false, updatable = false)
+    @Column(name = "id_schema", insertable = false, updatable = false,length = 20)
     private Short idSchema;
 
-    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_schema")
     private SchemaXml schemaXml;
 
-    @Column(name = "uid_pkg")
+    @Column(name = "uid_pkg",length = 20)
     private String uidPkg;
 
-    @Column(name = "for_uid")
+    @Column(name = "for_uid",length = 20)
     private String forUid;
 
-    @Column(name = "id_type", insertable = false, updatable = false)
+    @Column(name = "id_type", insertable = false, updatable = false,length = 20)
     private Short idTypeNotif;
 
-    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_type")
     private TypeNotif notifType;
 
-    @Column(name = "id_in_out")
+    @Column(name = "id_in_out",length = 20)
     private Short idInOut;
 
-    @Column(name = "id_sender")
+    @Column(name = "id_sender",length = 20)
     private Integer idSender;
 
-    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sender", insertable = false, updatable = false)
     private Senders sendersNotif;
 
-    @Column(name = "id_recipient")
+    @Column(name = "id_recipient",length = 20)
     private Integer idRecipient;
 
-    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_recipient", insertable = false, updatable = false)
     private Recipients recipientsNotif;
 
-    @Column(name = "ex_num")
+    @Column(name = "ex_num",length = 20)
     private String exNum;
 
-    @Column(name = "ex_date")
+    @Column(name = "ex_date",length = 20)
     @Temporal(TemporalType.DATE)
     private Date exDate;
 
-    @Column(name = "in_num")
+    @Column(name = "in_num",length = 20)
     private String inNum;
 
-    @Column(name = "in_date")
+    @Column(name = "in_date",length = 20)
     @Temporal(TemporalType.DATE)
     private Date inDate;
 
-    @Column(name = "reason")
+    @Column(name = "reason",length = 20)
     private String reason;
 
-    @Column(name = "comment")
+    @Column(name = "comment",length = 20)
     private String comment;
 
-    @Column(name = "link")
+    @Column(name = "link",length = 20)
     private String link;
 
-    @Column(name = "when_create")
+    @Column(name = "when_create",length = 20)
     private LocalDateTime whenCreate;
 
     public int getIdNotif() {

@@ -4,16 +4,20 @@
   "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/medo</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/medo</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-        <property name="connection.username">postgres</property>
-        <property name="connection.password">123qwe$$</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">123qwe$$</property>
         <!--настройки для стандартного пула соединений-->
-        <property name="connection.pool_size">3</property>
+        <!--property name="connection.pool_size">3</property-->
         <!--настройки пула соединений для с использованием c3p0-->
-        <!--property name="hibernate.c3p0.max_size">15</property-->
-        <!--property name="hibernate.c3p0.min_size">5</property-->
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <!--property name="hibernate.c3p0.acquire_increment">1</property-->
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <!--property name="hibernate.c3p0.max_statements">50</property-->
         <property name="current_session_context_class">thread</property>
         <!--Включаю логирование в выводом в консоль-->
         <property name="show_sql">true</property>

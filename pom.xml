@@ -4,7 +4,7 @@
 
     <groupId>com.kindcat</groupId>
     <artifactId>WebMedo</artifactId>
-    <version>1.0.5.53</version>
+    <version>1.0.5.55</version>
     <packaging>war</packaging>
 
     <name>WebMedo</name>
@@ -12,8 +12,8 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--hibernate.version>5.3.18.Final</hibernate.version>
-        <c3p0.version>0.9.1.2</c3p0.version-->
+        <hibernate.version>5.6.15.Final</hibernate.version>
+        <c3p0.version>0.9.1.2</c3p0.version>
     </properties>
     
     <dependencies>
@@ -48,6 +48,8 @@
                 </exclusion>
             </exclusions>
         </dependency-->
+        
+        <!--позволяет работать jsp, jsf и т.д.-->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -78,19 +80,18 @@
             <version>5.6.15.Final</version>
         </dependency>
         <!--Пул соединений для работы с БД-->
-        <!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
-        <!--dependency>
-            <groupId>c3p0</groupId>
+        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+        <dependency>
+            <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
-        </dependency-->
+            <version>0.9.5.5</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0 -->
-        <!--dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>5.3.18.Final</version>
-            <type>pom</type>
-        </dependency-->
+            <version>5.6.15.Final</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql 
         из каталога WebMedo/target/lib скопировал jar-файл драйвера в каталог tomcat/lib что бы избежать утечки памяти при работе с hibernate
